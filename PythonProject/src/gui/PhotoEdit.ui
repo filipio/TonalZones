@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1154</width>
-    <height>893</height>
+    <width>1349</width>
+    <height>1105</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1154</width>
+     <width>1349</width>
      <height>22</height>
     </rect>
    </property>
@@ -66,8 +66,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>126</width>
-          <height>711</height>
+          <width>274</width>
+          <height>923</height>
          </rect>
         </property>
         <attribute name="label">
@@ -79,13 +79,26 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>126</width>
-          <height>711</height>
+          <width>274</width>
+          <height>923</height>
          </rect>
         </property>
         <attribute name="label">
          <string>Page 2</string>
         </attribute>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>60</y>
+           <width>89</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Dupa</string>
+         </property>
+        </widget>
        </widget>
       </widget>
      </item>
@@ -108,5 +121,22 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>pushButton</receiver>
+   <slot>showMenu()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1058</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

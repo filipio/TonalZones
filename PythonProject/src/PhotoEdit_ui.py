@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1154, 893)
+        MainWindow.resize(1229, 909)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.graphicsView)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1154, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1229, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -41,12 +41,15 @@ class Ui_MainWindow(object):
         self.toolBox = QtWidgets.QToolBox(self.dockWidgetContents)
         self.toolBox.setObjectName("toolBox")
         self.page = QtWidgets.QWidget()
-        self.page.setGeometry(QtCore.QRect(0, 0, 126, 711))
+        self.page.setGeometry(QtCore.QRect(0, 0, 287, 727))
         self.page.setObjectName("page")
         self.toolBox.addItem(self.page, "")
         self.page_2 = QtWidgets.QWidget()
-        self.page_2.setGeometry(QtCore.QRect(0, 0, 126, 711))
+        self.page_2.setGeometry(QtCore.QRect(0, 0, 287, 727))
         self.page_2.setObjectName("page_2")
+        self.pushButton = QtWidgets.QPushButton(self.page_2)
+        self.pushButton.setGeometry(QtCore.QRect(70, 60, 89, 25))
+        self.pushButton.setObjectName("pushButton")
         self.toolBox.addItem(self.page_2, "")
         self.horizontalLayout_2.addWidget(self.toolBox)
         self.dockWidget.setWidget(self.dockWidgetContents)
@@ -64,6 +67,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.toolBox.setCurrentIndex(1)
+        self.pushButton.clicked.connect(self.pushButton.showMenu)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -72,6 +76,7 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page), _translate("MainWindow", "Page 1"))
+        self.pushButton.setText(_translate("MainWindow", "Dupa"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), _translate("MainWindow", "Page 2"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSelect.setText(_translate("MainWindow", "Select"))
