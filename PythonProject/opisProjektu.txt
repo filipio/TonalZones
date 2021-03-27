@@ -1,0 +1,31 @@
+PODZIAŁ PRACY
+GUI- pyqt5
+img processing - open_cv/scipy/numpy
+Pierwsza rzecz : GUI
+Plan :
+22.03.2020
+-Szkielet Gui, taki żeby można było dodawać przyciski, podstawowe menu
+-Poznanie podstaw PyQt i Qt Designer
+12.04.2020
+Dodanie podstawowych funkcjonalności
+Działania na obrazkach-zapisz/wczytaj/obróć-Filip
+podstawowe edytowanie - zaznacz/ przytnij - Piotr
+rozpoczecie pisania filtrów/ przekształceń-po jednym na osobe
+(znajdz obszary tonalne w zadanym zaznaczeniu)
+znajdz - Filip
+wybierz obszar - Piotrek
+26.04.2020 
+-progowanie obszarów tonalnych, dodanie suwaków z możliwością edycji parametrów
+-utworzenie wersji alfa
+10.05.2020
+-dodatkowe funkcjonalności: filtry/przekształcenia obrazu/cienie/kontrast/jasność, poprawa błędów,
+24.05.2020
+-UnitTesty, FinalBuild
+
+
+-osobna klasa/moduł do gui(App) czyli przerobiony na .py plik z designera
+-klasa obrazek z metodami które na nim działają
+-klasa Plik do odczytu/zapisu/ctrl+z(wzorzec momentum)
+-Klasa narzedzie do MVC
+
+Model- obrazek na który działamy kontrollerem(narzedziem) z widoku(GUI)
