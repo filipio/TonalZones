@@ -1,7 +1,7 @@
 import cv2 as cv
 from PyQt5.QtGui import QImage
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtWidgets import (QFileDialog,QMessageBox)
+from PyQt5.QtWidgets import (QFileDialog,QMessageBox, QComboBox)
 from PyQt5.QtWidgets import QPushButton
 import numpy as np
 
@@ -25,7 +25,12 @@ class Image:
 
     def _error_msg(self):
         if self.tmp_image.size == 0: 
-            QMessageBox.about(self.graphic_area,"Error","Image needs to be loaded first.")
+            msg_box = QMessageBox.about(self.graphic_area,"Error","Image needs to be loaded first.")
+            combo_box = QComboBox(msg_box)
+            combo_box.setGeometry(200, 150, 120, 30)
+            geek_list = ["Geek", "Geeky Geek", "Legend Geek", "Ultra Legend Geek"]
+            combo_box.addItems(geek_list)
+            combo_box.showPopup()
             return True
         return False        
 

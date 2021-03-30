@@ -2,15 +2,14 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
 from PyQt5.uic import loadUi
-from PhotoEdit_ui import Ui_MainWindow
 from Image import Image
-import urllib
+from UI import UI
 """
 all libraries and necessery files should be imported above.
 """
 
 
-class Window(QMainWindow, Ui_MainWindow):
+class Window(QMainWindow, UI):
     """
     This is class is responsible for handling UI events and basic gui operations.
     This class should be calling event handlers from other classes.
@@ -29,7 +28,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self.actionSave.triggered.connect(self.image.save)
         self.actionRotate.triggered.connect(self.image.rotate)
 
-        
+        # TO DO : connect appropriate methods
+        # self.actionBlurAvg.triggered.connect()
+        # self.actionBlurBilateral.triggered.connect()
+        # self.actionBlurGauss.triggered.connect()
+        # self.actionBlurMed.triggered.connect()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
