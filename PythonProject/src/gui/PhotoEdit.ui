@@ -84,8 +84,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>201</width>
-          <height>918</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -97,7 +97,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>201</width>
+          <width>85</width>
           <height>918</height>
          </rect>
         </property>
@@ -167,12 +167,28 @@
    <slot>showMenu()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1058</x>
-     <y>217</y>
+     <x>1413</x>
+     <y>237</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1058</x>
-     <y>232</y>
+     <x>1413</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolBar</sender>
+   <signal>actionTriggered(QAction*)</signal>
+   <receiver>toolBar</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>24</x>
+     <y>42</y>
     </hint>
    </hints>
   </connection>

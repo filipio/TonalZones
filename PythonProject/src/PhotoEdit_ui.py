@@ -47,11 +47,11 @@ class Ui_MainWindow(object):
         self.toolBox = QtWidgets.QToolBox(self.dockWidgetContents)
         self.toolBox.setObjectName("toolBox")
         self.page = QtWidgets.QWidget()
-        self.page.setGeometry(QtCore.QRect(0, 0, 201, 918))
+        self.page.setGeometry(QtCore.QRect(0, 0, 100, 30))
         self.page.setObjectName("page")
         self.toolBox.addItem(self.page, "")
         self.page_2 = QtWidgets.QWidget()
-        self.page_2.setGeometry(QtCore.QRect(0, 0, 201, 918))
+        self.page_2.setGeometry(QtCore.QRect(0, 0, 85, 918))
         self.page_2.setObjectName("page_2")
         self.pushButton = QtWidgets.QPushButton(self.page_2)
         self.pushButton.setGeometry(QtCore.QRect(70, 60, 89, 25))
@@ -85,10 +85,13 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionSelect)
         self.toolBar.addSeparator()
 
+
         self.retranslateUi(MainWindow)
         self.toolBox.setCurrentIndex(1)
         self.pushButton.clicked.connect(self.pushButton.showMenu)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

@@ -166,3 +166,24 @@ if __name__ == '__main__':
     #
     # if you need Two Image Synchronous Scrolling in the window by PyQt5 and Python 3
     # please visit https://gist.github.com/acbetter/e7d0c600fdc0865f4b0ee05a17b858f2
+
+
+
+
+        self.actionBlurGauss = QtWidgets.QAction(MainWindow)
+        self.actionBlurAvg = QtWidgets.QAction(MainWindow)
+        self.actionBlurMed = QtWidgets.QAction(MainWindow)
+        self.actionBlurBilateral = QtWidgets.QAction(MainWindow)
+
+        self.actionBlurGauss.setText("Gaussian")
+        self.actionBlurMed.setText("Median")
+        self.actionBlurAvg.setText("Avaraging")
+        self.actionBlurBilateral.setText("Bilateral")
+
+        self.blurMenu = QtWidgets.QMenu("blur Menu",self.toolBar)
+        self.blurMenu.addAction(self.actionBlurAvg)
+        self.blurMenu.addAction(self.actionBlurMed)
+        self.blurMenu.addAction(self.actionBlurGauss)
+        self.blurMenu.addAction(self.actionBlurBilateral)
+
+        self.actionSelect.setMenu(self.blurMenu)
