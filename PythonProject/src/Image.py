@@ -26,13 +26,11 @@ class Image:
     def _error_msg(self):
         if self.tmp_image.size == 0: 
             msg_box = QMessageBox.about(self.graphic_area,"Error","Image needs to be loaded first.")
-            combo_box = QComboBox(msg_box)
-            combo_box.setGeometry(200, 150, 120, 30)
-            geek_list = ["Geek", "Geeky Geek", "Legend Geek", "Ultra Legend Geek"]
-            combo_box.addItems(geek_list)
-            combo_box.showPopup()
             return True
-        return False        
+        return False
+
+    def _mask(self, min, max, img):
+        return img[(min <= img) & (img <= max)]
 
     def save(self):
         if not self._error_msg():
@@ -42,16 +40,14 @@ class Image:
     def load(self):
         file_name = QFileDialog.getOpenFileName(None, "Open File", "/home", "Images (*.png *.xpm *.jpg)")[0]
         if file_name:
-            self.image = cv.imread(file_name)
-            print(type(self.image))
+            self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             self._update_img(self.image)
-
 
     def rotate(self):
         if not self._error_msg():
             rotated_img = cv.rotate(self.tmp_image,cv.ROTATE_90_CLOCKWISE)
             self._update_img(rotated_img)
-
+              
     def zoom_in(self):
         pass
 
@@ -59,4 +55,3 @@ class Image:
         pass
 
 
-  # modify image methods        
