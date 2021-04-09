@@ -20,6 +20,15 @@
     </property>
     <item>
      <widget class="QLabel" name="graphicArea">
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -33,7 +42,7 @@
      <x>0</x>
      <y>0</y>
      <width>1349</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -76,17 +85,26 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QToolBox" name="toolBox">
-       <property name="currentIndex">
-        <number>1</number>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
-       <widget class="QWidget" name="page">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="Filters">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>293</width>
+          <height>923</height>
          </rect>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::TabFocus</enum>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
         </property>
         <attribute name="label">
          <string>Page 1</string>
@@ -97,26 +115,13 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>85</width>
-          <height>918</height>
+          <width>293</width>
+          <height>923</height>
          </rect>
         </property>
         <attribute name="label">
          <string>Page 2</string>
         </attribute>
-        <widget class="QPushButton" name="pushButton">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>60</y>
-           <width>89</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Dupa</string>
-         </property>
-        </widget>
        </widget>
       </widget>
      </item>
@@ -160,22 +165,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>pushButton</receiver>
-   <slot>showMenu()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1413</x>
-     <y>237</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1413</x>
-     <y>237</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>toolBar</sender>
    <signal>actionTriggered(QAction*)</signal>
