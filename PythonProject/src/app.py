@@ -28,13 +28,15 @@ class Window(QMainWindow, UI):
         self.actionSave.triggered.connect(self.image.save)
         self.actionRotate.triggered.connect(self.image.rotate)
 
-        # TO DO : connect appropriate methods
-        # self.actionBlurAvg.triggered.connect()
-        # self.actionBlurBilateral.triggered.connect()
-        # self.actionBlurGauss.triggered.connect()
-        # self.actionBlurMed.triggered.connect()
-
-
+        #filter methods connection
+        self.actionBlurAvg.triggered.connect(self.image.blur_avg_filter)
+        self.actionBlurBilateral.triggered.connect(self.image.blur_bilateral_filter)
+        self.actionBlurGauss.triggered.connect(self.image.blur_gauss_filter)
+        self.actionBlurMed.triggered.connect(self.image.blur_med_filter)
+        #select methods connection
+        self.actionSelectionRectangular.triggered.connect(self.image.select_rect)
+        self.actionSelectionCustom.triggered.connect(self.image.select_custom)
+        self.graphicArea.rectChanged.connect(self.image.select_rect)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = Window()
