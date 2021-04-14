@@ -257,8 +257,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>849</width>
-         <height>1035</height>
+         <width>847</width>
+         <height>1040</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -281,7 +281,7 @@ QSlider::sub-page:vertical {
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -349,7 +349,7 @@ QSlider::sub-page:vertical {
      <item row="0" column="0">
       <widget class="QToolBox" name="Settings">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
@@ -357,7 +357,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -827,7 +827,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -978,7 +978,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1064,6 +1064,11 @@ QSlider::sub-page:vertical {
     <string>Apply</string>
    </property>
   </action>
+  <action name="actionkernel_x_gauss_changed">
+   <property name="text">
+    <string>kernel_x_gauss_changed</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -1074,12 +1079,12 @@ QSlider::sub-page:vertical {
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>925</x>
-     <y>344</y>
+     <x>1253</x>
+     <y>312</y>
     </hint>
     <hint type="destinationlabel">
-     <x>929</x>
-     <y>372</y>
+     <x>1253</x>
+     <y>337</y>
     </hint>
    </hints>
   </connection>
@@ -1090,12 +1095,12 @@ QSlider::sub-page:vertical {
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1064</x>
-     <y>202</y>
+     <x>1253</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1073</x>
-     <y>218</y>
+     <x>1253</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>
@@ -1106,12 +1111,12 @@ QSlider::sub-page:vertical {
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1008</x>
-     <y>273</y>
+     <x>1253</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1072</x>
-     <y>296</y>
+     <x>1253</x>
+     <y>264</y>
     </hint>
    </hints>
   </connection>

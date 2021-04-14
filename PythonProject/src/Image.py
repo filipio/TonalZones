@@ -55,12 +55,13 @@ class Image:
     def select_rect(self,rect):
         x1,y1,x2,y2=rect.getCoords()
         print(x1,y1,x2,y2)
-        print(self.image.shape)
+        # print(self.image.shape)
         # print('selected rectangle',r)
     def select_custom(self):
         print('select_custom')
-    def blur_avg_filter(self):
-        self._update_img(cv.blur(self.tmp_image,(5,5)))
+    def blur_avg_filter(self,params_dict):
+        print(params_dict)
+        # self._update_img(cv.blur(self.tmp_image,ksize=size,anchor=point))
         print('applying blur_avg_filter')
     def blur_bilateral_filter(self):
         self._update_img(cv.bilateralFilter(self.tmp_image,9,75,75))
