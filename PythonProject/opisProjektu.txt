@@ -15,8 +15,12 @@ rozpoczecie pisania filtrów/ przekształceń-po jednym na osobe
 znajdz - Filip
 wybierz obszar - Piotrek
 26.04.2020 
--progowanie obszarów tonalnych, dodanie suwaków z możliwością edycji parametrów
--utworzenie wersji alfa
+-maska-Filip tzn wybieranie pikseli o zadanej jasności z obrazka i z ustawień
+-filters - Piotrek
+-otsu - Piotrek
+-ctrl+z - Filip
+-buildowanie - razem 23.04.2020
+-pisać docstringi
 10.05.2020
 -dodatkowe funkcjonalności: filtry/przekształcenia obrazu/cienie/kontrast/jasność, poprawa błędów,
 24.05.2020

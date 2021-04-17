@@ -4,6 +4,9 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.uic import loadUi
 from Image import Image
 from UI import UI
+from functools import partial
+from FiltersEnum import Filter
+from ParamsFactory import ParamsFactory
 """
 all libraries and necessery files should be imported above.
 """
@@ -21,21 +24,21 @@ class Window(QMainWindow, UI):
         
         self.setupUi(self)
         self.image = Image(self.graphicArea)
+        self.params_f=ParamsFactory(self)
         self.connect_signals()
-
     def connect_signals(self):
         self.actionLoad.triggered.connect(self.image.load)
         self.actionSave.triggered.connect(self.image.save)
         self.actionRotate.triggered.connect(self.image.rotate)
 
         #filter methods connection
-        self.actionBlurAvg.triggered.connect(self.image.blur_avg_filter)
-        self.actionBlurBilateral.triggered.connect(self.image.blur_bilateral_filter)
-        self.actionBlurGauss.triggered.connect(self.image.blur_gauss_filter)
-        self.actionBlurMed.triggered.connect(self.image.blur_med_filter)
+        self.actionAvaraging.triggered.connect(partial(self.image.blur_avg_filter,self.params_f.get_fparams(Filter.AVARAGING)))
+        self.actionBilateral.triggered.connect(self.image.blur_bilateral_filter)
+        self.actionGaussian.triggered.connect(self.image.blur_gauss_filter)
+        self.actionMedian.triggered.connect(self.image.blur_med_filter)
         #select methods connection
-        self.actionSelectionRectangular.triggered.connect(self.image.select_rect)
-        self.actionSelectionCustom.triggered.connect(self.image.select_custom)
+        self.actionRect.triggered.connect(self.image.select_rect)
+        # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
         self.graphicArea.rectChanged.connect(self.image.select_rect)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
