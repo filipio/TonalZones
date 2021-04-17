@@ -255,7 +255,9 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
         self.gridLayout_5.setObjectName("gridLayout_5")
+        ######################## change ##############################
         self.graphicArea = Label(self.scrollAreaWidgetContents_2)
+        ##############################################################
         self.graphicArea.setText("")
         self.graphicArea.setObjectName("graphicArea")
         self.gridLayout_5.addWidget(self.graphicArea, 0, 0, 1, 1)
