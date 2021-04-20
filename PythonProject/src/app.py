@@ -7,6 +7,9 @@ from UI import UI
 from functools import partial
 from FiltersEnum import Filter
 from ParamsFactory import ParamsFactory
+
+import cgitb 
+
 """
 all libraries and necessery files should be imported above.
 """
@@ -21,6 +24,7 @@ class Window(QMainWindow, UI):
     def __init__(self, parent=None):
 
         super().__init__(parent)
+        cgitb.enable(format = 'text')
         
         self.setupUi(self)
         self.image = Image(self.graphicArea)
@@ -37,9 +41,19 @@ class Window(QMainWindow, UI):
         self.actionGaussian.triggered.connect(self.image.blur_gauss_filter)
         self.actionMedian.triggered.connect(self.image.blur_med_filter)
         #select methods connection
-        self.actionRect.triggered.connect(self.image.select_rect)
+        self.actionRect.triggered.connect(self.graphicArea.activate_rect_selection)
         # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
-        self.graphicArea.rectChanged.connect(self.image.select_rect)
+        self.graphicArea.rect_change.connect(self.image.select_rect)
+        #masks 
+        self.action_select_from_image.triggered.connect(self.graphicArea.activate_mouse_selection)
+        self.graphicArea.pixel_clicked.connect(self.image.pixel_handler)
+        self.image.mask_range_changed.connect(self.params_f.set_mask_params)
+        mask_update = lambda : self.image.update_mask(self.min_slider.value(), self.max_slider.value())
+        self.min_slider.sliderReleased.connect(mask_update)
+        self.max_slider.sliderReleased.connect(mask_update)
+        # self.tolerance_slider.sliderReleased.connect(lambda : self.image.mask)
+        # self.min_slider.connect
+        # self.actionSelelec
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = Window()

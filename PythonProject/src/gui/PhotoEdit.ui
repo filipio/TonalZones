@@ -257,8 +257,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>847</width>
-         <height>1040</height>
+         <width>849</width>
+         <height>1035</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -281,7 +281,7 @@ QSlider::sub-page:vertical {
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -317,9 +317,9 @@ QSlider::sub-page:vertical {
     <property name="title">
      <string>Mask</string>
     </property>
-    <addaction name="actionSelect_from_image"/>
-    <addaction name="actionApply"/>
-    <addaction name="actionApply_2"/>
+    <addaction name="action_select_from_image"/>
+    <addaction name="action_select_from_settings"/>
+    <addaction name="action_apply_mask"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -357,7 +357,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>922</height>
+          <height>911</height>
          </rect>
         </property>
         <attribute name="label">
@@ -367,7 +367,7 @@ QSlider::sub-page:vertical {
          <item row="0" column="0">
           <widget class="QTabWidget" name="avaraging_border_type">
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="gauss_settings_2">
             <attribute name="title">
@@ -570,16 +570,34 @@ QSlider::sub-page:vertical {
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_14">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <widget class="QLabel" name="label_19">
-                 <property name="text">
-                  <string>Kernel Size</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Kernel X</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="spinBox"/>
+                 </item>
+                </layout>
                </item>
                <item>
-                <widget class="QSpinBox" name="avaraging_kernel_size"/>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="label_19">
+                   <property name="text">
+                    <string>Kernel Y</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="avaraging_kernel_size"/>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -827,7 +845,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>922</height>
+          <height>911</height>
          </rect>
         </property>
         <attribute name="label">
@@ -847,7 +865,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider">
+            <widget class="QSlider" name="min_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -857,7 +875,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_32">
+            <widget class="QLabel" name="min_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -884,7 +902,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_2">
+            <widget class="QSlider" name="max_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -894,7 +912,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_31">
+            <widget class="QLabel" name="max_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -921,7 +939,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_3">
+            <widget class="QSlider" name="tolerance_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -943,7 +961,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_30">
+            <widget class="QLabel" name="tolerance_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -978,7 +996,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>922</height>
+          <height>911</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1049,17 +1067,17 @@ QSlider::sub-page:vertical {
     <string>Rectangular</string>
    </property>
   </action>
-  <action name="actionSelect_from_image">
+  <action name="action_select_from_image">
    <property name="text">
     <string>Select from image</string>
    </property>
   </action>
-  <action name="actionApply">
+  <action name="action_select_from_settings">
    <property name="text">
     <string>Select from settings</string>
    </property>
   </action>
-  <action name="actionApply_2">
+  <action name="action_apply_mask">
    <property name="text">
     <string>Apply</string>
    </property>
@@ -1073,9 +1091,9 @@ QSlider::sub-page:vertical {
  <resources/>
  <connections>
   <connection>
-   <sender>horizontalSlider_3</sender>
+   <sender>tolerance_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_30</receiver>
+   <receiver>tolerance_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1089,9 +1107,9 @@ QSlider::sub-page:vertical {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider</sender>
+   <sender>min_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_32</receiver>
+   <receiver>min_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1105,9 +1123,9 @@ QSlider::sub-page:vertical {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_2</sender>
+   <sender>max_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_31</receiver>
+   <receiver>max_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
