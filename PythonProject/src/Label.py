@@ -60,18 +60,24 @@ class Label(QtWidgets.QLabel):
             self.rect_selection_active=False
         QtWidgets.QLabel.mouseReleaseEvent(self, event)
 
-    def parent_it(self, item):
-        item.setParent(self)
 
     def show_mask(self, indexes):
+        for item in self.pixel_selections:
+            item.destroy()
+        self.pixel_selections.clear()
+        for i in range(len(indexes)):
+            pixel_rect = QRubberBand(QRubberBand.Line, self)
+            size = 5
+            pixel_rect.setGeometry(indexes[i][0], indexes[i][1], size, size)
+            self.pixel_selections.append(pixel_rect)
+
         self.thread = QThread()
-        self.worker = Worker(indexes)
+        self.worker = Worker(self.pixel_selections)
         self.worker.moveToThread(self.thread)
         self.thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
-        self.worker.created.connect(lambda item : self.parent_it(item))
         self.thread.start()
 
 
@@ -79,16 +85,12 @@ class Label(QtWidgets.QLabel):
 
 class Worker(QObject):
     finished = pyqtSignal()
-    created = pyqtSignal(QRubberBand)
 
-    def __init__(self, indexes):
+    def __init__(self, selections):
         super().__init__(None)
-        self.indexes = indexes
+        self.selections = selections
 
     def run(self):
-        for i in range(len(self.indexes)):
-            pixel_rect = QRubberBand(QRubberBand.Rectangle, None)
-            size = 5
-            pixel_rect.setGeometry(self.indexes[i][0], self.indexes[i][1], size, size)
-            self.created.emit(pixel_rect)
+        for item in self.selections:
+            item.show()
         self.finished.emit()
