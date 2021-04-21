@@ -66,7 +66,7 @@ class Label(QtWidgets.QLabel):
             item.destroy()
         self.pixel_selections.clear()
         for i in range(len(indexes)):
-            pixel_rect = QRubberBand(QRubberBand.Line, self)
+            pixel_rect = QRubberBand(QRubberBand.Rectangle, self)
             size = 5
             pixel_rect.setGeometry(indexes[i][0], indexes[i][1], size, size)
             self.pixel_selections.append(pixel_rect)
