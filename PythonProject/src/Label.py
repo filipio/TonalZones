@@ -63,6 +63,7 @@ class Label(QtWidgets.QLabel):
 
     def show_mask(self, indexes):
         for item in self.pixel_selections:
+            item.hide()
             item.destroy()
         self.pixel_selections.clear()
         for i in range(len(indexes)):
