@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QPushButton
 import numpy as np
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
+from Color import MaskColor
 
 class Image(QObject):
     """
@@ -15,13 +16,15 @@ class Image(QObject):
     Insert necessery methods below.
     """
     mask_range_changed = pyqtSignal(int, int)
+    img_loaded = pyqtSignal()
 
     def __init__(self, graphic_area):
         super().__init__(None)
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
         self.graphic_area = graphic_area
-        self.active_img=np.empty(0)#active part of image that will be edited
+        self.active_img = np.empty(0) #active part of image that will be edited
+        self.thresholded_pixels = np.empty(0)
         self.mask_min = None
         self.mask_max = None
         self.mask_tol = None
@@ -38,21 +41,20 @@ class Image(QObject):
             return True
         return False
 
-    def _transform_to_img(self, x, y):
+    def _ratio_to_img(self):
         img_height = self.image.shape[0]
-        img_width = self.image.shape[1]
-        x_ratio = img_width / self.graphic_area.width()
-        y_ratio = img_height / self.graphic_area.height()
-        return (int(x * x_ratio), int(y * y_ratio))
+        img_width = self.image.shape[1]  
+        return (img_width / self.graphic_area.width(), img_height / self.graphic_area.height())
 
-    def _transform_to_display(self, indexes):
-        result = []
-        x_ratio = self.graphic_area.width() / self.image.shape[1] 
-        y_ratio = self.graphic_area.height() / self.image.shape[0]
-        for i in range(len(indexes)):
-            result.append((int(indexes[i][1] * x_ratio), int(indexes[i][0] * y_ratio)))
-            
-        return result
+    def _transform_to_img(self, index_x, index_y):
+        x_ratio , y_ratio = self._ratio_to_img()
+        return [int(index_x * x_ratio), int(index_y * y_ratio)]
+
+    def _transform_to_display(self, indexes_x, indexes_y):
+        x_ratio , y_ratio = self._ratio_to_img()
+        display_x = [int(indexes_x[i] / x_ratio) for i in range(len(indexes_x))]
+        display_y = [int(indexes_y[i] / y_ratio) for i in range(len(indexes_y))]
+        return list(zip(display_x, display_y))
 
     def save(self):
         if not self._error_msg():
@@ -64,18 +66,21 @@ class Image(QObject):
         if file_name:
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
+            self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
             self._update_img(self.image)
+            self.img_loaded.emit()
 
     def rotate(self):
         if not self._error_msg():
             rotated_img = cv.rotate(self.tmp_image,cv.ROTATE_90_CLOCKWISE)
             self._update_img(rotated_img)
 
-    def zoom_in(self):
-        pass
+    def activate_mask(self):
+        indexes = np.where(self.active_img == True)
+        indexes = self._transform_to_display(indexes[1], indexes[0])
+        self.graphic_area.active_indexes = indexes # this is set to not calculate it every time 
+        self.graphic_area.show_active_mask()
 
-    def zoom_out(self):
-        pass
 
     def update_mask(self, m_min, m_max):
         self.mask_min = m_min
@@ -84,13 +89,17 @@ class Image(QObject):
         if m_min is not None and m_max is not None:
             print("emitting signal to draw new mask")
             self.mask_range_changed.emit(self.mask_min, self.mask_max)
-            self.active_img = self.tmp_image[(self.mask_min <= self.tmp_image) & (self.tmp_image <= self.mask_max)]
             # print("active img : ", self.active_img)
-            indexes = np.where((self.mask_min <= self.tmp_image) & (self.tmp_image <= self.mask_max))
-            indexes = list(zip(indexes[0], indexes[1]))
-            indexes = self._transform_to_display(indexes)
-            self.graphic_area.show_mask(indexes)
+            self.active_img = (self.mask_min <= self.tmp_image) & (self.tmp_image <= self.mask_max) & (self.thresholded_pixels == False)
 
+            indexes = np.where(self.active_img == True)
+            indexes = self._transform_to_display(indexes[1], indexes[0])
+            self.graphic_area.show_mask(indexes, MaskColor.RED)
+
+    def not_thresholded_handler(self):
+        indexes = np.where(self.thresholded_pixels == False)
+        indexes = self._transform_to_display(indexes[1], indexes[0])
+        self.graphic_area.show_mask(indexes, MaskColor.BLUE)
 
     def pixel_handler(self, x, y):
         print(f"pixel x : {x}, y : {y}")

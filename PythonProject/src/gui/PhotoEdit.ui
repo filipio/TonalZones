@@ -72,7 +72,6 @@ QPushButton:disabled{
 	border-bottom-color: rgb(58, 58, 58);
 	border-bottom-width: 1px;
 	border-style: solid;
-	color: rgb(0, 0, 0);
 	padding: 2px;
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(57, 57, 57, 255), stop:1 rgba(77, 77, 77, 255));
 }
@@ -264,6 +263,9 @@ QSlider::sub-page:vertical {
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <widget class="QLabel" name="graphicArea">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -349,7 +351,7 @@ QSlider::sub-page:vertical {
      <item row="0" column="0">
       <widget class="QToolBox" name="Settings">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
@@ -974,6 +976,33 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="active_mask_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Show Active</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="not_thresholded_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Not Thresholded</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="hide_mask_btn">
+             <property name="text">
+              <string>Hide</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer_5">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -1098,11 +1127,11 @@ QSlider::sub-page:vertical {
    <hints>
     <hint type="sourcelabel">
      <x>1253</x>
-     <y>312</y>
+     <y>342</y>
     </hint>
     <hint type="destinationlabel">
      <x>1253</x>
-     <y>337</y>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
@@ -1130,11 +1159,11 @@ QSlider::sub-page:vertical {
    <hints>
     <hint type="sourcelabel">
      <x>1253</x>
-     <y>239</y>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>1253</x>
-     <y>264</y>
+     <y>287</y>
     </hint>
    </hints>
   </connection>

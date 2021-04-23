@@ -8,8 +8,6 @@ from functools import partial
 from FiltersEnum import Filter
 from ParamsFactory import ParamsFactory
 
-import cgitb 
-
 """
 all libraries and necessery files should be imported above.
 """
@@ -24,7 +22,6 @@ class Window(QMainWindow, UI):
     def __init__(self, parent=None):
 
         super().__init__(parent)
-        cgitb.enable(format = 'text')
         
         self.setupUi(self)
         self.image = Image(self.graphicArea)
@@ -51,6 +48,13 @@ class Window(QMainWindow, UI):
         mask_update = lambda : self.image.update_mask(self.min_slider.value(), self.max_slider.value())
         self.min_slider.sliderReleased.connect(mask_update)
         self.max_slider.sliderReleased.connect(mask_update)
+        self.action_apply_mask.triggered.connect(self.image.activate_mask)
+        self.action_apply_mask.triggered.connect(lambda : self.active_mask_btn.setEnabled(True))
+        self.image.mask_range_changed.connect(lambda x, y : self.active_mask_btn.setEnabled(False))
+        self.hide_mask_btn.clicked.connect(self.graphicArea.hide_mask)
+        self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
+        self.image.img_loaded.connect(lambda : self.not_thresholded_btn.setEnabled(True))
+        self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
         # self.tolerance_slider.sliderReleased.connect(lambda : self.image.mask)
         # self.min_slider.connect
         # self.actionSelelec

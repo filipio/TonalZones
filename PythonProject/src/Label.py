@@ -2,8 +2,9 @@ from PyQt5.QtCore import (Qt, pyqtSignal,QRect,QPoint,QSize)
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, QObject
 from PyQt5.QtWidgets import QApplication
-
+from PyQt5.QtGui import QPainter, QPen, QColor, QBrush
 from PyQt5.QtWidgets import QRubberBand
+from Color import MaskColor
 class Label(QtWidgets.QLabel):
     rect_change = pyqtSignal(QRect)
     pixel_clicked = pyqtSignal(int, int)
@@ -18,6 +19,9 @@ class Label(QtWidgets.QLabel):
         self.changeRubberBand = False
         self.rect_selection_active = False
         self.mouse_selection_active = False
+        self.indexes = []
+        self.active_indexes = []
+        self.mask_color = QColor(255, 0, 0, 60)
 
     def activate_rect_selection(self):
         self.rect_selection_active = True
@@ -60,38 +64,34 @@ class Label(QtWidgets.QLabel):
             self.rect_selection_active=False
         QtWidgets.QLabel.mouseReleaseEvent(self, event)
 
+    def paintEvent(self, event):
+        size = 3
+        QtWidgets.QLabel.paintEvent(self,event)
+        print("paint event was called")
+        if self.indexes:
+            painter = QPainter(self)
+            painter.setPen(QPen(self.mask_color, 2, Qt.SolidLine))
+            painter.setBrush(QBrush(self.mask_color, Qt.SolidPattern))
+            for i in range(len(self.indexes)):
+                painter.drawEllipse(QPoint(self.indexes[i][0], self.indexes[i][1]), size, size)
+                # rect = QRect(self.indexes[i][0] - size/2, self.indexes[i][1] - size/2, size, size)
+                # painter.drawRect(rect) 
+            painter.end()       
+        
+    def show_active_mask(self):
+        self.show_mask(self.active_indexes, MaskColor.GREEN)
 
-    def show_mask(self, indexes):
-        for item in self.pixel_selections:
-            item.hide()
-            item.destroy()
-        self.pixel_selections.clear()
-        for i in range(len(indexes)):
-            pixel_rect = QRubberBand(QRubberBand.Rectangle, self)
-            size = 5
-            pixel_rect.setGeometry(indexes[i][0], indexes[i][1], size, size)
-            self.pixel_selections.append(pixel_rect)
+    def show_mask(self, indexes, color):
+        self.indexes = indexes
+        if color == MaskColor.RED:
+            self.mask_color = QColor(255, 0, 0, 60)
+        elif color == MaskColor.GREEN:
+            self.mask_color = QColor(64, 224, 43, 120)
+        elif color == MaskColor.BLUE:
+            self.mask_color = QColor(62, 118, 235, 120)
+        print("show mask was called")
+        self.update()
 
-        self.thread = QThread()
-        self.worker = Worker(self.pixel_selections)
-        self.worker.moveToThread(self.thread)
-        self.thread.started.connect(self.worker.run)
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.thread.start()
-
-
-
-
-class Worker(QObject):
-    finished = pyqtSignal()
-
-    def __init__(self, selections):
-        super().__init__(None)
-        self.selections = selections
-
-    def run(self):
-        for item in self.selections:
-            item.show()
-        self.finished.emit()
+    def hide_mask(self):
+        self.indexes = []
+        self.update()
