@@ -393,7 +393,17 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="gauss_k_size_x"/>
+                  <widget class="QSpinBox" name="gauss_k_size_x">
+                   <property name="layoutDirection">
+                    <enum>Qt::RightToLeft</enum>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                   <property name="stepType">
+                    <enum>QAbstractSpinBox::DefaultStepType</enum>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -407,7 +417,17 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="gauss_k_size_y"/>
+                  <widget class="QSpinBox" name="gauss_k_size_y">
+                   <property name="correctionMode">
+                    <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+                   </property>
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>

@@ -4,7 +4,10 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import (QFileDialog,QMessageBox, QComboBox)
 from PyQt5.QtWidgets import QPushButton
 import numpy as np
-
+from Bilateral import Bilateral
+from Avaraging import Avaraging
+from Gaussian import Gaussian
+from Median import Median
 class Image:
     """
     Image is a class responsible for doing operations on an image. Class should be initialized when
@@ -17,6 +20,10 @@ class Image:
         self.tmp_image = np.empty(0)
         self.graphic_area = graphic_area
         self.active_img=np.empty(0)#active part of image that will be edited
+        self.Bilateral=Bilateral()
+        self.Avaraging=Avaraging()
+        self.Gaussian=Gaussian(self.graphic_area)
+        self.Median=Median()
     def _update_img(self,img):
         self.tmp_image = img
         frame = cv.cvtColor(self.tmp_image, cv.COLOR_BGR2RGB)
@@ -60,18 +67,13 @@ class Image:
     def select_custom(self):
         print('select_custom')
     def blur_avg_filter(self,params_dict):
-        print(params_dict)
-        # self._update_img(cv.blur(self.tmp_image,ksize=size,anchor=point))
-        print('applying blur_avg_filter')
-    def blur_bilateral_filter(self):
-        self._update_img(cv.bilateralFilter(self.tmp_image,9,75,75))
-        print('applying filter 1')
-    def blur_gauss_filter(self):
-        self._update_img(cv.GaussianBlur(self.tmp_image,(5,5),0))
-        print('applying gauss filter')
-    def blur_med_filter(self):
-        self._update_img(cv.medianBlur(self.tmp_image,5))
-        print('applying blur med filter')
+        self._update_img(self.Avaraging.apply(self.tmp_image))
+    def blur_bilateral_filter(self,params_dict):
+        self._update_img(self.Bilateral.apply(self.tmp_image))
+    def blur_gauss_filter(self,params_dict):
+        self._update_img(self.Gaussian.apply(self.tmp_image))
+    def blur_med_filter(self,params_dict):
+        self._update_img(self.Median.apply(self.tmp_image))
     
 
 
