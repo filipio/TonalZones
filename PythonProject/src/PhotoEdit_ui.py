@@ -74,7 +74,6 @@ class Ui_MainWindow(object):
 "    border-bottom-color: rgb(58, 58, 58);\n"
 "    border-bottom-width: 1px;\n"
 "    border-style: solid;\n"
-"    color: rgb(0, 0, 0);\n"
 "    padding: 2px;\n"
 "    background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(57, 57, 57, 255), stop:1 rgba(77, 77, 77, 255));\n"
 "}\n"
@@ -256,9 +255,10 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        ######################## change ##############################
+        #
         self.graphicArea = Label(self.scrollAreaWidgetContents_2)
-        ##############################################################
+        #
+        self.graphicArea.setEnabled(True)
         self.graphicArea.setText("")
         self.graphicArea.setObjectName("graphicArea")
         self.gridLayout_5.addWidget(self.graphicArea, 0, 0, 1, 1)
@@ -395,6 +395,17 @@ class Ui_MainWindow(object):
         self.avaraging_settings.setObjectName("avaraging_settings")
         self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.avaraging_settings)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label = QtWidgets.QLabel(self.avaraging_settings)
+        self.label.setObjectName("label")
+        self.verticalLayout_2.addWidget(self.label)
+        self.spinBox = QtWidgets.QSpinBox(self.avaraging_settings)
+        self.spinBox.setObjectName("spinBox")
+        self.verticalLayout_2.addWidget(self.spinBox)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_2)
         self.verticalLayout_11 = QtWidgets.QVBoxLayout()
         self.verticalLayout_11.setObjectName("verticalLayout_11")
         self.label_19 = QtWidgets.QLabel(self.avaraging_settings)
@@ -403,7 +414,8 @@ class Ui_MainWindow(object):
         self.avaraging_kernel_size = QtWidgets.QSpinBox(self.avaraging_settings)
         self.avaraging_kernel_size.setObjectName("avaraging_kernel_size")
         self.verticalLayout_11.addWidget(self.avaraging_kernel_size)
-        self.verticalLayout_14.addLayout(self.verticalLayout_11)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_11)
+        self.verticalLayout_14.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
@@ -559,6 +571,17 @@ class Ui_MainWindow(object):
         self.tolerance_label.setAlignment(QtCore.Qt.AlignCenter)
         self.tolerance_label.setObjectName("tolerance_label")
         self.verticalLayout_21.addWidget(self.tolerance_label)
+        self.active_mask_btn = QtWidgets.QPushButton(self.Mask)
+        self.active_mask_btn.setEnabled(False)
+        self.active_mask_btn.setObjectName("active_mask_btn")
+        self.verticalLayout_21.addWidget(self.active_mask_btn)
+        self.not_thresholded_btn = QtWidgets.QPushButton(self.Mask)
+        self.not_thresholded_btn.setEnabled(False)
+        self.not_thresholded_btn.setObjectName("not_thresholded_btn")
+        self.verticalLayout_21.addWidget(self.not_thresholded_btn)
+        self.hide_mask_btn = QtWidgets.QPushButton(self.Mask)
+        self.hide_mask_btn.setObjectName("hide_mask_btn")
+        self.verticalLayout_21.addWidget(self.hide_mask_btn)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_21.addItem(spacerItem4)
         self.verticalLayout_22.addLayout(self.verticalLayout_21)
@@ -623,7 +646,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.Settings.setCurrentIndex(1)
-        self.avaraging_border_type.setCurrentIndex(0)
+        self.avaraging_border_type.setCurrentIndex(2)
         self.tolerance_slider.valueChanged['int'].connect(self.tolerance_label.setNum)
         self.min_slider.valueChanged['int'].connect(self.min_label.setNum)
         self.max_slider.valueChanged['int'].connect(self.max_label.setNum)
@@ -656,7 +679,8 @@ class Ui_MainWindow(object):
         self.avaraging_border_type.setTabText(self.avaraging_border_type.indexOf(self.gauss_settings_2), _translate("MainWindow", "Gauss"))
         self.label_12.setText(_translate("MainWindow", "Kernel Size"))
         self.avaraging_border_type.setTabText(self.avaraging_border_type.indexOf(self.median_settings), _translate("MainWindow", "Median"))
-        self.label_19.setText(_translate("MainWindow", "Kernel Size"))
+        self.label.setText(_translate("MainWindow", "Kernel X"))
+        self.label_19.setText(_translate("MainWindow", "Kernel Y"))
         self.label_21.setText(_translate("MainWindow", "Anchor X"))
         self.label_20.setText(_translate("MainWindow", "Anchor Y"))
         self.label_22.setText(_translate("MainWindow", "Border Type"))
@@ -690,6 +714,9 @@ class Ui_MainWindow(object):
         self.max_label.setText(_translate("MainWindow", "0"))
         self.label_29.setText(_translate("MainWindow", "Tolerance"))
         self.tolerance_label.setText(_translate("MainWindow", "0"))
+        self.active_mask_btn.setText(_translate("MainWindow", "Show Active"))
+        self.not_thresholded_btn.setText(_translate("MainWindow", "Not Thresholded"))
+        self.hide_mask_btn.setText(_translate("MainWindow", "Hide"))
         self.Settings.setItemText(self.Settings.indexOf(self.Mask), _translate("MainWindow", "Mask"))
         self.Settings.setItemText(self.Settings.indexOf(self.Thresholding), _translate("MainWindow", "Thresholding"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
