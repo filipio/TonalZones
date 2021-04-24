@@ -22,12 +22,12 @@ class Image(QObject):
         super().__init__(None)
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
-        self.graphic_area = graphic_area
-        self.active_img = np.empty(0) #active part of image that will be edited
+        self.active_img = np.empty(0)
         self.thresholded_pixels = np.empty(0)
+        self.graphic_area = graphic_area
         self.mask_min = None
         self.mask_max = None
-        self.mask_tol = None
+        self.mask_tol = 0
 
     def _update_img(self,img):
         self.tmp_image = img
@@ -46,11 +46,11 @@ class Image(QObject):
         img_width = self.image.shape[1]  
         return (img_width / self.graphic_area.width(), img_height / self.graphic_area.height())
 
-    def _transform_to_img(self, index_x, index_y):
+    def _transform_pixel_to_img(self, index_x, index_y):
         x_ratio , y_ratio = self._ratio_to_img()
-        return [int(index_x * x_ratio), int(index_y * y_ratio)]
+        return (int(index_x * x_ratio), int(index_y * y_ratio))
 
-    def _transform_to_display(self, indexes_x, indexes_y):
+    def _transform_pixels_to_display(self, indexes_x, indexes_y):
         x_ratio , y_ratio = self._ratio_to_img()
         display_x = [int(indexes_x[i] / x_ratio) for i in range(len(indexes_x))]
         display_y = [int(indexes_y[i] / y_ratio) for i in range(len(indexes_y))]
@@ -74,48 +74,42 @@ class Image(QObject):
         if not self._error_msg():
             rotated_img = cv.rotate(self.tmp_image,cv.ROTATE_90_CLOCKWISE)
             self._update_img(rotated_img)
-
+ 
     def activate_mask(self):
-        indexes = np.where(self.active_img == True)
-        indexes = self._transform_to_display(indexes[1], indexes[0])
-        self.graphic_area.active_indexes = indexes # this is set to not calculate it every time 
-        self.graphic_area.show_active_mask()
+        indexes= np.where(self.active_img == True)
+        indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
+        self.graphic_area.apply_mask(indexes)
 
 
-    def update_mask(self, m_min, m_max):
+    def update_mask(self, m_min, m_max, m_tol):
         self.mask_min = m_min
         self.mask_max = m_max
-        print(f"updated values of mask are : {self.mask_min} and {self.mask_max}")
+        self.mask_tol = m_tol
         if m_min is not None and m_max is not None:
-            print("emitting signal to draw new mask")
             self.mask_range_changed.emit(self.mask_min, self.mask_max)
-            # print("active img : ", self.active_img)
-            self.active_img = (self.mask_min <= self.tmp_image) & (self.tmp_image <= self.mask_max) & (self.thresholded_pixels == False)
+            self.active_img = (self.mask_min - self.mask_tol <= self.tmp_image) & (
+            self.tmp_image <= self.mask_max + self.mask_tol) & (
+            self.thresholded_pixels == False)
 
             indexes = np.where(self.active_img == True)
-            indexes = self._transform_to_display(indexes[1], indexes[0])
+            indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
             self.graphic_area.show_mask(indexes, MaskColor.RED)
 
     def not_thresholded_handler(self):
         indexes = np.where(self.thresholded_pixels == False)
-        indexes = self._transform_to_display(indexes[1], indexes[0])
+        indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
         self.graphic_area.show_mask(indexes, MaskColor.BLUE)
 
-    def pixel_handler(self, x, y):
-        print(f"pixel x : {x}, y : {y}")
-        img_x, img_y = self._transform_to_img(x, y)
-        print(f"img x : {img_x}, img_y : {img_y}")
+    def pixel_clicked_handler(self, x, y):
+        img_x, img_y = self._transform_pixel_to_img(x, y)
         grey_value = self.image[img_x][img_y]
-        print("grey value is :", grey_value)
         new_mask_min = self.mask_min
         new_mask_max = self.mask_max
         if self.mask_min is None or grey_value < self.mask_min:
-            print(f"need to update value {self.mask_min} to {grey_value}")
             new_mask_min = grey_value
         if self.mask_max is None or grey_value > self.mask_max:
-            print(f"need to update value {self.mask_max} to {grey_value}")
             new_mask_max = grey_value
-        self.update_mask(new_mask_min, new_mask_max)
+        self.update_mask(new_mask_min, new_mask_max, self.mask_tol)
 
     def select_rect(self,rect):
         x1,y1,x2,y2=rect.getCoords()
