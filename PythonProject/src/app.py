@@ -7,6 +7,7 @@ from UI import UI
 from functools import partial
 from FiltersEnum import Filter
 from ParamsFactory import ParamsFactory
+from PixelList import PixelList
 
 """
 all libraries and necessery files should be imported above.
@@ -25,12 +26,12 @@ class Window(QMainWindow, UI):
         
         self.setupUi(self)
         self.image = Image(self.graphicArea)
+        self.pixel_list_operator = PixelList(self.pixel_list)
         self.params_f=ParamsFactory(self)
         self.connect_signals()
     def connect_signals(self):
         self.actionLoad.triggered.connect(self.image.load)
         self.actionSave.triggered.connect(self.image.save)
-        self.actionRotate.triggered.connect(self.image.rotate)
 
         #filter methods connection
         self.actionAvaraging.triggered.connect(self.image.blur_avg_filter)
@@ -64,16 +65,21 @@ class Window(QMainWindow, UI):
         self.actionRect.triggered.connect(self.graphicArea.switch_rect_selection)
         # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
         self.graphicArea.rect_change.connect(self.image.select_rect)
+        self.action_undo.triggered.connect(self.image.undo)
         
         self._connect_mask()
+        self.remove_last_btn.clicked.connect(self.pixel_list_operator.remove_last)
+        self.remove_last_btn.clicked.connect(self.image.pop_pixel)
+        self.slider_pixel_tol.sliderReleased.connect(lambda : self.image.update_pixel_tol(self.slider_pixel_tol.value()))
+        self.image.pixel_selected.connect(self.pixel_list_operator.add_element)
         
-
+        # self.remove_all_test.clicked.connect(lambda : )
         
         
     def _connect_mask(self):
 
         #mask sliders
-        mask_update = lambda : self.image.update_mask(self.min_slider.value(), self.max_slider.value(), self.tolerance_slider.value())
+        mask_update = lambda : self.image.update_slider_mask(self.min_slider.value(), self.max_slider.value(), self.tolerance_slider.value())
         self.min_slider.sliderReleased.connect(mask_update)
         self.max_slider.sliderReleased.connect(mask_update)
         self.tolerance_slider.sliderReleased.connect(mask_update)
@@ -87,8 +93,7 @@ class Window(QMainWindow, UI):
         self.action_select_from_image.triggered.connect(self.graphicArea.switch_mouse_selection)
         
         #mask img signals
-        self.image.mask_range_changed.connect(lambda x, y : self.active_mask_btn.setEnabled(False))
-        self.image.mask_range_changed.connect(self.params_f.set_mask_params)
+        self.image.mask_range_changed.connect(lambda : self.active_mask_btn.setEnabled(False))
         self.image.img_loaded.connect(lambda : self.not_thresholded_btn.setEnabled(True))
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 
@@ -96,6 +101,8 @@ class Window(QMainWindow, UI):
         self.hide_mask_btn.clicked.connect(self.graphicArea.hide_mask)
         self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
