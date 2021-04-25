@@ -1,5 +1,5 @@
 import cv2 as cv
-from qtpy.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 class Gaussian:
     def __init__(self,img_view):
         self.ksize_x=1
