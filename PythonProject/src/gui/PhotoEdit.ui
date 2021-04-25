@@ -242,11 +242,11 @@ QSlider::sub-page:vertical {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="leftMargin">
      <number>9</number>
     </property>
-    <item row="0" column="0">
+    <item>
      <widget class="QScrollArea" name="scrollArea">
       <property name="widgetResizable">
        <bool>true</bool>
@@ -256,8 +256,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>847</width>
-         <height>1040</height>
+         <width>754</width>
+         <height>1035</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -283,7 +283,7 @@ QSlider::sub-page:vertical {
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -340,7 +340,7 @@ QSlider::sub-page:vertical {
    <property name="minimumSize">
     <size>
      <width>400</width>
-     <height>229</height>
+     <height>235</height>
     </size>
    </property>
    <attribute name="dockWidgetArea">
@@ -350,6 +350,9 @@ QSlider::sub-page:vertical {
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QToolBox" name="Settings">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>2</number>
        </property>
@@ -358,8 +361,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>382</width>
-          <height>922</height>
+          <width>477</width>
+          <height>911</height>
          </rect>
         </property>
         <attribute name="label">
@@ -866,8 +869,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>382</width>
-          <height>922</height>
+          <width>477</width>
+          <height>911</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1039,18 +1042,102 @@ QSlider::sub-page:vertical {
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="Thresholding">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>382</width>
-          <height>922</height>
-         </rect>
+       <widget class="QWidget" name="thresholding">
+        <property name="enabled">
+         <bool>true</bool>
         </property>
         <attribute name="label">
          <string>Thresholding</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>11</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="threshold_title">
+           <property name="styleSheet">
+            <string notr="true">color: black</string>
+           </property>
+           <property name="text">
+            <string>Threshold</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="threshold_slider">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="threshold_slider_val">
+           <property name="styleSheet">
+            <string notr="true">color : black</string>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="threshold_combobox">
+           <item>
+            <property name="text">
+             <string>THRESH_BINARY</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>THRESH_BINARY_INV</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="otsu_button">
+           <property name="text">
+            <string>Otsu value</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="apply_threshold_button">
+           <property name="text">
+            <string>Apply</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="remove_threshold_button">
+           <property name="text">
+            <string>Remove</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
       </widget>
      </item>
@@ -1184,6 +1271,22 @@ QSlider::sub-page:vertical {
     <hint type="destinationlabel">
      <x>1253</x>
      <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>threshold_slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>threshold_slider_val</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1051</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1077</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>

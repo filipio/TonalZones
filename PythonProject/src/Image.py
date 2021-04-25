@@ -61,9 +61,8 @@ class Image(QObject):
 
     def _transform_pixels_to_display(self, indexes_x, indexes_y):
         x_ratio , y_ratio = self._ratio_to_img()
-        display_x = [int(indexes_x[i] / x_ratio) for i in range(len(indexes_x))]
-        display_y = [int(indexes_y[i] / y_ratio) for i in range(len(indexes_y))]
-        return list(zip(display_x, display_y))
+        return (indexes_x // x_ratio, indexes_y // y_ratio)
+
 
     def save(self):
         if not self._error_msg():
@@ -101,8 +100,8 @@ class Image(QObject):
             self.thresholded_pixels == False)
 
             indexes = np.where(self.active_img == True)
-            indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
-            self.graphic_area.show_mask(indexes, MaskColor.RED)
+            indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
+            self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.RED)
 
     def not_thresholded_handler(self):
         indexes = np.where(self.thresholded_pixels == False)

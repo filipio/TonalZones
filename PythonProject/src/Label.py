@@ -25,7 +25,9 @@ class Label(QtWidgets.QLabel):
         self.changeRubberBand = False
         self.rect_selection_active = False
         self.mouse_selection_active = False
-        self.indexes = []
+        self.indexes_x = None
+        self.indexes_y = None
+        self.new_mask = False
         self.active_indexes = []
         self.mask_color = QColor(255, 0, 0, 60) # default color, here it's red
         self.draw_size = 3
@@ -67,27 +69,33 @@ class Label(QtWidgets.QLabel):
         if self.rect_selection_active==True:
             self.rect_change.emit(self.rubberBand.geometry())
             self.rect_selection_active=False
-        elif self.mouse_selection_active:
+        elif event.button() == Qt.LeftButton and self.mouse_selection_active:
             x = event.pos().x()
             y = event.pos().y()
             self.pixel_clicked.emit(x,y)
+        elif event.button() == Qt.RightButton: 
+            self.hide_mask()
+            if self.mouse_selection_active:
+                self.switch_mouse_selection()
         QtWidgets.QLabel.mouseReleaseEvent(self, event)
 
     def paintEvent(self, event):
         QtWidgets.QLabel.paintEvent(self,event)
-        if self.indexes:
+        if self.new_mask:
+            self.new_mask = False
             painter = QPainter(self)
             painter.setPen(QPen(self.mask_color, 2, Qt.SolidLine))
             painter.setBrush(QBrush(self.mask_color, Qt.SolidPattern))
             cursor = QApplication.overrideCursor()
             QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-            for i in range(len(self.indexes)):
+            for i in range(self.indexes_x.size):
                 # could be replaced with rect
-                painter.drawEllipse(QPoint(self.indexes[i][0], self.indexes[i][1]), self.draw_size, self.draw_size) 
+                painter.drawEllipse(QPoint(self.indexes_x[i], self.indexes_y[i]), self.draw_size, self.draw_size) 
             painter.end()
             QApplication.setOverrideCursor(cursor)       
         
     def show_active_mask(self):
+        self.new_mask = True
         self.show_mask(self.active_indexes, MaskColor.GREEN)
 
     def apply_mask(self, active_indexes):
@@ -97,16 +105,18 @@ class Label(QtWidgets.QLabel):
         self.show_active_mask()
 
 
-    def show_mask(self, indexes, color):
-        self.indexes = indexes
+    def show_mask(self, indexes_x, indexes_y, color):
+        self.indexes_x = indexes_x
+        self.indexes_y = indexes_y
         if color == MaskColor.RED:
             self.mask_color = QColor(255, 0, 0, 60)
         elif color == MaskColor.GREEN:
             self.mask_color = QColor(64, 224, 43, 60)
         elif color == MaskColor.BLUE:
             self.mask_color = QColor(62, 118, 235, 60)
+        self.new_mask = True
         self.update() # call to paintEvent() - DON'T call it directly
 
     def hide_mask(self):
-        self.indexes = []
+        self.new_mask = False
         self.update()
