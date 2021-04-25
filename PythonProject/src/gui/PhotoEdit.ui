@@ -256,8 +256,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>849</width>
-         <height>1035</height>
+         <width>847</width>
+         <height>1040</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -283,7 +283,7 @@ QSlider::sub-page:vertical {
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -351,7 +351,7 @@ QSlider::sub-page:vertical {
      <item row="0" column="0">
       <widget class="QToolBox" name="Settings">
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
@@ -359,7 +359,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -369,7 +369,7 @@ QSlider::sub-page:vertical {
          <item row="0" column="0">
           <widget class="QTabWidget" name="avaraging_border_type">
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="gauss_settings_2">
             <attribute name="title">
@@ -395,7 +395,17 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="gauss_k_size_x"/>
+                  <widget class="QSpinBox" name="gauss_k_size_x">
+                   <property name="layoutDirection">
+                    <enum>Qt::RightToLeft</enum>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                   <property name="stepType">
+                    <enum>QAbstractSpinBox::DefaultStepType</enum>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -409,7 +419,17 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="gauss_k_size_y"/>
+                  <widget class="QSpinBox" name="gauss_k_size_y">
+                   <property name="correctionMode">
+                    <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+                   </property>
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -583,7 +603,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="spinBox"/>
+                  <widget class="QSpinBox" name="avaraging_kernel_x"/>
                  </item>
                 </layout>
                </item>
@@ -597,7 +617,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="avaraging_kernel_size"/>
+                  <widget class="QSpinBox" name="avaraging_kernel_y"/>
                  </item>
                 </layout>
                </item>
@@ -847,7 +867,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1025,7 +1045,7 @@ QSlider::sub-page:vertical {
           <x>0</x>
           <y>0</y>
           <width>382</width>
-          <height>911</height>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">

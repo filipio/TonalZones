@@ -33,11 +33,34 @@ class Window(QMainWindow, UI):
         self.actionRotate.triggered.connect(self.image.rotate)
 
         #filter methods connection
-        self.actionAvaraging.triggered.connect(partial(self.image.blur_avg_filter,self.params_f.get_fparams(Filter.AVARAGING)))
+        self.actionAvaraging.triggered.connect(self.image.blur_avg_filter)
         self.actionBilateral.triggered.connect(self.image.blur_bilateral_filter)
         self.actionGaussian.triggered.connect(self.image.blur_gauss_filter)
         self.actionMedian.triggered.connect(self.image.blur_med_filter)
         #select methods connection
+        self.actionRect.triggered.connect(self.image.select_rect)
+        #bileteral filter
+        self.bilateral_diameter.valueChanged.connect(self.image.Bilateral.set_ksize)
+        self.bilateral_sigma_color.valueChanged.connect(self.image.Bilateral.set_sigma_color)
+        self.bilateral_sigma_space.valueChanged.connect(self.image.Bilateral.set_sigma_space)
+        self.bilateral_border_type.currentIndexChanged.connect(self.image.Bilateral.set_border)
+        #gaussian filter
+        self.gauss_k_size_x.valueChanged.connect(self.image.Gaussian.set_ksize_x)
+        self.gauss_k_size_y.valueChanged.connect(self.image.Gaussian.set_ksize_y)
+        self.gauss_sigma_x.valueChanged.connect(self.image.Gaussian.set_sigma_x)
+        self.gauss_sigma_y.valueChanged.connect(self.image.Gaussian.set_sigma_y)
+        self.gauss_border_type.currentIndexChanged.connect(self.image.Gaussian.set_border)
+        #median filter
+        self.median_kernel_size.valueChanged.connect(self.image.Median.set_ksize)
+        #avaraging
+        self.avaraging_kernel_x.valueChanged.connect(self.image.Avaraging.set_ksize_x)
+        self.avaraging_kernel_y.valueChanged.connect(self.image.Avaraging.set_ksize_y)
+        self.avaraging_anchor_x.valueChanged.connect(self.image.Avaraging.set_anchor_x)
+        self.avaraging_anchor_y.valueChanged.connect(self.image.Avaraging.set_anchor_y)
+        self.avaraging_border_type_2.currentIndexChanged.connect(self.image.Avaraging.set_border)
+        # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
+        self.graphicArea.rect_change.connect(self.image.select_rect)
+    
         self.actionRect.triggered.connect(self.graphicArea.switch_rect_selection)
         # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
         self.graphicArea.rect_change.connect(self.image.select_rect)
