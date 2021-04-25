@@ -256,12 +256,12 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>754</width>
+         <width>849</width>
          <height>1035</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
+        <item row="1" column="1">
          <widget class="QLabel" name="graphicArea">
           <property name="enabled">
            <bool>true</bool>
@@ -299,6 +299,7 @@ QSlider::sub-page:vertical {
     </property>
     <addaction name="actionZoomIn"/>
     <addaction name="actionZoomOut"/>
+    <addaction name="action_undo"/>
    </widget>
    <widget class="QMenu" name="menuFilter">
     <property name="title">
@@ -354,14 +355,14 @@ QSlider::sub-page:vertical {
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>382</width>
           <height>911</height>
          </rect>
         </property>
@@ -869,7 +870,7 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>382</width>
           <height>911</height>
          </rect>
         </property>
@@ -877,6 +878,9 @@ QSlider::sub-page:vertical {
          <string>Mask</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_22">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_19">
            <item>
@@ -999,6 +1003,94 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="selected_pixels_label">
+             <property name="styleSheet">
+              <string notr="true">color :black</string>
+             </property>
+             <property name="text">
+              <string>Selected pixels </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="pixel_list"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="remove_last_btn">
+             <property name="text">
+              <string>Remove Last</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="pixel_tolerance_label">
+             <property name="styleSheet">
+              <string notr="true">color : black</string>
+             </property>
+             <property name="text">
+              <string>Tolerance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="slider_pixel_tol">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">color : black</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
             <widget class="QPushButton" name="active_mask_btn">
              <property name="enabled">
               <bool>false</bool>
@@ -1045,6 +1137,14 @@ QSlider::sub-page:vertical {
        <widget class="QWidget" name="thresholding">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>382</width>
+          <height>911</height>
+         </rect>
         </property>
         <attribute name="label">
          <string>Thresholding</string>
@@ -1223,6 +1323,17 @@ QSlider::sub-page:vertical {
     <string>kernel_x_gauss_changed</string>
    </property>
   </action>
+  <action name="action_undo">
+   <property name="text">
+    <string>undo</string>
+   </property>
+   <property name="toolTip">
+    <string>undo last operation on image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -1287,6 +1398,22 @@ QSlider::sub-page:vertical {
     <hint type="destinationlabel">
      <x>1077</x>
      <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slider_pixel_tol</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>label_2</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1068</x>
+     <y>664</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1071</x>
+     <y>685</y>
     </hint>
    </hints>
   </connection>

@@ -19,7 +19,8 @@ class Image(QObject):
     in this class.
     Insert necessery methods below.
     """
-    mask_range_changed = pyqtSignal(int, int)
+    mask_range_changed = pyqtSignal()
+    pixel_selected = pyqtSignal(int)
     img_loaded = pyqtSignal()
 
     def __init__(self, graphic_area):
@@ -34,11 +35,14 @@ class Image(QObject):
         self.Avaraging=Avaraging(self.graphic_area)
         self.Gaussian=Gaussian(self.graphic_area)
         self.Median=Median()
-        self.mask_min = None
-        self.mask_max = None
-        self.mask_tol = 0
+        self.clicked_pixels = []
+        self.pixels_tol = 0
+        self.history = []
 
-    def _update_img(self,img):
+    def _update_img(self,img, save=True):
+        if save:
+            print("saving image to history.")
+            self.history.append(self.tmp_image)
         self.tmp_image = img
         frame = cv.cvtColor(self.tmp_image, cv.COLOR_BGR2RGB)
         img_rep = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format.Format_RGB888)
@@ -63,7 +67,25 @@ class Image(QObject):
         x_ratio , y_ratio = self._ratio_to_img()
         return (indexes_x // x_ratio, indexes_y // y_ratio)
 
+    def _send_changed_mask_data(self):
+        indexes = np.where(self.active_img == True)
+        indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
+        self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.RED)
 
+    def _calc_mask(self, mask_mins, mask_maxs):
+        mask = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
+        for i in range(len(mask_mins)):
+            mask = mask | ((mask_mins[i] <= self.tmp_image) & (self.tmp_image <= mask_maxs[i] ))
+        return mask & (self.thresholded_pixels == False)
+
+    def undo(self):
+        try:
+            last_image = self.history.pop()
+            self._update_img(last_image, save=False)
+        except IndexError:
+            print("TO DO : HANDLE INDEX ERROR")
+
+# TO DO : save/ load to another class
     def save(self):
         if not self._error_msg():
             destination = QFileDialog.getSaveFileName(filter="Image (*.jpg *.png)")[0]
@@ -75,49 +97,52 @@ class Image(QObject):
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
+            self.tmp_image = self.image
             self._update_img(self.image)
             self.img_loaded.emit()
-
-    def rotate(self):
-        if not self._error_msg():
-            rotated_img = cv.rotate(self.tmp_image,cv.ROTATE_90_CLOCKWISE)
-            self._update_img(rotated_img)
  
+    def pop_pixel(self):
+        try:
+            self.clicked_pixels.pop() # try catch here            
+            self.pixel_mask_update()
+        except IndexError:
+            print("TO DO : HANDLE POP PIX ERROR")
+    
+    def update_pixel_tol(self, value):
+        self.pixels_tol = value
+        self.pixel_mask_update()
+
     def activate_mask(self):
-        indexes= np.where(self.active_img == True)
-        indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
-        self.graphic_area.apply_mask(indexes)
+        indexes = np.where(self.active_img == True)
+        indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
+        self.graphic_area.apply_mask(indexes_x, indexes_y)
 
 
-    def update_mask(self, m_min, m_max, m_tol):
-        self.mask_min = m_min
-        self.mask_max = m_max
-        self.mask_tol = m_tol
-        if m_min is not None and m_max is not None:
-            self.mask_range_changed.emit(self.mask_min, self.mask_max)
-            self.active_img = (self.mask_min - self.mask_tol <= self.tmp_image) & (
-            self.tmp_image <= self.mask_max + self.mask_tol) & (
-            self.thresholded_pixels == False)
+    def update_slider_mask(self, m_min, m_max, m_tol):
+        self.mask_range_changed.emit()
+        self.active_img = self._calc_mask([m_min - m_tol], [m_max + m_tol])
+        self._send_changed_mask_data()
 
-            indexes = np.where(self.active_img == True)
-            indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
-            self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.RED)
 
     def not_thresholded_handler(self):
         indexes = np.where(self.thresholded_pixels == False)
-        indexes = self._transform_pixels_to_display(indexes[1], indexes[0])
-        self.graphic_area.show_mask(indexes, MaskColor.BLUE)
+        indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
+        self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.BLUE)
+
+    def pixel_mask_update(self):
+        mask_mins = [self.clicked_pixels[i] - self.pixels_tol for i in range(len(self.clicked_pixels))]
+        mask_maxs = [self.clicked_pixels[i] + self.pixels_tol for i in range(len(self.clicked_pixels))]
+        self.active_img =  self._calc_mask(mask_mins, mask_maxs)
+        self._send_changed_mask_data()
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
         grey_value = self.image[img_x][img_y]
-        new_mask_min = self.mask_min
-        new_mask_max = self.mask_max
-        if self.mask_min is None or grey_value < self.mask_min:
-            new_mask_min = grey_value
-        if self.mask_max is None or grey_value > self.mask_max:
-            new_mask_max = grey_value
-        self.update_mask(new_mask_min, new_mask_max, self.mask_tol)
+        self.clicked_pixels.append(grey_value)
+        self.pixel_selected.emit(grey_value)
+        print("emitted pixel selected value ", grey_value)
+        self.pixel_mask_update()
+
 
     def select_rect(self,rect):
         x1,y1,x2,y2=rect.getCoords()

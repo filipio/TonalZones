@@ -25,6 +25,8 @@ class Label(QtWidgets.QLabel):
         self.changeRubberBand = False
         self.rect_selection_active = False
         self.mouse_selection_active = False
+        self.active_indexes_x = None
+        self.active_indexes_y = None
         self.indexes_x = None
         self.indexes_y = None
         self.new_mask = False
@@ -96,10 +98,11 @@ class Label(QtWidgets.QLabel):
         
     def show_active_mask(self):
         self.new_mask = True
-        self.show_mask(self.active_indexes, MaskColor.GREEN)
+        self.show_mask(self.active_indexes_x, self.active_indexes_y, MaskColor.GREEN)
 
-    def apply_mask(self, active_indexes):
-        self.active_indexes = active_indexes
+    def apply_mask(self, active_indexes_x, active_indexes_y):
+        self.active_indexes_x = active_indexes_x
+        self.active_indexes_y = active_indexes_y
         self.mouse_selection_active = False
         QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
         self.show_active_mask()
