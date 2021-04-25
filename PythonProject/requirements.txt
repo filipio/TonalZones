@@ -1,0 +1,10 @@
+Necessery libraries : 
+Pyqt 5, numpy, OpenCV 
+
+To install each of them : 
+pip install PyQt5
+pip install opencv-python
+pip install numpy
+
+To run :
+python3 app.py

@@ -23,29 +23,8 @@ class ParamsFactory:
     """class that returns data from gui"""
     def __init__(self,gui):
         self.gui=gui
-    def get_fparams(self,filter_name):
-        """return params to given filter"""
-        if filter_name==Filter.AVARAGING:
-            return {'ksize':(self.gui.avaraging_kernel_size.value(),1),#second pair should be kernel_y
-                    'anchor':(self.gui.avaraging_anchor_x.value(),self.gui.avaraging_anchor_y.value()),
-                    'border':BorderType(self.gui.avaraging_border_type_2.currentText())
-            }
-        if filter_name==Filter.GAUSSIAN:
-            return {
-                'gauss_size':(self.gui.gauss_k_size_x.value(),self.gui.gauss_k_size_y.value()),
-                'kernel_deviation':(self.gui.gauss_sigma_x.value(),self.gui.gauss_sigma_y.value()),
-                'border':BorderType(self.gui.gauss_border_type.currentText())
-            }
-        if filter_name==Filter.MEDIAN:
-            return {
-                'kernel_size':self.gui.median_kernel_size.value()
-            }
-        if filter_name==Filter.BILATERAL:
-            print('EEEEEEEEEEEEEEEE')
-            print(self.gui.bilateral_diameter.value())
-            return {
-                'diameter':self.gui.bilateral_diameter.value(),
-                'sigma_color':self.gui.bilateral_sigma_color.value(),
-                'sigma_space':self.gui.bilateral_sigma_space.value(),
-                'border_type':BorderType(self.gui.bilateral_border_type.currentText())
-            }
+    def set_mask_params(self, m_min, m_max):
+        self.gui.min_slider.setValue(m_min)
+        self.gui.max_slider.setValue(m_max)
+        self.gui.min_label.setText(str(m_min))
+        self.gui.max_label.setText(str(m_max))

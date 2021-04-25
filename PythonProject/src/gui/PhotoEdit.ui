@@ -72,7 +72,6 @@ QPushButton:disabled{
 	border-bottom-color: rgb(58, 58, 58);
 	border-bottom-width: 1px;
 	border-style: solid;
-	color: rgb(0, 0, 0);
 	padding: 2px;
 	background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(57, 57, 57, 255), stop:1 rgba(77, 77, 77, 255));
 }
@@ -264,6 +263,9 @@ QSlider::sub-page:vertical {
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <widget class="QLabel" name="graphicArea">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -317,9 +319,9 @@ QSlider::sub-page:vertical {
     <property name="title">
      <string>Mask</string>
     </property>
-    <addaction name="actionSelect_from_image"/>
-    <addaction name="actionApply"/>
-    <addaction name="actionApply_2"/>
+    <addaction name="action_select_from_image"/>
+    <addaction name="action_select_from_settings"/>
+    <addaction name="action_apply_mask"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -349,7 +351,7 @@ QSlider::sub-page:vertical {
      <item row="0" column="0">
       <widget class="QToolBox" name="Settings">
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
@@ -590,16 +592,34 @@ QSlider::sub-page:vertical {
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_14">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <widget class="QLabel" name="label_19">
-                 <property name="text">
-                  <string>Kernel Size</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Kernel X</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="avaraging_kernel_x"/>
+                 </item>
+                </layout>
                </item>
                <item>
-                <widget class="QSpinBox" name="avaraging_kernel_size"/>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="label_19">
+                   <property name="text">
+                    <string>Kernel Y</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="avaraging_kernel_y"/>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -867,7 +887,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider">
+            <widget class="QSlider" name="min_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -877,7 +897,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_32">
+            <widget class="QLabel" name="min_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -904,7 +924,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_2">
+            <widget class="QSlider" name="max_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -914,7 +934,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_31">
+            <widget class="QLabel" name="max_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -941,7 +961,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_3">
+            <widget class="QSlider" name="tolerance_slider">
              <property name="maximum">
               <number>255</number>
              </property>
@@ -963,7 +983,7 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_30">
+            <widget class="QLabel" name="tolerance_label">
              <property name="styleSheet">
               <string notr="true">color:black;</string>
              </property>
@@ -972,6 +992,33 @@ QSlider::sub-page:vertical {
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="active_mask_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Show Active</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="not_thresholded_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Not Thresholded</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="hide_mask_btn">
+             <property name="text">
+              <string>Hide</string>
              </property>
             </widget>
            </item>
@@ -1069,17 +1116,17 @@ QSlider::sub-page:vertical {
     <string>Rectangular</string>
    </property>
   </action>
-  <action name="actionSelect_from_image">
+  <action name="action_select_from_image">
    <property name="text">
     <string>Select from image</string>
    </property>
   </action>
-  <action name="actionApply">
+  <action name="action_select_from_settings">
    <property name="text">
     <string>Select from settings</string>
    </property>
   </action>
-  <action name="actionApply_2">
+  <action name="action_apply_mask">
    <property name="text">
     <string>Apply</string>
    </property>
@@ -1093,25 +1140,25 @@ QSlider::sub-page:vertical {
  <resources/>
  <connections>
   <connection>
-   <sender>horizontalSlider_3</sender>
+   <sender>tolerance_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_30</receiver>
+   <receiver>tolerance_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1253</x>
-     <y>312</y>
+     <y>342</y>
     </hint>
     <hint type="destinationlabel">
      <x>1253</x>
-     <y>337</y>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider</sender>
+   <sender>min_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_32</receiver>
+   <receiver>min_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1125,18 +1172,18 @@ QSlider::sub-page:vertical {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_2</sender>
+   <sender>max_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_31</receiver>
+   <receiver>max_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1253</x>
-     <y>239</y>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>1253</x>
-     <y>264</y>
+     <y>287</y>
     </hint>
    </hints>
   </connection>

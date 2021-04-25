@@ -6,6 +6,7 @@ class Median:
         print(ksize)
         self.ksize=ksize
     def apply(self,img):
+        print('applying median filter')
         return cv.medianBlur(img,
             self.ksize
         )

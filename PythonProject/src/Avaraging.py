@@ -1,6 +1,8 @@
 import cv2 as cv
+from qtpy.QtWidgets import QMessageBox
 class Avaraging:
-    def __init__(self):
+    def __init__(self,img_view):
+        self.img_view=img_view
         self.ksize_x=0
         self.ksize_y=0
         self.anchor_x=0
@@ -19,7 +21,7 @@ class Avaraging:
     def set_ksize_x(self,ksize_x):
         self.ksize_x=ksize_x
     def set_ksize_y(self,ksize_y):
-            self.ksize_y=ksize_y
+        self.ksize_y=ksize_y
     def set_anchor_x(self,anchor_x):
         self.anchor_x=anchor_x
     def set_anchor_y(self,anchor_y):
@@ -27,8 +29,14 @@ class Avaraging:
     def set_border(self,border):
         self.borde=self.borders[border]
     def apply(self,img):
-        return cv.blur(img,
-            ksize=(self.ksize_x,self.ksize_y),
-            anchor=(self.anchor_x,self.anchor_y),
-            borderType=self.border
-        )
+        print(self.anchor_x,self.anchor_y,self.ksize_x,self.ksize_y)
+        if self.anchor_x>=0 and self.anchor_y>=0 and self.anchor_x<self.ksize_x and self.anchor_y<self.ksize_y:
+            return cv.blur(img,
+                ksize=(self.ksize_x,self.ksize_y),
+                anchor=(self.anchor_x,self.anchor_y),
+                borderType=self.border
+            )
+        else:
+            print('Avaraging filter error')
+            QMessageBox.critical(self.img_view, 'Error, following inequalities must hold: ', 'Kernel X>Anchor X and Kernel Y>Anchor Y')
+            return img
