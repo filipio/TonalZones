@@ -11,6 +11,8 @@ from Median import Median
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Color import MaskColor
+from Thresold import Thresold
+
 
 class Image(QObject):
     """
@@ -26,7 +28,6 @@ class Image(QObject):
         super().__init__(None)
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
-        self.active_img = np.empty(0)
         self.thresholded_pixels = np.empty(0)
         self.graphic_area = graphic_area
         self.active_img=np.empty(0)#active part of image that will be edited
@@ -37,7 +38,7 @@ class Image(QObject):
         self.mask_min = None
         self.mask_max = None
         self.mask_tol = 0
-
+        self.Otsu=Thresold()
     def _update_img(self,img):
         self.tmp_image = img
         frame = cv.cvtColor(self.tmp_image, cv.COLOR_BGR2RGB)
@@ -136,6 +137,17 @@ class Image(QObject):
     def blur_med_filter(self,params_dict):
         print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
-    
-
+    def apply_otsu(self):
+        print('applying otsu alg')
+        print(self.tmp_image.shape,self.active_img.shape)
+        indexes_to_thr=np.nonzero(self.active_img==True)
+        print(indexes_to_thr)
+        img_to_thr=self.tmp_image[indexes_to_thr]
+        print(img_to_thr)
+        #TODO
+        # self._update_img()
+    def apply_thres(self):
+        print('applying thres')
+    def remove_threshold(self):
+        print('removing threshold')
 

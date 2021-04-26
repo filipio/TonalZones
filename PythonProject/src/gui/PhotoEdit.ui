@@ -256,8 +256,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>754</width>
-         <height>1035</height>
+         <width>380</width>
+         <height>1040</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -283,7 +283,7 @@ QSlider::sub-page:vertical {
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -361,8 +361,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
-          <height>911</height>
+          <width>849</width>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -869,8 +869,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
-          <height>911</height>
+          <width>849</width>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1045,6 +1045,14 @@ QSlider::sub-page:vertical {
        <widget class="QWidget" name="thresholding">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>849</width>
+          <height>922</height>
+         </rect>
         </property>
         <attribute name="label">
          <string>Thresholding</string>
