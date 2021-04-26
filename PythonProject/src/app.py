@@ -65,6 +65,13 @@ class Window(QMainWindow, UI):
         self.actionRect.triggered.connect(self.graphicArea.switch_rect_selection)
         # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
         self.graphicArea.rect_change.connect(self.image.select_rect)
+        # thresold settings
+        # slider value changes is here
+        self.threshold_slider.valueChanged.connect(self.image.Otsu.set_thres_val)
+        self.threshold_combobox.currentIndexChanged.connect(self.image.Otsu.set_type1)
+        self.otsu_button.clicked.connect(self.image.apply_otsu)
+        self.apply_threshold_button.clicked.connect(self.image.apply_thres)
+        self.remove_threshold_button.clicked.connect(self.image.remove_threshold)
         self.action_undo.triggered.connect(self.image.undo)
         
         self._connect_mask()

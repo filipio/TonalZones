@@ -11,7 +11,7 @@ from Median import Median
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Color import MaskColor
-
+from Thresold import Thresold
 class Image(QObject):
     """
     Image is a class responsible for doing operations on an image. Class should be initialized when
@@ -29,6 +29,7 @@ class Image(QObject):
         self.tmp_image = np.empty(0)
         self.active_img = np.empty(0)
         self.thresholded_pixels = np.empty(0)
+        self.mask_copy=np.empty(0)
         self.graphic_area = graphic_area
         self.active_img=np.empty(0)#active part of image that will be edited
         self.Bilateral=Bilateral()
@@ -38,7 +39,7 @@ class Image(QObject):
         self.clicked_pixels = []
         self.pixels_tol = 0
         self.history = []
-
+        self.Otsu=Thresold()
     def _update_img(self,img, save=True):
         if save:
             print("saving image to history.")
@@ -150,17 +151,40 @@ class Image(QObject):
 
         print("shape : ",self.image.shape)
         # print('selected rectangle',r)
+    
     def select_custom(self):
         print('select_custom')
+    
     def blur_avg_filter(self,params_dict):
         self._update_img(self.Avaraging.apply(self.tmp_image))
+    
     def blur_bilateral_filter(self,params_dict):
         self._update_img(self.Bilateral.apply(self.tmp_image))
+    
     def blur_gauss_filter(self,params_dict):
         self._update_img(self.Gaussian.apply(self.tmp_image))
+    
     def blur_med_filter(self,params_dict):
         print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
     
+    def apply_otsu(self):
+        self.mask_copy=np.copy(self.tmp_image)
+        indexes_to_thr=np.nonzero(self.active_img==True)
+        img_to_thr=self.tmp_image[indexes_to_thr]
+        otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
+        self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
+        self._update_img(self.tmp_image)
+    
+    def apply_thres(self):
+        self.mask_copy=np.copy(self.tmp_image)
+        indexes_to_thr=np.nonzero(self.active_img==True)
+        img_to_thr=self.tmp_image[indexes_to_thr]
+        otsu_res=self.Otsu.apply(img_to_thr)
+        self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
+        self._update_img(self.tmp_image)
 
+    def remove_threshold(self):
+        self.tmp_image=np.copy(self.mask_copy)
+        self._update_img(self.tmp_image)
 
