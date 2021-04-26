@@ -242,7 +242,7 @@ QSlider::sub-page:vertical {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_27">
     <property name="leftMargin">
      <number>9</number>
     </property>
@@ -256,8 +256,8 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>849</width>
-         <height>1035</height>
+         <width>586</width>
+         <height>1040</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -355,15 +355,15 @@ QSlider::sub-page:vertical {
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="Filters">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>382</width>
-          <height>911</height>
+          <width>643</width>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -870,8 +870,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>382</width>
-          <height>911</height>
+          <width>643</width>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">
@@ -882,213 +882,283 @@ QSlider::sub-page:vertical {
           <number>6</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_19">
-           <item>
-            <widget class="QLabel" name="label_27">
-             <property name="styleSheet">
-              <string notr="true">color:black;</string>
-             </property>
-             <property name="text">
-              <string>Minimum</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="min_slider">
-             <property name="maximum">
-              <number>255</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="min_label">
-             <property name="styleSheet">
-              <string notr="true">color:black;</string>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_20">
-           <item>
-            <widget class="QLabel" name="label_28">
-             <property name="styleSheet">
-              <string notr="true">color:black;</string>
-             </property>
-             <property name="text">
-              <string>Maximum</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="max_slider">
-             <property name="maximum">
-              <number>255</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="max_label">
-             <property name="styleSheet">
-              <string notr="true">color:black;</string>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
           <layout class="QVBoxLayout" name="verticalLayout_21">
            <item>
-            <widget class="QLabel" name="label_29">
-             <property name="styleSheet">
-              <string notr="true">color : black;</string>
+            <widget class="QTabWidget" name="tabWidget">
+             <property name="font">
+              <font>
+               <family>Ubuntu</family>
+               <pointsize>-1</pointsize>
+              </font>
              </property>
-             <property name="text">
-              <string>Tolerance</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="tolerance_slider">
-             <property name="maximum">
-              <number>255</number>
-             </property>
-             <property name="value">
+             <property name="currentIndex">
               <number>0</number>
              </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="invertedControls">
-              <bool>false</bool>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::NoTicks</enum>
-             </property>
+             <widget class="QWidget" name="tab_7">
+              <attribute name="title">
+               <string>Tab 1</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_26">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_25">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit"/>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton">
+                     <property name="text">
+                      <string>Save mask</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_27">
+                   <property name="styleSheet">
+                    <string notr="true">color:black;</string>
+                   </property>
+                   <property name="text">
+                    <string>Minimum</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="min_slider">
+                   <property name="maximum">
+                    <number>255</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="min_label">
+                   <property name="styleSheet">
+                    <string notr="true">color:black;</string>
+                   </property>
+                   <property name="text">
+                    <string>0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_28">
+                   <property name="styleSheet">
+                    <string notr="true">color:black;</string>
+                   </property>
+                   <property name="text">
+                    <string>Maximum</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="max_slider">
+                   <property name="maximum">
+                    <number>255</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="max_label">
+                   <property name="styleSheet">
+                    <string notr="true">color:black;</string>
+                   </property>
+                   <property name="text">
+                    <string>0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_29">
+                   <property name="styleSheet">
+                    <string notr="true">color : black;</string>
+                   </property>
+                   <property name="text">
+                    <string>Tolerance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="tolerance_slider">
+                   <property name="maximum">
+                    <number>255</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="invertedAppearance">
+                    <bool>false</bool>
+                   </property>
+                   <property name="invertedControls">
+                    <bool>false</bool>
+                   </property>
+                   <property name="tickPosition">
+                    <enum>QSlider::NoTicks</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="tolerance_label">
+                   <property name="styleSheet">
+                    <string notr="true">color:black;</string>
+                   </property>
+                   <property name="text">
+                    <string>0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="tab_8">
+              <attribute name="title">
+               <string>Tab 2</string>
+              </attribute>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="2" column="0">
+                <widget class="QSlider" name="slider_pixel_tol">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_10">
+                     <item>
+                      <widget class="QLineEdit" name="lineEdit_2"/>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="pushButton_2">
+                       <property name="text">
+                        <string>Save</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="selected_pixels_label">
+                   <property name="styleSheet">
+                    <string notr="true">color :black</string>
+                   </property>
+                   <property name="text">
+                    <string>Selected pixels </string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QListWidget" name="pixel_list"/>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_7">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="remove_last_btn">
+                   <property name="text">
+                    <string>Remove Last</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="pixel_tolerance_label">
+                 <property name="styleSheet">
+                  <string notr="true">color : black</string>
+                 </property>
+                 <property name="text">
+                  <string>Tolerance</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="styleSheet">
+                  <string notr="true">color : black</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tolerance_label">
-             <property name="styleSheet">
-              <string notr="true">color:black;</string>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_20"/>
            </item>
            <item>
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="selected_pixels_label">
-             <property name="styleSheet">
-              <string notr="true">color :black</string>
-             </property>
-             <property name="text">
-              <string>Selected pixels </string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="pixel_list"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="remove_last_btn">
-             <property name="text">
-              <string>Remove Last</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7"/>
-           </item>
-           <item>
-            <widget class="QLabel" name="pixel_tolerance_label">
-             <property name="styleSheet">
-              <string notr="true">color : black</string>
-             </property>
-             <property name="text">
-              <string>Tolerance</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="slider_pixel_tol">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="styleSheet">
-              <string notr="true">color : black</string>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>2</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Read mask</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>4</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QPushButton" name="active_mask_btn">
@@ -1142,8 +1212,8 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>382</width>
-          <height>911</height>
+          <width>643</width>
+          <height>922</height>
          </rect>
         </property>
         <attribute name="label">

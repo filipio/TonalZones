@@ -22,7 +22,7 @@ class Image(QObject):
     mask_range_changed = pyqtSignal()
     pixel_selected = pyqtSignal(int)
     img_loaded = pyqtSignal()
-
+    thresh_val_calc=pyqtSignal(int)
     def __init__(self, graphic_area):
         super().__init__(None)
         self.image = np.empty(0)
@@ -40,6 +40,7 @@ class Image(QObject):
         self.pixels_tol = 0
         self.history = []
         self.Otsu=Thresold()
+        self.is_thresolded=False
     def _update_img(self,img, save=True):
         if save:
             print("saving image to history.")
@@ -169,22 +170,35 @@ class Image(QObject):
         self._update_img(self.Median.apply(self.tmp_image))
     
     def apply_otsu(self):
-        self.mask_copy=np.copy(self.tmp_image)
+    
+        if self.is_thresolded == False:
+            self.mask_copy=np.copy(self.tmp_image)
+            self.is_thresolded=True
         indexes_to_thr=np.nonzero(self.active_img==True)
         img_to_thr=self.tmp_image[indexes_to_thr]
         otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self._update_img(self.tmp_image)
+        self.thresh_val_calc.emit(ret)
     
     def apply_thres(self):
-        self.mask_copy=np.copy(self.tmp_image)
+
+        if self.is_thresolded == False:
+            self.mask_copy=np.copy(self.tmp_image)
+            self.is_thresolded=True
+        
         indexes_to_thr=np.nonzero(self.active_img==True)
-        img_to_thr=self.tmp_image[indexes_to_thr]
+        img_to_thr=self.mask_copy[indexes_to_thr]
         otsu_res=self.Otsu.apply(img_to_thr)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self._update_img(self.tmp_image)
-
+    
+    def apply_to_img(self):
+        self.mask_copy=self.tmp_image
+        self.is_thresolded=False
+        self.thre
     def remove_threshold(self):
-        self.tmp_image=np.copy(self.mask_copy)
-        self._update_img(self.tmp_image)
+        #TODO
+        self._update_img(self.mask_copy)
+        self.is_thresolded=False
 

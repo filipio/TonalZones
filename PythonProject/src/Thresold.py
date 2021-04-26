@@ -13,6 +13,7 @@ class Thresold:
         self.thres_val=val
     def set_type1(self,indx):
         self.type1=self.types[indx]
+        print(self.type1)
     def apply(self,img):
         print('applying thresold to img')
         # should be used to set image depending on slider value
