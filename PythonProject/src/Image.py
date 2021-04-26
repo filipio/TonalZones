@@ -138,7 +138,7 @@ class Image(QObject):
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
-        grey_value = self.image[img_x][img_y]
+        grey_value = self.image[img_y][img_x]
         self.clicked_pixels.append(grey_value)
         self.pixel_selected.emit(grey_value)
         print("emitted pixel selected value ", grey_value)
