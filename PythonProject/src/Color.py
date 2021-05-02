@@ -6,7 +6,8 @@ class Color(IntEnum):
     BLACK = 0
 
 @unique
-class MaskColor(Enum):
-    RED = 1
+class MaskColor(IntEnum):
+    RED = 0
+    GREEN = 1
     BLUE = 2
-    GREEN = 3
+    FILL = 255

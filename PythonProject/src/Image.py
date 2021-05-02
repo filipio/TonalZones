@@ -69,16 +69,15 @@ class Image(QObject):
         x_ratio , y_ratio = self._ratio_to_img()
         return (int(index_x * x_ratio), int(index_y * y_ratio))
 
-    def _transform_pixels_to_display(self, indexes_x, indexes_y):
-        x_ratio , y_ratio = self._ratio_to_img()
-        return (indexes_x // x_ratio, indexes_y // y_ratio)
+    def _create_display_img(self, index_x, index_y, color):
+        display_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
+        display_img[index_x, index_y, :] = 0
+        display_img[index_x, index_y, color] = MaskColor.FILL
+        return display_img
 
     def _send_changed_mask_data(self):
         red_x, red_y = np.where(self.active_mask.get() == False)
-        display_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
-        display_img[red_x,red_y,0] = 255
-        display_img[red_x,red_y,1] = 0
-        display_img[red_x,red_y,2] = 0
+        display_img = self._create_display_img(red_x, red_y, MaskColor.RED)
         self._show_img(display_img)
 
     def show_curr_img(self):
@@ -93,7 +92,6 @@ class Image(QObject):
         except IndexError:
             print("TO DO : HANDLE INDEX ERROR")
 
-# TO DO : save/ load to another class
     def save(self):
         if not self._error_msg():
             destination = QFileDialog.getSaveFileName(filter="Image (*.jpg *.png)")[0]
@@ -119,16 +117,16 @@ class Image(QObject):
         self.apply_pixel_mask()
 
     def activate_mask(self):
-        indexes = np.where(self.active_mask.get() == False)
-        indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
-        self.graphic_area.apply_mask(indexes_x, indexes_y)
+        pass # does this method make any sense?
+        # if it does, the active mask will be drawn in this class
+        # indexes = np.where(self.active_mask.get() == False)
 
     def not_thresholded_handler(self):
-        indexes = np.where(self.thresholded_pixels == -1)
-        indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
-        self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.BLUE)
+        blue_x, blue_y = np.where(self.thresholded_pixels == -1)
+        display_img = self._create_display_img(blue_x, blue_y, MaskColor.BLUE)
+        self._show_img(display_img)
 
-    def apply_slider_mask(self, s_min, s_max, s_tol): # will 
+    def apply_slider_mask(self, s_min, s_max, s_tol):
         self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.thresholded_pixels)
         self._send_changed_mask_data()
         # self.mask_range_changed.emit()
@@ -139,11 +137,9 @@ class Image(QObject):
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
-        # self.graphic_area.draw_pixel(img_x, img_y)
         grey_value = self.image[img_y][img_x]
         self.pixel_selected.emit(grey_value)
         self.active_mask.add_pixel(grey_value)
-        # self.apply_pixel_mask()
 
 
     def select_rect(self,rect):

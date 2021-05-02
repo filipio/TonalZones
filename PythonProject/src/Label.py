@@ -112,31 +112,3 @@ class Label(QtWidgets.QLabel):
                 painter.drawEllipse(QPoint(self.clicked_pixels[i][0], self.clicked_pixels[i][1]), self.draw_size, self.draw_size)
             self.should_draw = False
             painter.end()       
-        
-    def show_active_mask(self):
-        self.new_mask = True
-        self.show_mask(self.active_indexes_x, self.active_indexes_y, MaskColor.GREEN)
-
-    def apply_mask(self, active_indexes_x, active_indexes_y):
-        self.active_indexes_x = active_indexes_x
-        self.active_indexes_y = active_indexes_y
-        self.pixel_mode_active = False
-        QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
-        self.show_active_mask()
-
-
-    def show_mask(self, indexes_x, indexes_y, color):
-        self.indexes_x = indexes_x
-        self.indexes_y = indexes_y
-        if color == MaskColor.RED:
-            self.mask_color = QColor(255, 0, 0, 60)
-        elif color == MaskColor.GREEN:
-            self.mask_color = QColor(64, 224, 43, 60)
-        elif color == MaskColor.BLUE:
-            self.mask_color = QColor(62, 118, 235, 60)
-        self.new_mask = True
-        self.update() # call to paintEvent() - DON'T call it directly
-
-    def hide_mask(self):
-        self.new_mask = False
-        self.update()

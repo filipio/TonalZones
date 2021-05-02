@@ -109,8 +109,8 @@ class Window(QMainWindow, UI):
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 
         #mask buttons
-        self.hide_mask_btn.clicked.connect(self.graphicArea.hide_mask)
-        self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
+        self.hide_mask_btn.clicked.connect(self.image.show_curr_img)
+        # self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
         
 
