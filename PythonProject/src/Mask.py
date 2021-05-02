@@ -1,5 +1,8 @@
 import numpy as np
 class Mask:
+    """
+    This class contains all operations that modify the mask.
+    """
     def __init__(self, height, width):
         self.clicked_pixels = []
         self.pixels_tol = 0

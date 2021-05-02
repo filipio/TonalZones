@@ -78,6 +78,7 @@ class Window(QMainWindow, UI):
         self._connect_mask()
         self.remove_last_btn.clicked.connect(self.pixel_list_operator.remove_last)
         self.remove_last_btn.clicked.connect(self.image.pop_mask_pixel)
+        self.remove_last_btn.clicked.connect(self.graphicArea.pop_last_pixel)
         self.slider_pixel_tol.sliderReleased.connect(lambda : self.image.update_mask_pixel_tol(self.slider_pixel_tol.value()))
         self.image.pixel_selected.connect(self.pixel_list_operator.add_element)
         self.image.thresh_val_calc.connect(self.threshold_slider.setValue)
@@ -103,13 +104,18 @@ class Window(QMainWindow, UI):
         #mask img signals
         # self.image.mask_range_changed.connect(lambda : self.active_mask_btn.setEnabled(False))
         self.image.img_loaded.connect(lambda : self.not_thresholded_btn.setEnabled(True))
+        self.graphicArea.pixel_mode_entered.connect(self.image.show_curr_img)
+        self.graphicArea.pixel_mode_left.connect(self.image.apply_pixel_mask)
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 
         #mask buttons
         self.hide_mask_btn.clicked.connect(self.graphicArea.hide_mask)
         self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
+        
 
+        # self.graphicArea.pixel_mode_entered.connect(self.image.show)
+        
 
 
 if __name__ == "__main__":
