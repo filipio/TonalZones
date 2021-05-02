@@ -105,12 +105,12 @@ class Image(QObject):
  
     def pop_pixel(self):
         try:
-            self.clicked_pixels.pop() # try catch here            
+            self.clicked_pixels.pop()         
             self.pixel_mask_update()
         except IndexError:
             print("TO DO : HANDLE POP PIX ERROR")
     
-    def update_pixel_tol(self, value):
+    def update_pixel_tol(self, value): # will call Mask method
         self.pixels_tol = value
         self.pixel_mask_update()
 
@@ -120,8 +120,8 @@ class Image(QObject):
         self.graphic_area.apply_mask(indexes_x, indexes_y)
 
 
-    def update_slider_mask(self, m_min, m_max, m_tol):
-        self.mask_range_changed.emit()
+    def update_slider_mask(self, m_min, m_max, m_tol): # will call Mask method
+        # self.mask_range_changed.emit() 
         self.active_img = self._calc_mask([m_min - m_tol], [m_max + m_tol])
         self._send_changed_mask_data()
 
@@ -134,16 +134,16 @@ class Image(QObject):
     def pixel_mask_update(self):
         mask_mins = [self.clicked_pixels[i] - self.pixels_tol for i in range(len(self.clicked_pixels))]
         mask_maxs = [self.clicked_pixels[i] + self.pixels_tol for i in range(len(self.clicked_pixels))]
-        self.active_img =  self._calc_mask(mask_mins, mask_maxs)
+        self.active_img =  self._calc_mask(mask_mins, mask_maxs) #call Mask method here
         self._send_changed_mask_data()
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
         grey_value = self.image[img_y][img_x]
-        self.clicked_pixels.append(grey_value)
+        self.clicked_pixels.append(grey_value) # to remove
         self.pixel_selected.emit(grey_value)
-        print("emitted pixel selected value ", grey_value)
-        self.pixel_mask_update()
+        # print("emitted pixel selected value ", grey_value)
+        self.pixel_mask_update() #call Mask method here
 
 
     def select_rect(self,rect):

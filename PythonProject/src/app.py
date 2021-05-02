@@ -101,7 +101,7 @@ class Window(QMainWindow, UI):
         self.action_select_from_image.triggered.connect(self.graphicArea.switch_mouse_selection)
         
         #mask img signals
-        self.image.mask_range_changed.connect(lambda : self.active_mask_btn.setEnabled(False))
+        # self.image.mask_range_changed.connect(lambda : self.active_mask_btn.setEnabled(False))
         self.image.img_loaded.connect(lambda : self.not_thresholded_btn.setEnabled(True))
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 

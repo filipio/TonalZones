@@ -1,0 +1,43 @@
+import numpy as np
+class Mask:
+    def __init__(self, height, width):
+        self.clicked_pixels = []
+        self.pixels_tol = 0
+        self.slider_min = None
+        self.slider_max = None
+        self.slider_tol = 0
+        self.height = height
+        self.width = width
+        self.mask = np.empty(0)
+        self.is_read = False
+    
+    def add_pixel(self,grey_value):
+        self.clicked_pixels.append(grey_value)
+
+    def update_pixel_tol(self, value):
+        self.pixel_tol = value
+
+    def calc_mask(self, mask_mins, mask_maxs, img, thresholded):
+        self.mask = np.full((height, width), False, dtype=bool)
+        for i in range(len(mask_mins)):
+            self.mask = self.mask | (mask_mins[i] <= img) & (img <= mask_maxs[i])
+        if self.is_read:
+            return self.mask
+        else:
+            return self.mask & (thresholded == False)
+        
+
+
+    def slider_mask(self, s_min, s_max, s_tol, img, thresholded):
+        self.slider_min = s_min
+        self.slider_max = s_max
+        self.slider_tol = s_tol
+        return self.calc_mask([s_min - s_tol], [s_max + s_tol], img, thresholded)
+
+    def pixel_mask(self, img):
+        mask_mins = [self.clicked_pixels[i] - self.pixels_tol for i in range(len(self.clicked_pixels))]
+        mask_maxs = [self.clicked_pixels[i] + self.pixels_tol for i in range(len(self.clicked_pixels))]
+        return self.calc_mask(mask_mins, mask_maxs, img, thresholded)
+
+
+# doesn't know about thresholded pixels
