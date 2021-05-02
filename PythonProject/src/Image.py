@@ -28,11 +28,9 @@ class Image(QObject):
         super().__init__(None)
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
-        self.active_img = np.empty(0)
         self.thresholded_pixels = np.empty(0)
         self.mask_copy=np.empty(0) # name should be changed
         self.graphic_area = graphic_area
-        self.active_img=np.empty(0)#active part of image that will be edited
         self.Bilateral=Bilateral()
         self.Avaraging=Avaraging(self.graphic_area)
         self.Gaussian=Gaussian(self.graphic_area)
@@ -76,17 +74,12 @@ class Image(QObject):
         return (indexes_x // x_ratio, indexes_y // y_ratio)
 
     def _send_changed_mask_data(self):
-        red_x, red_y = np.where(self.active_img == False)
+        red_x, red_y = np.where(self.active_mask.get() == False)
         display_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
         display_img[red_x,red_y,0] = 255
         display_img[red_x,red_y,1] = 0
         display_img[red_x,red_y,2] = 0
         self._show_img(display_img)
-        # print("display img shape : ", display_img.shape)
-        # red_indexes = np.where(self.active_img == False)
-        # img_copy = np.copy(self.tmp_image)
-        # indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
-        # self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.RED)
 
     def show_curr_img(self):
         frame = cv.cvtColor(self.tmp_image, cv.COLOR_BGR2RGB)
@@ -126,7 +119,7 @@ class Image(QObject):
         self.apply_pixel_mask()
 
     def activate_mask(self):
-        indexes = np.where(self.active_img == True)
+        indexes = np.where(self.active_mask.get() == False)
         indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
         self.graphic_area.apply_mask(indexes_x, indexes_y)
 
@@ -136,12 +129,12 @@ class Image(QObject):
         self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.BLUE)
 
     def apply_slider_mask(self, s_min, s_max, s_tol): # will 
-        self.active_img = self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.thresholded_pixels)
+        self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.thresholded_pixels)
         self._send_changed_mask_data()
         # self.mask_range_changed.emit()
 
     def apply_pixel_mask(self):
-        self.active_img =  self.active_mask.pixel_mask(self.tmp_image, self.thresholded_pixels)
+        self.active_mask.pixel_mask(self.tmp_image, self.thresholded_pixels)
         self._send_changed_mask_data()
 
     def pixel_clicked_handler(self, x, y):
@@ -181,7 +174,7 @@ class Image(QObject):
         if self.is_thresolded == False:
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
-        indexes_to_thr=np.nonzero(self.active_img==True)
+        indexes_to_thr=np.nonzero(self.active_mask.get() == True)
         img_to_thr=self.tmp_image[indexes_to_thr]
         otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
@@ -194,7 +187,7 @@ class Image(QObject):
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
         
-        indexes_to_thr=np.nonzero(self.active_img==True)
+        indexes_to_thr=np.nonzero(self.active_mask.get() == True)
         img_to_thr=self.mask_copy[indexes_to_thr]
         otsu_res=self.Otsu.apply(img_to_thr)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
