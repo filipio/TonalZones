@@ -13,18 +13,25 @@ class Mask:
     
     def add_pixel(self,grey_value):
         self.clicked_pixels.append(grey_value)
+    
+    def pop_pixel(self):
+        try:
+            self.clicked_pixels.pop()
+        except IndexError:
+            print("TO DO : HANDLE POP PIX ERROR")
+        
 
     def update_pixel_tol(self, value):
-        self.pixel_tol = value
+        self.pixels_tol = value
 
     def calc_mask(self, mask_mins, mask_maxs, img, thresholded):
-        self.mask = np.full((height, width), False, dtype=bool)
+        self.mask = np.full((self.height, self.width), False, dtype=bool)
         for i in range(len(mask_mins)):
             self.mask = self.mask | (mask_mins[i] <= img) & (img <= mask_maxs[i])
         if self.is_read:
             return self.mask
         else:
-            return self.mask & (thresholded == False)
+            return self.mask & (thresholded == -1)
         
 
 
@@ -34,7 +41,7 @@ class Mask:
         self.slider_tol = s_tol
         return self.calc_mask([s_min - s_tol], [s_max + s_tol], img, thresholded)
 
-    def pixel_mask(self, img):
+    def pixel_mask(self, img, thresholded):
         mask_mins = [self.clicked_pixels[i] - self.pixels_tol for i in range(len(self.clicked_pixels))]
         mask_maxs = [self.clicked_pixels[i] + self.pixels_tol for i in range(len(self.clicked_pixels))]
         return self.calc_mask(mask_mins, mask_maxs, img, thresholded)

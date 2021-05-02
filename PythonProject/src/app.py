@@ -77,8 +77,8 @@ class Window(QMainWindow, UI):
         
         self._connect_mask()
         self.remove_last_btn.clicked.connect(self.pixel_list_operator.remove_last)
-        self.remove_last_btn.clicked.connect(self.image.pop_pixel)
-        self.slider_pixel_tol.sliderReleased.connect(lambda : self.image.update_pixel_tol(self.slider_pixel_tol.value()))
+        self.remove_last_btn.clicked.connect(self.image.pop_mask_pixel)
+        self.slider_pixel_tol.sliderReleased.connect(lambda : self.image.update_mask_pixel_tol(self.slider_pixel_tol.value()))
         self.image.pixel_selected.connect(self.pixel_list_operator.add_element)
         self.image.thresh_val_calc.connect(self.threshold_slider.setValue)
         # self.remove_all_test.clicked.connect(lambda : )
@@ -87,7 +87,7 @@ class Window(QMainWindow, UI):
     def _connect_mask(self):
 
         #mask sliders
-        mask_update = lambda : self.image.update_slider_mask(self.min_slider.value(), self.max_slider.value(), self.tolerance_slider.value())
+        mask_update = lambda : self.image.apply_slider_mask(self.min_slider.value(), self.max_slider.value(), self.tolerance_slider.value())
         self.min_slider.sliderReleased.connect(mask_update)
         self.max_slider.sliderReleased.connect(mask_update)
         self.tolerance_slider.sliderReleased.connect(mask_update)

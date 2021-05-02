@@ -11,6 +11,7 @@ from Median import Median
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Color import MaskColor
+from Mask import Mask
 from Thresold import Thresold
 class Image(QObject):
     """
@@ -29,15 +30,14 @@ class Image(QObject):
         self.tmp_image = np.empty(0)
         self.active_img = np.empty(0)
         self.thresholded_pixels = np.empty(0)
-        self.mask_copy=np.empty(0)
+        self.mask_copy=np.empty(0) # name should be changed
         self.graphic_area = graphic_area
         self.active_img=np.empty(0)#active part of image that will be edited
         self.Bilateral=Bilateral()
         self.Avaraging=Avaraging(self.graphic_area)
         self.Gaussian=Gaussian(self.graphic_area)
         self.Median=Median()
-        self.clicked_pixels = []
-        self.pixels_tol = 0
+        self.mask = None
         self.history = []
         self.Otsu=Thresold()
         self.is_thresolded=False
@@ -74,12 +74,6 @@ class Image(QObject):
         indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
         self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.RED)
 
-    def _calc_mask(self, mask_mins, mask_maxs):
-        mask = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
-        for i in range(len(mask_mins)):
-            mask = mask | ((mask_mins[i] <= self.tmp_image) & (self.tmp_image <= mask_maxs[i] ))
-        return mask & (self.thresholded_pixels == False)
-
     def undo(self):
         try:
             last_image = self.history.pop()
@@ -98,21 +92,19 @@ class Image(QObject):
         if file_name:
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
-            self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
+            self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
+            self.mask = Mask(self.image.shape[0], self.image.shape[1])
             self.tmp_image = self.image
             self._update_img(self.image)
             self.img_loaded.emit()
  
-    def pop_pixel(self):
-        try:
-            self.clicked_pixels.pop()         
-            self.pixel_mask_update()
-        except IndexError:
-            print("TO DO : HANDLE POP PIX ERROR")
+    def pop_mask_pixel(self):
+        self.mask.pop_pixel()
+        self.apply_pixel_mask()
     
-    def update_pixel_tol(self, value): # will call Mask method
-        self.pixels_tol = value
-        self.pixel_mask_update()
+    def update_mask_pixel_tol(self, value): # will call Mask method
+        self.mask.update_pixel_tol(value)
+        self.apply_pixel_mask()
 
     def activate_mask(self):
         indexes = np.where(self.active_img == True)
@@ -120,30 +112,29 @@ class Image(QObject):
         self.graphic_area.apply_mask(indexes_x, indexes_y)
 
 
-    def update_slider_mask(self, m_min, m_max, m_tol): # will call Mask method
-        # self.mask_range_changed.emit() 
-        self.active_img = self._calc_mask([m_min - m_tol], [m_max + m_tol])
-        self._send_changed_mask_data()
+
 
 
     def not_thresholded_handler(self):
-        indexes = np.where(self.thresholded_pixels == False)
+        indexes = np.where(self.thresholded_pixels == -1)
         indexes_x, indexes_y = self._transform_pixels_to_display(indexes[1], indexes[0])
         self.graphic_area.show_mask(indexes_x, indexes_y, MaskColor.BLUE)
 
-    def pixel_mask_update(self):
-        mask_mins = [self.clicked_pixels[i] - self.pixels_tol for i in range(len(self.clicked_pixels))]
-        mask_maxs = [self.clicked_pixels[i] + self.pixels_tol for i in range(len(self.clicked_pixels))]
-        self.active_img =  self._calc_mask(mask_mins, mask_maxs) #call Mask method here
+    def apply_slider_mask(self, s_min, s_max, s_tol): # will 
+        self.active_img = self.mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.thresholded_pixels)
+        self._send_changed_mask_data()
+        # self.mask_range_changed.emit()
+
+    def apply_pixel_mask(self):
+        self.active_img =  self.mask.pixel_mask(self.tmp_image, self.thresholded_pixels)
         self._send_changed_mask_data()
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
         grey_value = self.image[img_y][img_x]
-        self.clicked_pixels.append(grey_value) # to remove
         self.pixel_selected.emit(grey_value)
-        # print("emitted pixel selected value ", grey_value)
-        self.pixel_mask_update() #call Mask method here
+        self.mask.add_pixel(grey_value)
+        self.apply_pixel_mask()
 
 
     def select_rect(self,rect):
