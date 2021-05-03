@@ -23,7 +23,7 @@ class Image(QObject):
     mask_range_changed = pyqtSignal()
     pixel_selected = pyqtSignal(int)
     img_loaded = pyqtSignal()
-    thresh_val_calc=pyqtSignal(int)
+    thresh_val_calc = pyqtSignal(int)
     def __init__(self, graphic_area):
         super().__init__(None)
         self.image = np.empty(0)
@@ -36,6 +36,9 @@ class Image(QObject):
         self.Gaussian=Gaussian(self.graphic_area)
         self.Median=Median()
         self.active_mask = None
+        self.mask_index = 0 # for signing which pixel belongs to which mask
+        self.masks = {}
+        self.masks_mapping = {}
         self.history = []
         self.Otsu=Thresold()
         self.is_thresolded=False
@@ -69,15 +72,26 @@ class Image(QObject):
         x_ratio , y_ratio = self._ratio_to_img()
         return (int(index_x * x_ratio), int(index_y * y_ratio))
 
-    def _create_display_img(self, index_x, index_y, color):
+    def _create_display_img(self, rows, columns, color):
         display_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
-        display_img[index_x, index_y, :] = 0
-        display_img[index_x, index_y, color] = MaskColor.FILL
+        display_img[rows, columns, :] = 0
+        display_img[rows, columns, color] = MaskColor.FILL
         return display_img
 
+    def _get_mask(self, m_id):
+        return self.masks.get(self.masks_mapping.get(m_id))
+
     def _send_changed_mask_data(self):
-        red_x, red_y = np.where(self.active_mask.get() == False)
-        display_img = self._create_display_img(red_x, red_y, MaskColor.RED)
+        # occupied_rows, occupied_columns = np.where((self.active_mask.get() == True) & (self.thresholded_pixels != self.active_mask.id) & (self.thresholded_pixels >= 0)) # get new occupied places which where occupied by other masks
+        # print(f"found ", len(occupied_rows), "elements to change the mask.")
+        # for i in range(len(occupied_rows)):
+        #     prev_mask = self._get_mask(self.thresholded_pixels[occupied_rows[i], occupied_columns[i]])
+        #     assert prev_mask.id == self.thresholded_pixels[occupied_rows[i], occupied_columns[i]]
+        #     prev_mask.remove(occupied_rows[i], occupied_columns[i])
+        
+        # self.thresholded_pixels[np.where(self.active_mask.get() == True)] = self.active_mask.id
+        red_rows, red_columns = np.where(self.active_mask.get() == False)
+        display_img = self._create_display_img(red_rows, red_columns, MaskColor.RED)
         self._show_img(display_img)
 
     def show_curr_img(self):
@@ -103,11 +117,18 @@ class Image(QObject):
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
-            self.active_mask = Mask(self.image.shape[0], self.image.shape[1])
+            self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
             self.tmp_image = self.image
             self._update_img(self.image)
             self.img_loaded.emit()
  
+    def save_mask(self, name):
+        self.masks[name] = self.active_mask
+        self.mask_index += 1
+    
+    def load_mask(self, name):
+        self.active_mask = self.masks.get(name)
+
     def pop_mask_pixel(self):
         self.active_mask.pop_pixel()
         self.apply_pixel_mask()

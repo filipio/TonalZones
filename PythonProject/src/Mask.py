@@ -3,7 +3,8 @@ class Mask:
     """
     This class contains all operations that modify the mask.
     """
-    def __init__(self, height, width):
+    def __init__(self, height, width, m_id):
+        self.id = m_id
         self.clicked_pixels = []
         self.pixels_tol = 0
         self.slider_min = None
@@ -19,6 +20,9 @@ class Mask:
 
     def add_pixel(self,grey_value):
         self.clicked_pixels.append(grey_value)
+    
+    def remove(self, row, column):
+        self.mask[row,column] = False
     
     def pop_pixel(self):
         try:
