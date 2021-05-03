@@ -101,6 +101,9 @@ class Label(QtWidgets.QLabel):
         except IndexError:
             print("HANDLE INDEX ERROR -> Label.py, pop_last_pixel()  ")
 
+    def clear_pixels(self):
+        self.clicked_pixels.clear()
+
 
     def paintEvent(self, event):
         QtWidgets.QLabel.paintEvent(self,event)

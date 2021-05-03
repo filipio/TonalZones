@@ -24,6 +24,7 @@ class Image(QObject):
     pixel_selected = pyqtSignal(int)
     img_loaded = pyqtSignal()
     thresh_val_calc = pyqtSignal(int)
+    mask_loaded = pyqtSignal(Mask)
     def __init__(self, graphic_area):
         super().__init__(None)
         self.image = np.empty(0)
@@ -36,7 +37,7 @@ class Image(QObject):
         self.Gaussian=Gaussian(self.graphic_area)
         self.Median=Median()
         self.active_mask = None
-        self.mask_index = 0 # for signing which pixel belongs to which mask
+        self.mask_index = -1 # for signing which pixel belongs to which mask
         self.masks = {}
         self.masks_mapping = {}
         self.history = []
@@ -117,17 +118,23 @@ class Image(QObject):
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
-            self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
+            self.new_mask()
             self.tmp_image = self.image
             self._update_img(self.image)
             self.img_loaded.emit()
  
+    def new_mask(self):
+        self.mask_index += 1
+        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
+
     def save_mask(self, name):
         self.masks[name] = self.active_mask
-        self.mask_index += 1
+        # maybe call new_mask()
     
     def load_mask(self, name):
         self.active_mask = self.masks.get(name)
+        self._send_changed_mask_data()
+        self.mask_loaded.emit(self.active_mask)
 
     def pop_mask_pixel(self):
         self.active_mask.pop_pixel()

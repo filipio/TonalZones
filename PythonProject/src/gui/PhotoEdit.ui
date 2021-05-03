@@ -892,7 +892,7 @@ QSlider::sub-page:vertical {
               </font>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="tab_7">
               <attribute name="title">
@@ -912,7 +912,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSlider" name="min_slider">
+                  <widget class="QSlider" name="mask_min_slider">
                    <property name="maximum">
                     <number>255</number>
                    </property>
@@ -922,7 +922,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="min_label">
+                  <widget class="QLabel" name="mask_min_label">
                    <property name="styleSheet">
                     <string notr="true">color:black;</string>
                    </property>
@@ -945,7 +945,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSlider" name="max_slider">
+                  <widget class="QSlider" name="mask_max_slider">
                    <property name="maximum">
                     <number>255</number>
                    </property>
@@ -955,7 +955,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="max_label">
+                  <widget class="QLabel" name="mask_max_label">
                    <property name="styleSheet">
                     <string notr="true">color:black;</string>
                    </property>
@@ -978,7 +978,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSlider" name="tolerance_slider">
+                  <widget class="QSlider" name="mask_tolerance_slider">
                    <property name="maximum">
                     <number>255</number>
                    </property>
@@ -1000,7 +1000,7 @@ QSlider::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="tolerance_label">
+                  <widget class="QLabel" name="mask_tolerance_label">
                    <property name="styleSheet">
                     <string notr="true">color:black;</string>
                    </property>
@@ -1022,7 +1022,7 @@ QSlider::sub-page:vertical {
               </attribute>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="2" column="0">
-                <widget class="QSlider" name="slider_pixel_tol">
+                <widget class="QSlider" name="pixel_tolerance_slider">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -1075,7 +1075,7 @@ QSlider::sub-page:vertical {
                 </layout>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="pixel_tolerance_label">
+                <widget class="QLabel" name="pixel_tolerance_title">
                  <property name="styleSheet">
                   <string notr="true">color : black</string>
                  </property>
@@ -1085,7 +1085,7 @@ QSlider::sub-page:vertical {
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="pixel_tolerance_label">
                  <property name="styleSheet">
                   <string notr="true">color : black</string>
                  </property>
@@ -1400,50 +1400,50 @@ QSlider::sub-page:vertical {
  <resources/>
  <connections>
   <connection>
-   <sender>tolerance_slider</sender>
+   <sender>mask_tolerance_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>tolerance_label</receiver>
+   <receiver>mask_tolerance_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1253</x>
-     <y>342</y>
+     <x>1242</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1253</x>
-     <y>367</y>
+     <x>1242</x>
+     <y>558</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>min_slider</sender>
+   <sender>mask_min_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>min_label</receiver>
+   <receiver>mask_min_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1253</x>
-     <y>166</y>
+     <x>1242</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1253</x>
-     <y>191</y>
+     <x>1242</x>
+     <y>297</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>max_slider</sender>
+   <sender>mask_max_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>max_label</receiver>
+   <receiver>mask_max_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1253</x>
-     <y>262</y>
+     <x>1242</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1253</x>
-     <y>287</y>
+     <x>1242</x>
+     <y>428</y>
     </hint>
    </hints>
   </connection>
@@ -1464,18 +1464,18 @@ QSlider::sub-page:vertical {
    </hints>
   </connection>
   <connection>
-   <sender>slider_pixel_tol</sender>
+   <sender>pixel_tolerance_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>label_2</receiver>
+   <receiver>pixel_tolerance_label</receiver>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1068</x>
-     <y>664</y>
+     <x>923</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1071</x>
-     <y>685</y>
+     <x>923</x>
+     <y>187</y>
     </hint>
    </hints>
   </connection>
