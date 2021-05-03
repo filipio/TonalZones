@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1273</width>
+    <width>1095</width>
     <height>1105</height>
    </rect>
   </property>
@@ -17,6 +17,16 @@
    <string notr="true">* {
 	font-size: 16px;
 }
+
+
+QLabel{
+	color : white;
+}
+
+QMessageBox QLabel{
+color: black;
+}
+
 QMainWindow {
 	background-color:rgb(82, 82, 82);
 }
@@ -256,7 +266,7 @@ QSlider::sub-page:vertical {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>789</width>
+         <width>671</width>
          <height>1035</height>
         </rect>
        </property>
@@ -282,7 +292,7 @@ QSlider::sub-page:vertical {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1273</width>
+     <width>1095</width>
      <height>24</height>
     </rect>
    </property>
@@ -362,7 +372,7 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>442</width>
+          <width>382</width>
           <height>911</height>
          </rect>
         </property>
@@ -870,7 +880,7 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>442</width>
+          <width>382</width>
           <height>911</height>
          </rect>
         </property>
@@ -892,7 +902,7 @@ QSlider::sub-page:vertical {
               </font>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab_7">
               <attribute name="title">
@@ -904,7 +914,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="label_27">
                    <property name="styleSheet">
-                    <string notr="true">color:black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>Minimum</string>
@@ -924,7 +934,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="mask_min_label">
                    <property name="styleSheet">
-                    <string notr="true">color:black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>0</string>
@@ -937,7 +947,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="label_28">
                    <property name="styleSheet">
-                    <string notr="true">color:black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>Maximum</string>
@@ -957,7 +967,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="mask_max_label">
                    <property name="styleSheet">
-                    <string notr="true">color:black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>0</string>
@@ -970,7 +980,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="label_29">
                    <property name="styleSheet">
-                    <string notr="true">color : black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>Tolerance</string>
@@ -1002,7 +1012,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="mask_tolerance_label">
                    <property name="styleSheet">
-                    <string notr="true">color:black;</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>0</string>
@@ -1036,7 +1046,7 @@ QSlider::sub-page:vertical {
                  <item>
                   <widget class="QLabel" name="selected_pixels_label">
                    <property name="styleSheet">
-                    <string notr="true">color :black</string>
+                    <string notr="true"/>
                    </property>
                    <property name="text">
                     <string>Selected pixels </string>
@@ -1077,7 +1087,7 @@ QSlider::sub-page:vertical {
                <item row="1" column="0">
                 <widget class="QLabel" name="pixel_tolerance_title">
                  <property name="styleSheet">
-                  <string notr="true">color : black</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Tolerance</string>
@@ -1087,7 +1097,7 @@ QSlider::sub-page:vertical {
                <item row="3" column="0">
                 <widget class="QLabel" name="pixel_tolerance_label">
                  <property name="styleSheet">
-                  <string notr="true">color : black</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>0</string>
@@ -1128,15 +1138,15 @@ QSlider::sub-page:vertical {
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,2">
              <item>
-              <widget class="QPushButton" name="read_mask_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>2</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+              <widget class="QLabel" name="label_3">
+               <property name="styleSheet">
+                <string notr="true">color : black</string>
                </property>
                <property name="text">
-                <string>Read mask</string>
+                <string>Active Mask :</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -1148,9 +1158,30 @@ QSlider::sub-page:vertical {
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <item>
+                <property name="text">
+                 <string>default</string>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QPushButton" name="new_mask_btn">
@@ -1204,7 +1235,7 @@ QSlider::sub-page:vertical {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>442</width>
+          <width>382</width>
           <height>911</height>
          </rect>
         </property>

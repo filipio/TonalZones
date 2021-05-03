@@ -20,13 +20,14 @@ class Image(QObject):
     in this class.
     Insert necessery methods below.
     """
-    mask_range_changed = pyqtSignal()
     pixel_selected = pyqtSignal(int)
     img_loaded = pyqtSignal()
     thresh_val_calc = pyqtSignal(int)
     mask_loaded = pyqtSignal(Mask)
-    def __init__(self, graphic_area):
+    mask_saved = pyqtSignal(str)
+    def __init__(self, graphic_area, default_mask_name):
         super().__init__(None)
+        self.default_mask_name = default_mask_name
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
         self.thresholded_pixels = np.empty(0)
@@ -126,15 +127,22 @@ class Image(QObject):
     def new_mask(self):
         self.mask_index += 1
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
+        self.masks[self.default_mask_name] = self.active_mask
 
     def save_mask(self, name):
-        self.masks[name] = self.active_mask
-        # maybe call new_mask()
+        if name in self.masks.keys():
+            QMessageBox.warning(self.graphic_area,"Error","Mask with such name already exist.")
+        else:
+            self.masks[name] = self.active_mask
+            self.mask_saved.emit(name)
     
-    def load_mask(self, name):
+    def load_mask(self, name, show=True):
         self.active_mask = self.masks.get(name)
-        self._send_changed_mask_data()
+        self.active_mask.height = self.image.shape[0]
+        self.active_mask.width = self.image.shape[1]
         self.mask_loaded.emit(self.active_mask)
+        if show:
+            self._send_changed_mask_data()
 
     def pop_mask_pixel(self):
         self.active_mask.pop_pixel()

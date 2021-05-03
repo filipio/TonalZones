@@ -12,7 +12,7 @@ class Mask:
         self.slider_tol = 0
         self.height = height
         self.width = width
-        self.mask = np.empty(0)
+        self.mask = np.full((height, width), True, dtype=bool)
         self.is_read = False
     
     def get(self):
