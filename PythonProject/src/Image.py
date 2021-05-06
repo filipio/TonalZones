@@ -119,15 +119,16 @@ class Image(QObject):
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
-            self.new_mask()
             self.tmp_image = self.image
             self._update_img(self.image)
+            self.new_mask()
             self.img_loaded.emit()
  
     def new_mask(self):
         self.mask_index += 1
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
         self.masks[self.default_mask_name] = self.active_mask
+        self.load_mask(self.default_mask_name)
 
     def save_mask(self, name):
         if name in self.masks.keys():

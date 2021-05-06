@@ -113,8 +113,8 @@ class Window(QMainWindow, UI):
         # self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
         self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
-        self.new_mask_btn.clicked.connect(lambda : self.params_f.set_slider_mask_params(0, 0, 0))
-        self.new_mask_btn.clicked.connect(lambda : self.params_f.set_pixel_mask_params(0))
+        # self.new_mask_btn.clicked.connect(lambda : self.params_f.set_slider_mask_params(0, 0, 0))
+        # self.new_mask_btn.clicked.connect(lambda : self.params_f.set_pixel_mask_params(0))
         self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
         self.new_mask_btn.clicked.connect(self.image.new_mask)
         self.new_mask_btn.clicked.connect(lambda : self.read_mask_c_box.setCurrentText(self.image.default_mask_name))
@@ -123,10 +123,11 @@ class Window(QMainWindow, UI):
         self.image.mask_saved.connect(self.read_mask_c_box.addItem)
         # self.read_mask_c_box.setCurrent
         self.image.mask_saved.connect(self.read_mask_c_box.setCurrentText)
+        self.read_mask_c_box.currentTextChanged.connect(lambda text : print("text of c box changed : ", text))
         self.read_mask_c_box.currentTextChanged.connect(self.image.load_mask)
         self.image.mask_saved.connect(lambda value: self.mask_name_input.clear())
         # self.read_mask_btn.clicked.connect(lambda : self.image.load_mask(self.read_mask_c_box.currentText()))
-
+        self.image.mask_loaded.connect(lambda : print("mask was loaded."))
         self.image.mask_loaded.connect(self.pixel_list_operator.load_from_mask)
         self.image.mask_loaded.connect(self.params_f.set_data_from_mask)
 

@@ -40,5 +40,6 @@ class ParamsFactory:
         self.gui.pixel_tolerance_label.setText(str(m_tol))
 
     def set_data_from_mask(self, mask):
+        print("data from mask was set : ", mask.slider_min, mask.slider_max, mask.slider_tol)
         self.set_slider_mask_params(mask.slider_min, mask.slider_max, mask.slider_tol)
         self.set_pixel_mask_params(mask.pixels_tol)
