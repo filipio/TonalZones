@@ -25,7 +25,8 @@ class Window(QMainWindow, UI):
         super().__init__(parent)
         
         self.setupUi(self)
-        self.image = Image(self.graphicArea)
+        default_mask_name = self.read_mask_c_box.currentText()
+        self.image = Image(self.graphicArea, default_mask_name)
         self.pixel_list_operator = PixelList(self.pixel_list)
         self.params_f=ParamsFactory(self)
         self.connect_signals()
@@ -77,8 +78,9 @@ class Window(QMainWindow, UI):
         
         self._connect_mask()
         self.remove_last_btn.clicked.connect(self.pixel_list_operator.remove_last)
-        self.remove_last_btn.clicked.connect(self.image.pop_pixel)
-        self.slider_pixel_tol.sliderReleased.connect(lambda : self.image.update_pixel_tol(self.slider_pixel_tol.value()))
+        self.remove_last_btn.clicked.connect(self.image.pop_mask_pixel)
+        self.remove_last_btn.clicked.connect(self.graphicArea.pop_last_pixel)
+        self.pixel_tolerance_slider.sliderReleased.connect(lambda : self.image.update_mask_pixel_tol(self.pixel_tolerance_slider.value()))
         self.image.pixel_selected.connect(self.pixel_list_operator.add_element)
         self.image.thresh_val_calc.connect(self.threshold_slider.setValue)
         # self.remove_all_test.clicked.connect(lambda : )
@@ -86,30 +88,46 @@ class Window(QMainWindow, UI):
         
     def _connect_mask(self):
 
-        #mask sliders
-        mask_update = lambda : self.image.update_slider_mask(self.min_slider.value(), self.max_slider.value(), self.tolerance_slider.value())
-        self.min_slider.sliderReleased.connect(mask_update)
-        self.max_slider.sliderReleased.connect(mask_update)
-        self.tolerance_slider.sliderReleased.connect(mask_update)
+        # #mask sliders
+        mask_update = lambda : self.image.apply_slider_mask(self.mask_min_slider.value(), self.mask_max_slider.value(), self.mask_tolerance_slider.value())
+        self.mask_min_slider.sliderReleased.connect(mask_update)
+        self.mask_max_slider.sliderReleased.connect(mask_update)
+        self.mask_tolerance_slider.sliderReleased.connect(mask_update)
 
         # mask actions
-        self.action_apply_mask.triggered.connect(self.image.activate_mask)
-        self.action_apply_mask.triggered.connect(lambda : self.active_mask_btn.setEnabled(True))
-        # TO DO : enable thresholding if mask was applied
-        # self.action_apply_mask.triggered.connect(<enable_thresholding_method>)
         self.action_select_from_settings.triggered.connect(lambda : self.Settings.setCurrentIndex(1)) # show settings menu
-        self.action_select_from_image.triggered.connect(self.graphicArea.switch_mouse_selection)
+        self.action_select_from_settings.triggered.connect(lambda : self.mask_tab_widget.setCurrentIndex(0))
+        self.action_select_from_image.triggered.connect(self.graphicArea.enter_pixel_mode)
         
         #mask img signals
-        self.image.mask_range_changed.connect(lambda : self.active_mask_btn.setEnabled(False))
         self.image.img_loaded.connect(lambda : self.not_thresholded_btn.setEnabled(True))
+        self.graphicArea.pixel_mode_entered.connect(self.image.show_curr_img)
+        self.graphicArea.pixel_mode_entered.connect(lambda : self.Settings.setCurrentIndex(1))
+        self.graphicArea.pixel_mode_entered.connect(lambda : self.mask_tab_widget.setCurrentIndex(1))
+        self.graphicArea.pixel_mode_left.connect(self.image.apply_pixel_mask)
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 
         #mask buttons
-        self.hide_mask_btn.clicked.connect(self.graphicArea.hide_mask)
-        self.active_mask_btn.clicked.connect(self.graphicArea.show_active_mask)
+        self.hide_mask_btn.clicked.connect(self.image.show_curr_img)
+        self.show_mask_btn.clicked.connect(self.image.show_curr_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
+        self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
+        self.new_mask_btn.clicked.connect(lambda : self.image.new_mask())
+        self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
+        self.new_mask_btn.clicked.connect(lambda : self.read_mask_c_box.setCurrentText(self.image.default_mask_name))
+        self.save_mask_btn.clicked.connect(lambda : self.image.save_mask(self.mask_name_input.text()))
 
+        self.read_mask_c_box.currentTextChanged.connect(self.image.load_mask)
+        #image signals
+        self.image.mask_saved.connect(self.read_mask_c_box.addItem)
+        self.image.mask_saved.connect(self.thresh_read_mask_c_box.addItem)
+        self.image.mask_saved.connect(lambda value: self.mask_name_input.clear())
+        self.image.mask_saved.connect(self.read_mask_c_box.setCurrentText)
+        self.image.mask_loaded.connect(lambda : print("mask was loaded."))
+        self.image.mask_loaded.connect(self.pixel_list_operator.load_from_mask)
+        self.image.mask_loaded.connect(self.params_f.set_data_from_mask)
+
+        
 
 
 if __name__ == "__main__":

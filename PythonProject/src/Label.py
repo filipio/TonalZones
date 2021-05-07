@@ -2,48 +2,44 @@ from PyQt5.QtCore import (Qt, pyqtSignal,QRect,QPoint,QSize)
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter, QPen, QColor, QBrush
 from PyQt5.QtWidgets import QRubberBand, QApplication
-from Color import MaskColor
+from Enums import Color
 
 class Label(QtWidgets.QLabel):
     """
     This class is responsible for handling UI events such as :
     -select area
-    -draw mask
-    -select pixel for mask
+    -notify about click events
+    -draw clicked pixels
     """
     rect_change = pyqtSignal(QRect)
     pixel_clicked = pyqtSignal(int, int)
+    pixel_mode_entered = pyqtSignal()
+    pixel_mode_left = pyqtSignal()
     
 
     def __init__(self, *args, **kwargs):        
         QtWidgets.QLabel.__init__(self, *args, **kwargs)
         QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
         self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
-        self.pixel_selections = []
         self.setMouseTracking(True)
         self.origin = QPoint()
         self.changeRubberBand = False
         self.rect_selection_active = False
-        self.mouse_selection_active = False
-        self.active_indexes_x = None
-        self.active_indexes_y = None
-        self.indexes_x = None
-        self.indexes_y = None
-        self.new_mask = False
-        self.active_indexes = []
-        self.mask_color = QColor(255, 0, 0, 60) # default color, here it's red
+        self.pixel_mode_active = False
+        self.clicked_pixels = []
+        self.should_draw = False
+        self.pixel_color = QColor(37, 203, 39, 60) # default color, here it's light green
         self.draw_size = 3
 
     def switch_rect_selection(self):
         self.rect_selection_active = not self.rect_selection_active
 
     def switch_mouse_selection(self):
-        self.mouse_selection_active = not self.mouse_selection_active
-        if self.mouse_selection_active:
+        self.pixel_mode_active = not self.pixel_mode_active
+        if self.pixel_mode_active:
             QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
         else:
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
-
 
     def mousePressEvent(self, event):
         """if mouse left button is pressed start selecting
@@ -65,61 +61,54 @@ class Label(QtWidgets.QLabel):
             self.rubberBand.setGeometry(QRect(self.origin, event.pos()).normalized())
         QtWidgets.QLabel.mouseMoveEvent(self, event)
 
+    def enter_pixel_mode(self):
+        self.switch_mouse_selection()
+        self.pixel_mode_entered.emit()
+        self.should_draw = True
+        self.update()
+
     def mouseReleaseEvent(self, event):
-        """if mouse is released emit proper signal for rect and pixel selection"""
         self.changeRubberBand = False
         if self.rect_selection_active==True:
             self.rect_change.emit(self.rubberBand.geometry())
             self.rect_selection_active=False
-        elif event.button() == Qt.LeftButton and self.mouse_selection_active:
+        elif event.button() == Qt.LeftButton and self.pixel_mode_active:
             x = event.pos().x()
             y = event.pos().y()
+            self.clicked_pixels.append((x,y))
+            self.should_draw = True
             self.pixel_clicked.emit(x,y)
-        elif event.button() == Qt.RightButton: 
-            self.hide_mask()
-            if self.mouse_selection_active:
-                self.switch_mouse_selection()
+            self.update()
+        elif event.button() == Qt.MiddleButton and not self.pixel_mode_active:
+            self.enter_pixel_mode()
+        elif event.button() == Qt.RightButton and self.pixel_mode_active: 
+            self.switch_mouse_selection()
+            self.pixel_mode_left.emit()
+
+            # show mask from pixels
         QtWidgets.QLabel.mouseReleaseEvent(self, event)
 
+    def pop_last_pixel(self):
+        try:
+            self.clicked_pixels.pop()
+        except IndexError:
+            print("HANDLE INDEX ERROR -> Label.py, pop_last_pixel()  ")
+
+    def clear_pixels(self):
+        self.clicked_pixels.clear()
+
+
     def paintEvent(self, event):
-        QtWidgets.QLabel.paintEvent(self,event)
-        if self.new_mask:
-            self.new_mask = False
-            painter = QPainter(self)
-            painter.setPen(QPen(self.mask_color, 2, Qt.SolidLine))
-            painter.setBrush(QBrush(self.mask_color, Qt.SolidPattern))
-            cursor = QApplication.overrideCursor()
-            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-            for i in range(self.indexes_x.size):
-                # could be replaced with rect
-                painter.drawEllipse(QPoint(self.indexes_x[i], self.indexes_y[i]), self.draw_size, self.draw_size) 
-            painter.end()
-            QApplication.setOverrideCursor(cursor)       
-        
-    def show_active_mask(self):
-        self.new_mask = True
-        self.show_mask(self.active_indexes_x, self.active_indexes_y, MaskColor.GREEN)
-
-    def apply_mask(self, active_indexes_x, active_indexes_y):
-        self.active_indexes_x = active_indexes_x
-        self.active_indexes_y = active_indexes_y
-        self.mouse_selection_active = False
-        QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
-        self.show_active_mask()
-
-
-    def show_mask(self, indexes_x, indexes_y, color):
-        self.indexes_x = indexes_x
-        self.indexes_y = indexes_y
-        if color == MaskColor.RED:
-            self.mask_color = QColor(255, 0, 0, 60)
-        elif color == MaskColor.GREEN:
-            self.mask_color = QColor(64, 224, 43, 60)
-        elif color == MaskColor.BLUE:
-            self.mask_color = QColor(62, 118, 235, 60)
-        self.new_mask = True
-        self.update() # call to paintEvent() - DON'T call it directly
-
-    def hide_mask(self):
-        self.new_mask = False
+        """
+        function that paints clicked pixels on image. Do not call this directly. Call it by
         self.update()
+        """
+        QtWidgets.QLabel.paintEvent(self,event)
+        if self.should_draw:
+            painter = QPainter(self)
+            painter.setPen(QPen(self.pixel_color, 2, Qt.SolidLine))
+            painter.setBrush(QBrush(self.pixel_color, Qt.SolidPattern))
+            for i in range(len(self.clicked_pixels)):
+                painter.drawEllipse(QPoint(self.clicked_pixels[i][0], self.clicked_pixels[i][1]), self.draw_size, self.draw_size)
+            self.should_draw = False
+            painter.end()       

@@ -26,8 +26,13 @@ import numpy as np
 
 #     return (mins[curr_index] <= img) & (img <= maxs[curr_index]) | mask_applier(img, mins, maxs, curr_index+1)
 
+def change_data(img):
+    img[img > 3] = 0
 
-# img = np.arange(0,9).reshape(3,3)
+
+img = np.arange(0,9).reshape(3,3)
+change_data(img)
+print(img)
 # mask_mins = [2,5,5, 0, 15]
 # mask_maxs = [3,5,7, 0, 12]
 # curr_index = 0
