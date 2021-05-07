@@ -2,14 +2,14 @@ from PyQt5.QtCore import (Qt, pyqtSignal,QRect,QPoint,QSize)
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter, QPen, QColor, QBrush
 from PyQt5.QtWidgets import QRubberBand, QApplication
-from Color import MaskColor
+from Enums import Color
 
 class Label(QtWidgets.QLabel):
     """
     This class is responsible for handling UI events such as :
     -select area
-    -draw mask
-    -select pixel for mask
+    -notify about click events
+    -draw clicked pixels
     """
     rect_change = pyqtSignal(QRect)
     pixel_clicked = pyqtSignal(int, int)
@@ -21,21 +21,14 @@ class Label(QtWidgets.QLabel):
         QtWidgets.QLabel.__init__(self, *args, **kwargs)
         QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
         self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
-        self.pixel_selections = []
         self.setMouseTracking(True)
         self.origin = QPoint()
         self.changeRubberBand = False
         self.rect_selection_active = False
         self.pixel_mode_active = False
-        self.active_indexes_x = None
-        self.active_indexes_y = None
-        self.indexes_x = None
-        self.indexes_y = None
-        self.new_mask = False
-        self.active_indexes = []
         self.clicked_pixels = []
         self.should_draw = False
-        self.pixel_color = QColor(37, 203, 39, 60) # default color, here it's red
+        self.pixel_color = QColor(37, 203, 39, 60) # default color, here it's light green
         self.draw_size = 3
 
     def switch_rect_selection(self):
@@ -47,7 +40,6 @@ class Label(QtWidgets.QLabel):
             QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
         else:
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
-
 
     def mousePressEvent(self, event):
         """if mouse left button is pressed start selecting
@@ -69,8 +61,13 @@ class Label(QtWidgets.QLabel):
             self.rubberBand.setGeometry(QRect(self.origin, event.pos()).normalized())
         QtWidgets.QLabel.mouseMoveEvent(self, event)
 
+    def enter_pixel_mode(self):
+        self.switch_mouse_selection()
+        self.pixel_mode_entered.emit()
+        self.should_draw = True
+        self.update()
+
     def mouseReleaseEvent(self, event):
-        """if mouse is released emit proper signal for rect and pixel selection"""
         self.changeRubberBand = False
         if self.rect_selection_active==True:
             self.rect_change.emit(self.rubberBand.geometry())
@@ -83,14 +80,10 @@ class Label(QtWidgets.QLabel):
             self.pixel_clicked.emit(x,y)
             self.update()
         elif event.button() == Qt.MiddleButton and not self.pixel_mode_active:
-            self.switch_mouse_selection()
-            self.pixel_mode_entered.emit()
-            self.should_draw = True
-            self.update()
+            self.enter_pixel_mode()
         elif event.button() == Qt.RightButton and self.pixel_mode_active: 
             self.switch_mouse_selection()
             self.pixel_mode_left.emit()
-            # show image
 
             # show mask from pixels
         QtWidgets.QLabel.mouseReleaseEvent(self, event)
@@ -106,6 +99,10 @@ class Label(QtWidgets.QLabel):
 
 
     def paintEvent(self, event):
+        """
+        function that paints clicked pixels on image. Do not call this directly. Call it by
+        self.update()
+        """
         QtWidgets.QLabel.paintEvent(self,event)
         if self.should_draw:
             painter = QPainter(self)

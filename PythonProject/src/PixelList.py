@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QListWidgetItem
 from PyQt5.QtGui import QColor
-from Color import Color
+from Enums import Color
 
 class PixelList:
     def __init__(self, p_list):

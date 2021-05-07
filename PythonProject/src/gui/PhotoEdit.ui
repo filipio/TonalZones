@@ -359,7 +359,7 @@ QSlider::sub-page:vertical {
    </attribute>
    <widget class="QWidget" name="Container">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+     <item row="0" column="1">
       <widget class="QToolBox" name="Settings">
        <property name="enabled">
         <bool>true</bool>
@@ -894,7 +894,7 @@ QSlider::sub-page:vertical {
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_21">
            <item>
-            <widget class="QTabWidget" name="tabWidget">
+            <widget class="QTabWidget" name="mask_tab_widget">
              <property name="font">
               <font>
                <family>Ubuntu</family>
@@ -906,7 +906,7 @@ QSlider::sub-page:vertical {
              </property>
              <widget class="QWidget" name="tab_7">
               <attribute name="title">
-               <string>Tab 1</string>
+               <string>Range</string>
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout_26">
                <item>
@@ -1028,7 +1028,7 @@ QSlider::sub-page:vertical {
              </widget>
              <widget class="QWidget" name="tab_8">
               <attribute name="title">
-               <string>Tab 2</string>
+               <string>Pixels</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="2" column="0">
@@ -1160,7 +1160,7 @@ QSlider::sub-page:vertical {
                </property>
                <item>
                 <property name="text">
-                 <string>default</string>
+                 <string>current</string>
                 </property>
                </item>
               </widget>
@@ -1207,6 +1207,13 @@ QSlider::sub-page:vertical {
             <widget class="QPushButton" name="hide_mask_btn">
              <property name="text">
               <string>Hide</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="show_mask_btn">
+             <property name="text">
+              <string>Show</string>
              </property>
             </widget>
            </item>
@@ -1281,6 +1288,29 @@ QSlider::sub-page:vertical {
             <set>Qt::AlignCenter</set>
            </property>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,2">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">color : black</string>
+             </property>
+             <property name="text">
+              <string>Active Mask : </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="thresh_read_mask_c_box">
+             <item>
+              <property name="text">
+               <string>current</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QComboBox" name="threshold_combobox">
@@ -1507,6 +1537,38 @@ QSlider::sub-page:vertical {
     <hint type="destinationlabel">
      <x>923</x>
      <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thresh_read_mask_c_box</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>read_mask_c_box</receiver>
+   <slot>setCurrentText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>957</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>956</x>
+     <y>631</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>read_mask_c_box</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>thresh_read_mask_c_box</receiver>
+   <slot>setCurrentText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>956</x>
+     <y>631</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>957</x>
+     <y>274</y>
     </hint>
    </hints>
   </connection>
