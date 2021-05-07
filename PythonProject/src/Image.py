@@ -24,13 +24,15 @@ class Image(QObject):
     img_loaded = pyqtSignal()
     thresh_val_calc = pyqtSignal(int)
     mask_loaded = pyqtSignal(Mask)
+    new_mask_sig = pyqtSignal()
     mask_saved = pyqtSignal(str)
     def __init__(self, graphic_area, default_mask_name):
         super().__init__(None)
         self.default_mask_name = default_mask_name
         self.image = np.empty(0)
         self.tmp_image = np.empty(0)
-        self.thresholded_pixels = np.empty(0)
+        self.thresholded_pixels = np.empty(0) 
+        self.mask_belongings = np.empty(0) # arr to indicate which pixel belongs to which mask
         self.mask_copy=np.empty(0) # name should be changed
         self.graphic_area = graphic_area
         self.Bilateral=Bilateral()
@@ -83,13 +85,18 @@ class Image(QObject):
     def _get_mask(self, m_id):
         return self.masks.get(self.masks_mapping.get(m_id))
 
-    def _send_changed_mask_data(self):
-        # occupied_rows, occupied_columns = np.where((self.active_mask.get() == True) & (self.thresholded_pixels != self.active_mask.id) & (self.thresholded_pixels >= 0)) # get new occupied places which where occupied by other masks
-        # print(f"found ", len(occupied_rows), "elements to change the mask.")
-        # for i in range(len(occupied_rows)):
-        #     prev_mask = self._get_mask(self.thresholded_pixels[occupied_rows[i], occupied_columns[i]])
-        #     assert prev_mask.id == self.thresholded_pixels[occupied_rows[i], occupied_columns[i]]
-        #     prev_mask.remove(occupied_rows[i], occupied_columns[i])
+    def _send_changed_mask_data(self, prev_mask):
+        print("send_changed_mask_data")
+        if self.active_mask.is_read:
+            to_remove_rows, to_remove_columns = np.where((prev_mask == True) & (self.active_mask.get() == False))
+            self.mask_belongings[to_remove_rows, to_remove_columns] = -1
+            occupied_rows, occupied_columns = np.where((self.active_mask.get() == True) & (self.mask_belongings != self.active_mask.id) & (self.mask_belongings >= 0)) 
+            print(f"found ", len(occupied_rows), "elements to change the mask.")
+            for i in range(len(occupied_rows)):
+                prev_owner_mask = self._get_mask(self.mask_belongings[occupied_rows[i], occupied_columns[i]])
+                assert prev_owner_mask.id == self.mask_belongings[occupied_rows[i], occupied_columns[i]]
+                prev_owner_mask.remove(occupied_rows[i], occupied_columns[i])
+            self.mask_belongings[occupied_rows, occupied_columns] = self.active_mask.id
         
         # self.thresholded_pixels[np.where(self.active_mask.get() == True)] = self.active_mask.id
         red_rows, red_columns = np.where(self.active_mask.get() == False)
@@ -118,32 +125,49 @@ class Image(QObject):
         if file_name:
             self.graphic_area.setScaledContents(True)#sets image to fill the graphic area
             self.image = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
-            self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
+            self.thresholded_pixels = np.full((self.image.shape[0], self.image.shape[1]), False, dtype=bool)
+            self.mask_belongings = np.full((self.image.shape[0], self.image.shape[1]), -1, dtype=int)
             self.tmp_image = self.image
             self._update_img(self.image)
             self.new_mask()
             self.img_loaded.emit()
  
     def new_mask(self):
+        print("new_mask()")
         self.mask_index += 1
-        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
+        if(self.active_mask != None):
+            self.active_mask.is_read = False
+        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index, self.mask_belongings, self.thresholded_pixels)
         self.masks[self.default_mask_name] = self.active_mask
+        self.mask_loaded.emit(self.active_mask)
+        self._send_changed_mask_data(None) # can fk up sth
         self.load_mask(self.default_mask_name)
+        self.new_mask_sig.emit()
 
     def save_mask(self, name):
+        print("save_mask()")
         if name in self.masks.keys():
             QMessageBox.warning(self.graphic_area,"Error","Mask with such name already exist.")
         else:
+            self.mask_belongings[self.active_mask.get()] = self.active_mask.id
+            self.masks_mapping[self.active_mask.id] = name
+            assigned = len(np.where(self.mask_belongings >= 0)[0])
+            print(f"assigned pixels to mask : {assigned}")
             self.masks[name] = self.active_mask
             self.mask_saved.emit(name)
     
-    def load_mask(self, name, show=True):
-        self.active_mask = self.masks.get(name)
+    def load_mask(self, name):
+        print("load mask()")
+        self.active_mask.is_read = False
+        loaded_mask = self.masks.get(name)
+        self.active_mask = loaded_mask
+        if not self.active_mask.is_new:
+            print("not new mask")
+            self.active_mask.is_read = True
         self.active_mask.height = self.image.shape[0]
         self.active_mask.width = self.image.shape[1]
         self.mask_loaded.emit(self.active_mask)
-        if show:
-            self._send_changed_mask_data()
+        self._send_changed_mask_data(None) # can fk up sth
 
     def pop_mask_pixel(self):
         self.active_mask.pop_pixel()
@@ -159,18 +183,26 @@ class Image(QObject):
         # indexes = np.where(self.active_mask.get() == False)
 
     def not_thresholded_handler(self):
-        blue_x, blue_y = np.where(self.thresholded_pixels == -1)
+        blue_x, blue_y = np.where(self.thresholded_pixels == False)
         display_img = self._create_display_img(blue_x, blue_y, MaskColor.BLUE)
         self._show_img(display_img)
 
     def apply_slider_mask(self, s_min, s_max, s_tol):
-        self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.thresholded_pixels)
-        self._send_changed_mask_data()
+        previous_mask = self.active_mask.get()
+        self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.mask_belongings,self.thresholded_pixels)
+        if np.where(previous_mask == True) == np.where(self.active_mask.get() == True):
+            print("mask have the same true vales before and after apply")
+        else :
+            print("different mask values")
+        self._send_changed_mask_data(previous_mask)
         # self.mask_range_changed.emit()
 
     def apply_pixel_mask(self):
-        self.active_mask.pixel_mask(self.tmp_image, self.thresholded_pixels)
-        self._send_changed_mask_data()
+        previous_mask = self.active_mask.get()
+        self.active_mask.pixel_mask(self.tmp_image, self.mask_belongings, self.thresholded_pixels)
+        if np.where(previous_mask == True) == np.where(self.active_mask.get() == True):
+            print("mask have the same true vales before and after apply")
+        self._send_changed_mask_data(previous_mask)
 
     def pixel_clicked_handler(self, x, y):
         img_x, img_y = self._transform_pixel_to_img(x, y)
@@ -223,6 +255,7 @@ class Image(QObject):
         indexes_to_thr=np.nonzero(self.active_mask.get() == True)
         img_to_thr=self.mask_copy[indexes_to_thr]
         otsu_res=self.Otsu.apply(img_to_thr)
+        self.thresholded_pixels[tuple((indexes_to_thr))] = True
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self._update_img(self.tmp_image)
     
