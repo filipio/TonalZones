@@ -1,1 +1,11 @@
 theme: jekyll-theme-slate
+markdown : kramdown
+<ul>
+<li>
+item one
+</li>
+
+<li>
+item two
+</li>
+</ul>
