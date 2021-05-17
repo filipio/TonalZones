@@ -89,7 +89,7 @@ class Window(QMainWindow, UI):
     def _connect_mask(self):
 
         # #mask sliders
-        mask_update = lambda : self.image.apply_slider_mask(self.mask_min_slider.value(), self.mask_max_slider.value(), self.mask_tolerance_slider.value())
+        mask_update = lambda : self.image.update_slider_mask(self.mask_min_slider.value(), self.mask_max_slider.value(), self.mask_tolerance_slider.value())
         self.mask_min_slider.sliderReleased.connect(mask_update)
         self.mask_max_slider.sliderReleased.connect(mask_update)
         self.mask_tolerance_slider.sliderReleased.connect(mask_update)
@@ -104,20 +104,21 @@ class Window(QMainWindow, UI):
         self.graphicArea.pixel_mode_entered.connect(self.image.show_curr_img)
         self.graphicArea.pixel_mode_entered.connect(lambda : self.Settings.setCurrentIndex(1))
         self.graphicArea.pixel_mode_entered.connect(lambda : self.mask_tab_widget.setCurrentIndex(1))
-        self.graphicArea.pixel_mode_left.connect(self.image.apply_pixel_mask)
+        self.graphicArea.pixel_mode_left.connect(self.image.apply_mask)
         self.graphicArea.pixel_clicked.connect(self.image.pixel_clicked_handler)
 
         #mask buttons
         self.hide_mask_btn.clicked.connect(self.image.show_curr_img)
-        self.show_mask_btn.clicked.connect(self.image.show_curr_mask)
+        self.show_mask_btn.clicked.connect(lambda : self.image.show_curr_mask(modified=False))
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
-        self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
-        self.new_mask_btn.clicked.connect(lambda : self.image.new_mask())
-        self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
         self.new_mask_btn.clicked.connect(lambda : self.read_mask_c_box.setCurrentText(self.image.default_mask_name))
+        self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
+        self.new_mask_btn.clicked.connect(self.image.new_mask)
+        self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
+         # may trigger load event
         self.save_mask_btn.clicked.connect(lambda : self.image.save_mask(self.mask_name_input.text()))
 
-        self.read_mask_c_box.currentTextChanged.connect(self.image.load_mask)
+        self.read_mask_c_box.currentTextChanged.connect(lambda : self.image.load_mask(self.read_mask_c_box.currentText()))
         #image signals
         self.image.mask_saved.connect(self.read_mask_c_box.addItem)
         self.image.mask_saved.connect(self.thresh_read_mask_c_box.addItem)

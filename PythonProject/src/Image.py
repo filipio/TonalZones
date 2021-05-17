@@ -90,7 +90,7 @@ class Image(QObject):
         x_ratio , y_ratio = self._ratio_to_img()
         return (int(index_x * x_ratio), int(index_y * y_ratio))
 
-    def _create_display_img(self, rows, columns, color):
+    def _create_displayed_img(self, rows, columns, color):
         """
         function to create what needs to be displayed based on parameters:
         rows and columns contain indexes where pixel of given color should be placed.
@@ -107,16 +107,17 @@ class Image(QObject):
         """
         return self.masks.get(self.masks_mapping.get(m_id))
 
-    def _update_masks_data(self, prev_mask):
+    def _update_masks_data(self, prev_mask_values):
         """
         function which saves information about pixels that current mask owns.
         If current mask is in read-state, every pixel that which belonged to some mask (prev_owner_mask)
         and now belongs to current mask changes its owner. User is notified if such event takes place.
         """
-        if self.active_mask.is_read and prev_mask != None:
-            to_remove_rows, to_remove_columns = np.where((prev_mask.get() == True) & (self.active_mask.get() == False))
+        if self.active_mask.is_read and self.active_mask.saved:
+            active_mask_values = self.active_mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)
+            to_remove_rows, to_remove_columns = np.where((prev_mask_values == True) & (active_mask_values == False))
             self.mask_belongings[to_remove_rows, to_remove_columns] = MaskBelonging.NONE
-            occupied_rows, occupied_columns = np.where((self.active_mask.get() == True) & (self.mask_belongings != self.active_mask.id) & (self.mask_belongings >= 0)) 
+            occupied_rows, occupied_columns = np.where((active_mask_values == True) & (self.mask_belongings != self.active_mask.id) & (self.mask_belongings >= 0)) 
             if len(occupied_rows) > 0:
                 QMessageBox.information(self.graphic_area, "Masks modified",
                  "Your modification will remove some pixels from other masks.")
@@ -124,9 +125,7 @@ class Image(QObject):
                 prev_owner_mask = self._get_mask(self.mask_belongings[occupied_rows[i], occupied_columns[i]])
                 assert prev_owner_mask.id == self.mask_belongings[occupied_rows[i], occupied_columns[i]]
                 prev_owner_mask.remove(occupied_rows[i], occupied_columns[i])
-            self.mask_belongings[self.active_mask.get()] = self.active_mask.id
-        
-        self.show_curr_mask()
+            self.mask_belongings[active_mask_values] = self.active_mask.id
 
 
 
@@ -172,12 +171,13 @@ class Image(QObject):
             self.img_loaded.emit()
 
 
-    def show_curr_mask(self):
+    def show_curr_mask(self, modified = True):
         """
         function to show the current mask = last that was applied
         """
-        red_rows, red_columns = np.where(self.active_mask.get() == False)
-        display_img = self._create_display_img(red_rows, red_columns, MaskColor.RED)
+        print("show_curr_mask called.")
+        red_rows, red_columns = np.where(self.active_mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels, modified) == False)
+        display_img = self._create_displayed_img(red_rows, red_columns, MaskColor.RED)
         self._show_img(display_img)
 
     def show_curr_img(self):
@@ -195,75 +195,80 @@ class Image(QObject):
         if name in self.masks.keys():
             QMessageBox.warning(self.graphic_area,"Error","Mask with such name already exist.")
         else:
-            self.mask_belongings[self.active_mask.get()] = self.active_mask.id
+            self.mask_belongings[self.active_mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = self.active_mask.id
             self.masks_mapping[self.active_mask.id] = name
             self.masks[name] = self.active_mask
+            self.active_mask.saved = True
             self.mask_saved.emit(name)
+            print("mask was saved.")
+            
+            
  
     def new_mask(self):
         """
         function to create a new mask.
         """
         self.mask_index += 1
-        if(self.active_mask != None):
+        if self.active_mask:
             self.active_mask.is_read = False
-        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index, self.mask_belongings, self.thresholded_pixels)
+        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
         self.masks[self.default_mask_name] = self.active_mask
-        self.masks_mapping[self.active_mask.id] = self.default_mask_name
-        self.load_mask(self.default_mask_name)
+        # self.masks_mapping[self.active_mask.id] = self.default_mask_name
+        self.mask_loaded.emit(self.active_mask)
         self.show_curr_img()
 
     def load_mask(self, name):
         """
         function to load mask given by name. Some values are reset in case new image was loaded.
         """
+        print("load_mask()")
         self.active_mask.is_read = False
         self.active_mask = self.masks.get(name)
         self.active_mask.height = self.image.shape[0]
         self.active_mask.width = self.image.shape[1]
+        self.active_mask.loaded_handler()
         self.mask_loaded.emit(self.active_mask)
-        if not self.active_mask.is_new:
-            self.active_mask.apply_last_modification(self.tmp_image, self.mask_belongings, self.thresholded_pixels)
+        self.show_curr_mask()
+        if(not self.active_mask.new):
             self.active_mask.is_read = True
-            self._update_masks_data(None)
+        
+        
 
     def pop_mask_pixel(self):
         """
         function to pop a pixel from a current mask pixel list.
         """
+        prev_mask = self.active_mask.get(modified=False)
         self.active_mask.pop_pixel()
-        self.apply_pixel_mask()
+        self.apply_mask(prev_mask)
     
     def update_mask_pixel_tol(self, value):
         """
         function to update pixel tolerance in current mask.
         """
+        prev_mask = self.active_mask.get(modified=False)
         self.active_mask.update_pixel_tol(value)
-        self.apply_pixel_mask()
+        self.apply_mask(prev_mask)
+
+    def update_slider_mask(self, s_min, s_max, s_tol):
+        prev_mask = self.active_mask.get(modified=False)
+        self.active_mask.update_slider_mask(s_min, s_max, s_tol)
+        self.apply_mask(prev_mask)
 
     def not_thresholded_handler(self):
         """
         function to show which pixels haven't been thresholded yet.
         """
         blue_x, blue_y = np.where(self.thresholded_pixels == False)
-        display_img = self._create_display_img(blue_x, blue_y, MaskColor.BLUE)
+        display_img = self._create_displayed_img(blue_x, blue_y, MaskColor.BLUE)
         self._show_img(display_img)
 
-    def apply_slider_mask(self, s_min, s_max, s_tol):
-        """
-        function to calculate current mask values based on slider_min / slider_max / slider_tolerance values.
-        """
-        previous_mask = self.active_mask
-        self.active_mask.slider_mask(s_min, s_max, s_tol, self.tmp_image, self.mask_belongings,self.thresholded_pixels)
-        self._update_masks_data(previous_mask)
 
-    def apply_pixel_mask(self):
-        """
-        function to calculate current mask values based on its pixel list.
-        """
-        previous_mask = self.active_mask
-        self.active_mask.pixel_mask(self.tmp_image, self.mask_belongings, self.thresholded_pixels)
+
+    def apply_mask(self, previous_mask):
         self._update_masks_data(previous_mask)
+        self.show_curr_mask()
+
 
     def pixel_clicked_handler(self, x, y):
         """

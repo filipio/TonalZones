@@ -8,7 +8,7 @@ class PixelList:
 
     def load_from_mask(self, mask):
         self.clear()
-        for el in mask.clicked_pixels:
+        for el in mask.pixel_values:
             self.add_element(el)
 
     def add_element(self, grey_value):
