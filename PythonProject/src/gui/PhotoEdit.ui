@@ -1194,6 +1194,16 @@ QSlider::sub-page:vertical {
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="delete_mask_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="not_thresholded_btn">
              <property name="enabled">
               <bool>false</bool>
