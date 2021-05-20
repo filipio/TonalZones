@@ -11,9 +11,7 @@ class Mask:
         self.slider_min = 0
         self.slider_max = 0
         self.slider_tol = 0
-        self.height = height
-        self.width = width
-        self.mask = np.full((self.height, self.width), False, dtype=bool)
+        self.mask = np.full((height, width), False, dtype=bool)
         self.is_read = False
         self.saved = False
         self.new = True
@@ -75,7 +73,7 @@ class Mask:
         each pair mask_mins[i] and mask_maxs[i] is a 'from-to' range for a mask
         """
         self.new = False
-        self.mask = np.full((self.height, self.width), False, dtype=bool)
+        self.mask = np.full((img.shape[0], img.shape[1]), False, dtype=bool)
         for i in range(len(mask_mins)):
             self.mask = self.mask | ((mask_mins[i] <= img) & (img <= mask_maxs[i]))
         if self.is_read and self.saved:

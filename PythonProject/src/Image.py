@@ -90,16 +90,16 @@ class Image(QObject):
         x_ratio , y_ratio = self._ratio_to_img()
         return (int(index_x * x_ratio), int(index_y * y_ratio))
 
-    def _create_displayed_img(self, rows, columns, color):
+    def _create_mask_img(self, rows, columns, color):
         """
         function to create what needs to be displayed based on parameters:
         rows and columns contain indexes where pixel of given color should be placed.
         The rest of pixels are the same as in current image.
         """
-        display_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
-        display_img[rows, columns, :] = 0
-        display_img[rows, columns, color] = MaskColor.FILL
-        return display_img
+        mask_img = cv.cvtColor(self.tmp_image, cv.COLOR_GRAY2RGB)
+        mask_img[rows, columns, :] = 0
+        mask_img[rows, columns, color] = MaskColor.FILL
+        return mask_img
 
     def _get_mask(self, m_id):
         """
@@ -126,8 +126,12 @@ class Image(QObject):
                 assert prev_owner_mask.id == self.mask_belongings[occupied_rows[i], occupied_columns[i]]
                 prev_owner_mask.remove(occupied_rows[i], occupied_columns[i])
             self.mask_belongings[active_mask_values] = self.active_mask.id
+            self._update_all_masks()
 
-
+    def _update_all_masks(self):
+        for key, value in self.masks.items():
+            if key != self.default_mask_name:
+                self.mask_belongings[value.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = value.id
 
 
     def undo(self): # may occur some pitfalls with it
@@ -167,7 +171,12 @@ class Image(QObject):
             self.mask_belongings = np.full((self.image.shape[0], self.image.shape[1]), MaskBelonging.NONE, dtype=int)
             self.tmp_image = self.image
             self._update_img(self.image)
-            self.new_mask()
+            if not self.masks:
+                self.new_mask()
+            else:
+                self._update_all_masks()
+                self.show_curr_mask()
+            # was call to new here
             self.img_loaded.emit()
 
 
@@ -177,8 +186,8 @@ class Image(QObject):
         """
         print("show_curr_mask called.")
         red_rows, red_columns = np.where(self.active_mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels, modified) == False)
-        display_img = self._create_displayed_img(red_rows, red_columns, MaskColor.RED)
-        self._show_img(display_img)
+        mask_img = self._create_mask_img(red_rows, red_columns, MaskColor.RED)
+        self._show_img(mask_img)
 
     def show_curr_img(self):
         """
@@ -224,15 +233,19 @@ class Image(QObject):
         print("load_mask()")
         self.active_mask.is_read = False
         self.active_mask = self.masks.get(name)
-        self.active_mask.height = self.image.shape[0]
-        self.active_mask.width = self.image.shape[1]
         self.active_mask.loaded_handler()
         self.mask_loaded.emit(self.active_mask)
         self.show_curr_mask()
         if(not self.active_mask.new):
             self.active_mask.is_read = True
         
-        
+
+    def delete_mask(self, name):
+        self.mask_belongings[self.active_mask.get(modified=False)] = MaskBelonging.NONE
+        self.masks.pop(name)
+        self.masks_mapping.pop(self.active_mask.id)
+        self._update_all_masks()
+
 
     def pop_mask_pixel(self):
         """
@@ -260,8 +273,8 @@ class Image(QObject):
         function to show which pixels haven't been thresholded yet.
         """
         blue_x, blue_y = np.where(self.thresholded_pixels == False)
-        display_img = self._create_displayed_img(blue_x, blue_y, MaskColor.BLUE)
-        self._show_img(display_img)
+        mask_img = self._create_mask_img(blue_x, blue_y, MaskColor.BLUE)
+        self._show_img(mask_img)
 
 
 
@@ -308,7 +321,7 @@ class Image(QObject):
         if self.is_thresolded == False:
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
-        indexes_to_thr=np.nonzero(self.active_mask.get() == True)
+        indexes_to_thr=np.where(self.active_mask.get(modified=False))
         img_to_thr=self.tmp_image[indexes_to_thr]
         otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
@@ -321,7 +334,7 @@ class Image(QObject):
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
         
-        indexes_to_thr=np.nonzero(self.active_mask.get() == True)
+        indexes_to_thr=np.where(self.active_mask.get(modified=False))
         img_to_thr=self.mask_copy[indexes_to_thr]
         otsu_res=self.Otsu.apply(img_to_thr)
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
