@@ -9,9 +9,9 @@ from FiltersEnum import Filter
 from ParamsFactory import ParamsFactory
 from PixelList import PixelList
 
-"""
-all libraries and necessery files should be imported above.
-"""
+
+# all libraries and necessery files should be imported above.
+
 
 
 class Window(QMainWindow, UI):
@@ -72,7 +72,7 @@ class Window(QMainWindow, UI):
         self.threshold_slider.sliderReleased.connect(self.image.apply_thres)
         self.threshold_combobox.currentIndexChanged.connect(self.image.Otsu.set_type1)
         self.otsu_button.clicked.connect(self.image.apply_otsu)
-        self.apply_threshold_button.clicked.connect(self.image.apply_thres)
+        self.apply_threshold_button.clicked.connect(self.image.apply_thres_by_button)
         self.remove_threshold_button.clicked.connect(self.image.remove_threshold)
         self.action_undo.triggered.connect(self.image.undo)
         
@@ -135,6 +135,10 @@ class Window(QMainWindow, UI):
 
 
 if __name__ == "__main__":
+    """
+        main moduleof this appp
+    
+    """
     app = QApplication(sys.argv)
     win = Window()
     win.show()

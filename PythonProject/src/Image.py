@@ -13,6 +13,7 @@ from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
 from Thresold import Thresold
+
 class Image(QObject):
     """
     Image is a class responsible for doing operations on an image. Class should be initialized when
@@ -317,23 +318,32 @@ class Image(QObject):
         self._update_img(self.Median.apply(self.tmp_image))
     
     def apply_otsu(self):
-    
+        print('applying otsu')
         if self.is_thresolded == False:
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
-        indexes_to_thr=np.where(self.active_mask.get(modified=False))
-        img_to_thr=self.tmp_image[indexes_to_thr]
-        otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
-        self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
-        self._update_img(self.tmp_image)
-        self.thresh_val_calc.emit(ret)
+            indexes_to_thr=np.where(self.active_mask.get(modified=False))
+            img_to_thr=self.mask_copy[indexes_to_thr]
+            otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
+            self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
+            self._update_img(self.tmp_image)
+            self.thresh_val_calc.emit(ret)
     
     def apply_thres(self):
-
         if self.is_thresolded == False:
-            self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
-        
+            self.mask_copy=np.copy(self.tmp_image)
+        indexes_to_thr=np.where(self.active_mask.get(modified=False))
+        img_to_thr=self.mask_copy[indexes_to_thr]
+        otsu_res=self.Otsu.apply(img_to_thr)
+        self.thresholded_pixels[tuple((indexes_to_thr))] = True
+        self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
+        self._update_img(self.tmp_image)
+
+    def apply_thres_by_button(self):
+        if self.is_thresolded == False:
+            self.is_thresolded=True
+        self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         img_to_thr=self.mask_copy[indexes_to_thr]
         otsu_res=self.Otsu.apply(img_to_thr)
@@ -341,11 +351,9 @@ class Image(QObject):
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self._update_img(self.tmp_image)
     
-    def apply_to_img(self):
-        self.mask_copy=self.tmp_image
-        self.is_thresolded=False
     def remove_threshold(self):
-        #TODO
+        # send signal to set slider to 0
+        self.thresh_val_calc.emit(0)
         self._update_img(self.mask_copy)
         self.is_thresolded=False
 
