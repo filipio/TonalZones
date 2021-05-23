@@ -33,8 +33,11 @@ wybierz obszar - Piotrek
 
 
 24.05.2020
--UnitTesty, FinalBuild
-
+-dokumentacja na stronie githuba - Piotrek
+-bugi z maskami - Filip
+-tryb wsadowy - Piotrek
+-thresholding bugi - Piotrek
+-frontend - Filip
 
 -osobna klasa/moduł do gui(App) czyli przerobiony na .py plik z designera
 -klasa obrazek z metodami które na nim działają

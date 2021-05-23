@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Label import Label
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -676,6 +677,10 @@ class Ui_MainWindow(object):
         self.new_mask_btn.setEnabled(True)
         self.new_mask_btn.setObjectName("new_mask_btn")
         self.verticalLayout_21.addWidget(self.new_mask_btn)
+        self.delete_mask_btn = QtWidgets.QPushButton(self.Mask)
+        self.delete_mask_btn.setEnabled(False)
+        self.delete_mask_btn.setObjectName("delete_mask_btn")
+        self.verticalLayout_21.addWidget(self.delete_mask_btn)
         self.not_thresholded_btn = QtWidgets.QPushButton(self.Mask)
         self.not_thresholded_btn.setEnabled(False)
         self.not_thresholded_btn.setObjectName("not_thresholded_btn")
@@ -884,6 +889,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Active Mask :"))
         self.read_mask_c_box.setItemText(0, _translate("MainWindow", "current"))
         self.new_mask_btn.setText(_translate("MainWindow", "New"))
+        self.delete_mask_btn.setText(_translate("MainWindow", "Delete"))
         self.not_thresholded_btn.setText(_translate("MainWindow", "Not Thresholded"))
         self.hide_mask_btn.setText(_translate("MainWindow", "Hide"))
         self.show_mask_btn.setText(_translate("MainWindow", "Show"))
