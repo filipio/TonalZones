@@ -143,7 +143,7 @@ class Image(QObject):
             last_image = self.history.pop()
             self._update_img(last_image, save=False)
         except IndexError:
-            print("TO DO : HANDLE INDEX ERROR")
+            QMessageBox.information(self.graphic_area, "Undo error", "this is the basic state of your image.")
 
     def save(self):
         """
@@ -152,7 +152,7 @@ class Image(QObject):
         """
         if not self._empty_img_error():
             if not np.all(self.thresholded_pixels):
-                reply = QMessageBox.question(self.graphic_area, "Work not finished", "Are you sure you want to quit ? Some pixels haven't been thresholded yet.")
+                reply = QMessageBox.question(self.graphic_area, "Work not finished", "Are you sure you want to save the image ? Some pixels haven't been thresholded yet.")
                 if reply == QMessageBox.Yes:
                     destination = QFileDialog.getSaveFileName(filter="Image (*.jpg *.png)")[0]
                     cv.imwrite(destination,self.tmp_image)        

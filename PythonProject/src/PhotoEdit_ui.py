@@ -11,7 +11,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Label import Label
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -813,8 +812,6 @@ class Ui_MainWindow(object):
         self.mask_max_slider.valueChanged['int'].connect(self.mask_max_label.setNum)
         self.threshold_slider.valueChanged['int'].connect(self.threshold_slider_val.setNum)
         self.pixel_tolerance_slider.valueChanged['int'].connect(self.pixel_tolerance_label.setNum)
-        self.thresh_read_mask_c_box.currentTextChanged['QString'].connect(self.read_mask_c_box.setCurrentText)
-        self.read_mask_c_box.currentTextChanged['QString'].connect(self.thresh_read_mask_c_box.setCurrentText)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

@@ -25,6 +25,7 @@ class Window(QMainWindow, UI):
         super().__init__(parent)
         
         self.setupUi(self)
+        self.mask_was_deleted = 0
         default_mask_name = self.read_mask_c_box.currentText()
         self.image = Image(self.graphicArea, default_mask_name)
         self.pixel_list_operator = PixelList(self.pixel_list)
@@ -114,22 +115,46 @@ class Window(QMainWindow, UI):
         self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
         self.new_mask_btn.clicked.connect(self.image.new_mask)
         self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
-        self.delete_mask_btn.clicked.connect(lambda : self.image.delete_mask(self.read_mask_c_box.currentText()))
-        self.delete_mask_btn.clicked.connect(lambda : self.read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
-        self.delete_mask_btn.clicked.connect(lambda : self.thresh_read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
-        
-        self.read_mask_c_box.currentTextChanged.connect(lambda : self.delete_mask_btn.setEnabled(True) if self.read_mask_c_box.currentText() != self.image.default_mask_name else self.delete_mask_btn.setEnabled(False))
-         # may trigger load event
         self.save_mask_btn.clicked.connect(lambda : self.image.save_mask(self.mask_name_input.text()))
+        self.delete_mask_btn.clicked.connect(lambda : self.image.delete_mask(self.read_mask_c_box.currentText()))
+        def set_mask_deleted():
+            self.mask_was_deleted = 2
+            print("mask was deleted set to true.")
+        def set_combo_box_index(index):
+            print("set_combo_box_index() called")
+            if self.mask_was_deleted:
+                self.mask_was_deleted -=1
+                print("mask_was_deleted set to false")
+            else:
+                print("setting text of combo boxes.")
+                self.read_mask_c_box.setCurrentIndex(index)
+                self.thresh_read_mask_c_box.setCurrentIndex(index)
 
-        self.read_mask_c_box.currentTextChanged.connect(lambda : self.image.load_mask(self.read_mask_c_box.currentText()))
         #image signals
         self.image.mask_saved.connect(self.read_mask_c_box.addItem)
         self.image.mask_saved.connect(self.thresh_read_mask_c_box.addItem)
         self.image.mask_saved.connect(lambda value: self.mask_name_input.clear())
-        self.image.mask_saved.connect(self.read_mask_c_box.setCurrentText)
+        self.image.mask_saved.connect(lambda : self.read_mask_c_box.setCurrentIndex(self.read_mask_c_box.count() - 1))
+        self.image.mask_saved.connect(lambda : self.thresh_read_mask_c_box.setCurrentIndex(self.thresh_read_mask_c_box.count() - 1))
         self.image.mask_loaded.connect(self.pixel_list_operator.load_from_mask)
         self.image.mask_loaded.connect(self.params_f.set_data_from_mask)
+
+        self.delete_mask_btn.clicked.connect(lambda : set_mask_deleted())
+        self.delete_mask_btn.clicked.connect(lambda : self.thresh_read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
+        self.delete_mask_btn.clicked.connect(lambda : self.read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
+
+        
+
+        #combo boxes
+        self.read_mask_c_box.currentIndexChanged.connect(lambda : self.delete_mask_btn.setEnabled(True) if self.read_mask_c_box.currentText() != self.image.default_mask_name else self.delete_mask_btn.setEnabled(False))
+        self.read_mask_c_box.currentIndexChanged.connect(set_combo_box_index)
+        self.read_mask_c_box.currentIndexChanged.connect(lambda : self.image.load_mask(self.read_mask_c_box.currentText()))
+        self.thresh_read_mask_c_box.currentIndexChanged.connect(set_combo_box_index)
+        
+        
+
+
+
 
         
 
