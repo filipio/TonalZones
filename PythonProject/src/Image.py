@@ -13,6 +13,7 @@ from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
 from Thresold import Thresold
+
 class Image(QObject):
     """
     Image is a class responsible for doing operations on an image. Class should be initialized when

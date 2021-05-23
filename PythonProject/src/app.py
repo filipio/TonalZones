@@ -9,9 +9,9 @@ from FiltersEnum import Filter
 from ParamsFactory import ParamsFactory
 from PixelList import PixelList
 
-"""
-all libraries and necessery files should be imported above.
-"""
+
+# all libraries and necessery files should be imported above.
+
 
 
 class Window(QMainWindow, UI):
@@ -131,6 +131,10 @@ class Window(QMainWindow, UI):
 
 
 if __name__ == "__main__":
+    """
+        main moduleof this appp
+    
+    """
     app = QApplication(sys.argv)
     win = Window()
     win.show()

@@ -22,7 +22,16 @@ wybierz obszar - Piotrek
 -buildowanie - razem 23.04.2020
 -pisać docstringi
 10.05.2020
--dodatkowe funkcjonalności: filtry/przekształcenia obrazu/cienie/kontrast/jasność, poprawa błędów,
+-pokazujemy na czerwono wszyskto co nie jest w masce + podmianka i wyswietlanie - Filip
+-dokonczyc otsu w miare intuicyjnie + dodac mozliwosc do ktorej maski stosujesz progowanie - Piotrek
+-gui do masek(dodawanie masek, lista z wszystkimi maskami)
+-tryb wsadowy zacząć
+-oprogramowanie masek - Filip
+-oprogramowananie progowania - Piotrek
+-zacząc tryb wsadowy - Piotrek
+
+
+
 24.05.2020
 -UnitTesty, FinalBuild
 
