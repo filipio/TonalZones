@@ -1550,37 +1550,5 @@ QSlider::sub-page:vertical {
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>thresh_read_mask_c_box</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>read_mask_c_box</receiver>
-   <slot>setCurrentText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>957</x>
-     <y>274</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>956</x>
-     <y>631</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>read_mask_c_box</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>thresh_read_mask_c_box</receiver>
-   <slot>setCurrentText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>956</x>
-     <y>631</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>957</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

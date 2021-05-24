@@ -59,7 +59,6 @@ class Image(QObject):
         function to display and save new state of image.
         """
         if save:
-            print("saving image to history.")
             self.history.append(self.tmp_image)
         self.tmp_image = img
         frame = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -135,7 +134,7 @@ class Image(QObject):
                 self.mask_belongings[value.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = value.id
 
 
-    def undo(self): # may occur some pitfalls with it
+    def undo(self):
         """
         ctrl + z mechanism.
         """
@@ -143,7 +142,7 @@ class Image(QObject):
             last_image = self.history.pop()
             self._update_img(last_image, save=False)
         except IndexError:
-            print("TO DO : HANDLE INDEX ERROR")
+            QMessageBox.information(self.graphic_area, "Undo error", "this is the basic state of your image.")
 
     def save(self):
         """
@@ -152,7 +151,7 @@ class Image(QObject):
         """
         if not self._empty_img_error():
             if not np.all(self.thresholded_pixels):
-                reply = QMessageBox.question(self.graphic_area, "Work not finished", "Are you sure you want to quit ? Some pixels haven't been thresholded yet.")
+                reply = QMessageBox.question(self.graphic_area, "Work not finished", "Are you sure you want to save the image ? Some pixels haven't been thresholded yet.")
                 if reply == QMessageBox.Yes:
                     destination = QFileDialog.getSaveFileName(filter="Image (*.jpg *.png)")[0]
                     cv.imwrite(destination,self.tmp_image)        
@@ -185,7 +184,6 @@ class Image(QObject):
         """
         function to show the current mask = last that was applied
         """
-        print("show_curr_mask called.")
         red_rows, red_columns = np.where(self.active_mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels, modified) == False)
         mask_img = self._create_mask_img(red_rows, red_columns, MaskColor.RED)
         self._show_img(mask_img)
@@ -201,7 +199,6 @@ class Image(QObject):
         """
         function to save curr mask as a given name. If the name was provided before, warning occurs.
         """
-        print("save_mask()")
         if name in self.masks.keys():
             QMessageBox.warning(self.graphic_area,"Error","Mask with such name already exist.")
         else:
@@ -210,7 +207,6 @@ class Image(QObject):
             self.masks[name] = self.active_mask
             self.active_mask.saved = True
             self.mask_saved.emit(name)
-            print("mask was saved.")
             
             
  
@@ -223,7 +219,6 @@ class Image(QObject):
             self.active_mask.is_read = False
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
         self.masks[self.default_mask_name] = self.active_mask
-        # self.masks_mapping[self.active_mask.id] = self.default_mask_name
         self.mask_loaded.emit(self.active_mask)
         self.show_curr_img()
 
@@ -231,7 +226,6 @@ class Image(QObject):
         """
         function to load mask given by name. Some values are reset in case new image was loaded.
         """
-        print("load_mask()")
         self.active_mask.is_read = False
         self.active_mask = self.masks.get(name)
         self.active_mask.loaded_handler()
@@ -242,6 +236,9 @@ class Image(QObject):
         
 
     def delete_mask(self, name):
+        """
+        function to delete mask given by name.
+        """
         self.mask_belongings[self.active_mask.get(modified=False)] = MaskBelonging.NONE
         self.masks.pop(name)
         self.masks_mapping.pop(self.active_mask.id)
@@ -253,7 +250,10 @@ class Image(QObject):
         function to pop a pixel from a current mask pixel list.
         """
         prev_mask = self.active_mask.get(modified=False)
-        self.active_mask.pop_pixel()
+        try : 
+            self.active_mask.pop_pixel()
+        except IndexError as err:
+            QMessageBox.information(self.graphic_area, "Error",  err.args[0])
         self.apply_mask(prev_mask)
     
     def update_mask_pixel_tol(self, value):
@@ -280,6 +280,9 @@ class Image(QObject):
 
 
     def apply_mask(self, previous_mask):
+        """
+        function to apply mask - it should be called after any change in current mask.
+        """
         self._update_masks_data(previous_mask)
         self.show_curr_mask()
 
@@ -292,17 +295,6 @@ class Image(QObject):
         grey_value = self.image[img_y][img_x]
         self.pixel_selected.emit(grey_value)
         self.active_mask.add_pixel(grey_value)
-
-
-    def select_rect(self,rect):
-        x1,y1,x2,y2=rect.getCoords()
-        print(x1,y1,x2,y2)
-
-        print("shape : ",self.image.shape)
-        # print('selected rectangle',r)
-    
-    def select_custom(self):
-        print('select_custom')
     
     def blur_avg_filter(self,params_dict):
         self._update_img(self.Avaraging.apply(self.tmp_image))

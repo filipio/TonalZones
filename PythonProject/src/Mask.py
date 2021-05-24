@@ -19,6 +19,11 @@ class Mask:
 
 
     def get(self, img=None, mask_belonging_arr=None, thresholded_pixels=None, modified = True):
+        """
+        function to get the mask values based on which pixels had been thresholded and which already
+        belong to other mask. The function returns masks values according to type of last modification
+        that was applied.
+        """
         if not modified:
             return self.mask
         if(self.last_modification == MaskModification.RANGE):
@@ -30,34 +35,50 @@ class Mask:
         return self.mask
 
     def remove(self, row, column):
+        """
+        function to remove pixel from mask.
+        """
         self.mask[row,column] = False
 
     def add_pixel(self,grey_value):
+        """
+        function to add clicked pixel value to other values.
+        """
         self.pixel_values.append(grey_value)
         self.last_modification = MaskModification.PIXEL
     
     def pop_pixel(self):
+        """
+        function to pop clicked pixel value from other values.
+        """
         try:
             self.pixel_values.pop()
             self.last_modification = MaskModification.PIXEL
         except IndexError:
-            print("TO DO : HANDLE POP PIX ERROR")
+            raise IndexError("there aren't any pixels to pop.")
 
     def update_pixel_tol(self, value):
+        """
+        function to update mask pixel tolerance value.
+        """
         self.pixels_tol = value
         self.last_modification = MaskModification.PIXEL
     
 
     def update_slider_mask(self, s_min, s_max, s_tol):
         """
-        function that saves new values of a slider mask.
+        function that saves new values of mask's sliders.
         """
         self.slider_min = s_min
         self.slider_max = s_max
         self.slider_tol = s_tol
         self.last_modification = MaskModification.RANGE
 
-    def loaded_handler(self): # maybe height and width also here
+    def loaded_handler(self):
+        """
+        function is called whenever mask was loaded. Values that were in last modification are saved,
+        everything else is removed.
+        """
         if self.last_modification == MaskModification.RANGE:
             self.pixels_tol = 0
             self.pixel_values.clear()
