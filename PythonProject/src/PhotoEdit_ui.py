@@ -11,7 +11,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Label import Label
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -787,17 +786,13 @@ class Ui_MainWindow(object):
         self.action_undo.setObjectName("action_undo")
         self.menuFile.addAction(self.actionSave)
         self.menuFile.addAction(self.actionLoad)
-        self.menuEdit.addAction(self.actionZoomIn)
-        self.menuEdit.addAction(self.actionZoomOut)
         self.menuEdit.addAction(self.action_undo)
         self.menuFilter.addAction(self.actionGaussian)
         self.menuFilter.addAction(self.actionAvaraging)
         self.menuFilter.addAction(self.actionMedian)
         self.menuFilter.addAction(self.actionBilateral)
-        self.menuSelect.addAction(self.actionRect)
         self.menuMask.addAction(self.action_select_from_image)
         self.menuMask.addAction(self.action_select_from_settings)
-        self.menuMask.addAction(self.action_apply_mask)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuFilter.menuAction())
@@ -813,8 +808,6 @@ class Ui_MainWindow(object):
         self.mask_max_slider.valueChanged['int'].connect(self.mask_max_label.setNum)
         self.threshold_slider.valueChanged['int'].connect(self.threshold_slider_val.setNum)
         self.pixel_tolerance_slider.valueChanged['int'].connect(self.pixel_tolerance_label.setNum)
-        self.thresh_read_mask_c_box.currentTextChanged['QString'].connect(self.read_mask_c_box.setCurrentText)
-        self.read_mask_c_box.currentTextChanged['QString'].connect(self.thresh_read_mask_c_box.setCurrentText)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

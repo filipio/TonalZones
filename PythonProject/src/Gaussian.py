@@ -37,6 +37,7 @@ class Gaussian:
     def set_border(self,border):
         self.border=self.borders[border]
     def apply(self,img):
+        print('applying gaussian filter')
         if (self.ksize_x==0 and self.ksize_y==0) or (self.ksize_x%2==1 and self.ksize_y%2==1):
             return cv.GaussianBlur(img,
                 (self.ksize_x,self.ksize_y),
@@ -45,5 +46,7 @@ class Gaussian:
                 self.border
             )
         else:
+            # print error message about incorrect messages
+            print('Gaussian filter error')
             QMessageBox.critical(self.img_view, "Error", "Kerne X and Kernel Y should be both equal 0 or odd")
             return img

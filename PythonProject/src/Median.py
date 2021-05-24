@@ -1,5 +1,9 @@
 import cv2 as cv
 class Median:
+    """
+        class responsible for median filtering. For more info
+        see docs for gaussian in gaussian.py
+    """
     def __init__(self):
         self.ksize=None
     def set_ksize(self,ksize):
