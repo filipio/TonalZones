@@ -1,6 +1,8 @@
 import cv2 as cv
 class Bilateral:
-    
+    """
+        class for bilateral filetr, for more info see docs for Gaussian
+    """
     def __init__(self):
         self.ksize=0
         self.sigma_color=0

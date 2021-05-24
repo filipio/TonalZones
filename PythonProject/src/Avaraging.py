@@ -1,6 +1,9 @@
 import cv2 as cv
 from PyQt5.QtWidgets import QMessageBox
 class Avaraging:
+    """
+        Class for avaraging filter, for more info see docs for Gaussian Filter
+    """
     def __init__(self,img_view):
         self.img_view=img_view
         self.ksize_x=0

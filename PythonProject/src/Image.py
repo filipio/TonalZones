@@ -296,20 +296,36 @@ class Image(QObject):
         self.pixel_selected.emit(grey_value)
         self.active_mask.add_pixel(grey_value)
     
-    def blur_avg_filter(self,params_dict):
+    def blur_avg_filter(self):
+        """
+            function to apply averaging filter
+        """
         self._update_img(self.Avaraging.apply(self.tmp_image))
     
-    def blur_bilateral_filter(self,params_dict):
+    def blur_bilateral_filter(self):
+        """
+            function to apply bilateral filter
+        """
         self._update_img(self.Bilateral.apply(self.tmp_image))
     
-    def blur_gauss_filter(self,params_dict):
+    def blur_gauss_filter(self):
+        """
+            function to apply gaussian filter
+        """
         self._update_img(self.Gaussian.apply(self.tmp_image))
     
     def blur_med_filter(self,params_dict):
+        """
+            function to apply median filter
+        """
         print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
     
     def apply_otsu(self):
+        """
+            apply thresolding value found by otsu algorithm
+            bu pushing button
+        """
         print('applying otsu')
         if self.is_thresolded == False:
             self.mask_copy=np.copy(self.tmp_image)
@@ -322,6 +338,9 @@ class Image(QObject):
             self.thresh_val_calc.emit(ret)
     
     def apply_thres(self):
+        """
+            apply thresolding by moving and realising slider
+        """
         if self.is_thresolded == False:
             self.is_thresolded=True
             self.mask_copy=np.copy(self.tmp_image)
@@ -333,6 +352,10 @@ class Image(QObject):
         self._update_img(self.tmp_image)
 
     def apply_thres_by_button(self):
+        """
+            apply thresolding by pushing apply button, it is not possible to 
+            get back by pushing remove button then.
+        """
         if self.is_thresolded == False:
             self.is_thresolded=True
         self.mask_copy=np.copy(self.tmp_image)
@@ -344,7 +367,9 @@ class Image(QObject):
         self._update_img(self.tmp_image)
     
     def remove_threshold(self):
-        # send signal to set slider to 0
+        """
+            remove thresolding from image, if it have not been applied before
+        """
         self.thresh_val_calc.emit(0)
         self._update_img(self.mask_copy)
         self.is_thresolded=False

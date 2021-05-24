@@ -1,0 +1,928 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Label</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Label</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/piotr/Pulpit/studia/semestr4/Python/PythonProject/src/Label.py">/home/piotr/Pulpit/studia/semestr4/Python/PythonProject/src/Label.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PyQt5.QtWidgets.html">PyQt5.QtWidgets</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="PyQt5.QtWidgets.html#QLabel">PyQt5.QtWidgets.QLabel</a>(<a href="PyQt5.QtWidgets.html#QFrame">PyQt5.QtWidgets.QFrame</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Label.html#Label">Label</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Label">class <strong>Label</strong></a>(<a href="PyQt5.QtWidgets.html#QLabel">PyQt5.QtWidgets.QLabel</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Label">Label</a>(*args,&nbsp;**kwargs)<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;is&nbsp;responsible&nbsp;for&nbsp;handling&nbsp;UI&nbsp;events&nbsp;such&nbsp;as&nbsp;:<br>
+-notify&nbsp;about&nbsp;clicked&nbsp;pixel&nbsp;events<br>
+-mark&nbsp;clicked&nbsp;pixels<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Label.html#Label">Label</a></dd>
+<dd><a href="PyQt5.QtWidgets.html#QLabel">PyQt5.QtWidgets.QLabel</a></dd>
+<dd><a href="PyQt5.QtWidgets.html#QFrame">PyQt5.QtWidgets.QFrame</a></dd>
+<dd><a href="PyQt5.QtWidgets.html#QWidget">PyQt5.QtWidgets.QWidget</a></dd>
+<dd><a href="PyQt5.QtCore.html#QObject">PyQt5.QtCore.QObject</a></dd>
+<dd><a href="PyQt5.sip.html#wrapper">sip.wrapper</a></dd>
+<dd><a href="PyQt5.QtGui.html#QPaintDevice">PyQt5.QtGui.QPaintDevice</a></dd>
+<dd><a href="PyQt5.sip.html#simplewrapper">sip.simplewrapper</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Label-__init__"><strong>__init__</strong></a>(self, *args, **kwargs)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Label-clear_pixels"><strong>clear_pixels</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Label-enter_pixel_mode"><strong>enter_pixel_mode</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Label-mouseReleaseEvent"><strong>mouseReleaseEvent</strong></a>(self, event)</dt><dd><tt><a href="#Label-mouseReleaseEvent">mouseReleaseEvent</a>(self,&nbsp;QMouseEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-paintEvent"><strong>paintEvent</strong></a>(self, event)</dt><dd><tt>function&nbsp;that&nbsp;paints&nbsp;clicked&nbsp;pixels&nbsp;on&nbsp;image.&nbsp;Do&nbsp;not&nbsp;call&nbsp;this&nbsp;directly.&nbsp;Call&nbsp;it&nbsp;by<br>
+self.<a href="#Label-update">update</a>()</tt></dd></dl>
+
+<strong>pixel_clicked</strong> = &lt;unbound PYQT_SIGNAL pixel_clicked(int,int)&gt;
+<strong>pixel_mode_entered</strong> = &lt;unbound PYQT_SIGNAL pixel_mode_entered()&gt;
+<strong>pixel_mode_left</strong> = &lt;unbound PYQT_SIGNAL pixel_mode_left()&gt;
+<dl><dt><a name="Label-pop_last_pixel"><strong>pop_last_pixel</strong></a>(self)</dt></dl>
+
+<strong>rect_change</strong> = &lt;unbound PYQT_SIGNAL rect_change(QRect)&gt;
+<dl><dt><a name="Label-switch_mouse_selection"><strong>switch_mouse_selection</strong></a>(self)</dt></dl>
+
+<hr>
+Methods inherited from <a href="PyQt5.QtWidgets.html#QLabel">PyQt5.QtWidgets.QLabel</a>:<br>
+<dl><dt><a name="Label-alignment"><strong>alignment</strong></a>(...)</dt><dd><tt><a href="#Label-alignment">alignment</a>(self)&nbsp;-&gt;&nbsp;Qt.Alignment</tt></dd></dl>
+
+<dl><dt><a name="Label-buddy"><strong>buddy</strong></a>(...)</dt><dd><tt><a href="#Label-buddy">buddy</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-changeEvent"><strong>changeEvent</strong></a>(...)</dt><dd><tt><a href="#Label-changeEvent">changeEvent</a>(self,&nbsp;QEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-clear"><strong>clear</strong></a>(...)</dt><dd><tt><a href="#Label-clear">clear</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-contextMenuEvent"><strong>contextMenuEvent</strong></a>(...)</dt><dd><tt><a href="#Label-contextMenuEvent">contextMenuEvent</a>(self,&nbsp;QContextMenuEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-event"><strong>event</strong></a>(...)</dt><dd><tt><a href="#Label-event">event</a>(self,&nbsp;QEvent)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-focusInEvent"><strong>focusInEvent</strong></a>(...)</dt><dd><tt><a href="#Label-focusInEvent">focusInEvent</a>(self,&nbsp;QFocusEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-focusNextPrevChild"><strong>focusNextPrevChild</strong></a>(...)</dt><dd><tt><a href="#Label-focusNextPrevChild">focusNextPrevChild</a>(self,&nbsp;bool)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-focusOutEvent"><strong>focusOutEvent</strong></a>(...)</dt><dd><tt><a href="#Label-focusOutEvent">focusOutEvent</a>(self,&nbsp;QFocusEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-hasScaledContents"><strong>hasScaledContents</strong></a>(...)</dt><dd><tt><a href="#Label-hasScaledContents">hasScaledContents</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-hasSelectedText"><strong>hasSelectedText</strong></a>(...)</dt><dd><tt><a href="#Label-hasSelectedText">hasSelectedText</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-heightForWidth"><strong>heightForWidth</strong></a>(...)</dt><dd><tt><a href="#Label-heightForWidth">heightForWidth</a>(self,&nbsp;int)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-indent"><strong>indent</strong></a>(...)</dt><dd><tt><a href="#Label-indent">indent</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-keyPressEvent"><strong>keyPressEvent</strong></a>(...)</dt><dd><tt><a href="#Label-keyPressEvent">keyPressEvent</a>(self,&nbsp;QKeyEvent)</tt></dd></dl>
+
+<strong>linkActivated</strong> = &lt;unbound PYQT_SIGNAL linkActivated(QString)&gt;
+<strong>linkHovered</strong> = &lt;unbound PYQT_SIGNAL linkHovered(QString)&gt;
+<dl><dt><a name="Label-margin"><strong>margin</strong></a>(...)</dt><dd><tt><a href="#Label-margin">margin</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-minimumSizeHint"><strong>minimumSizeHint</strong></a>(...)</dt><dd><tt><a href="#Label-minimumSizeHint">minimumSizeHint</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-mouseMoveEvent"><strong>mouseMoveEvent</strong></a>(...)</dt><dd><tt><a href="#Label-mouseMoveEvent">mouseMoveEvent</a>(self,&nbsp;QMouseEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-mousePressEvent"><strong>mousePressEvent</strong></a>(...)</dt><dd><tt><a href="#Label-mousePressEvent">mousePressEvent</a>(self,&nbsp;QMouseEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-movie"><strong>movie</strong></a>(...)</dt><dd><tt><a href="#Label-movie">movie</a>(self)&nbsp;-&gt;&nbsp;QMovie</tt></dd></dl>
+
+<dl><dt><a name="Label-openExternalLinks"><strong>openExternalLinks</strong></a>(...)</dt><dd><tt><a href="#Label-openExternalLinks">openExternalLinks</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-picture"><strong>picture</strong></a>(...)</dt><dd><tt><a href="#Label-picture">picture</a>(self)&nbsp;-&gt;&nbsp;QPicture</tt></dd></dl>
+
+<dl><dt><a name="Label-pixmap"><strong>pixmap</strong></a>(...)</dt><dd><tt><a href="#Label-pixmap">pixmap</a>(self)&nbsp;-&gt;&nbsp;QPixmap</tt></dd></dl>
+
+<dl><dt><a name="Label-selectedText"><strong>selectedText</strong></a>(...)</dt><dd><tt><a href="#Label-selectedText">selectedText</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-selectionStart"><strong>selectionStart</strong></a>(...)</dt><dd><tt><a href="#Label-selectionStart">selectionStart</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-setAlignment"><strong>setAlignment</strong></a>(...)</dt><dd><tt><a href="#Label-setAlignment">setAlignment</a>(self,&nbsp;Union[Qt.Alignment,&nbsp;Qt.AlignmentFlag])</tt></dd></dl>
+
+<dl><dt><a name="Label-setBuddy"><strong>setBuddy</strong></a>(...)</dt><dd><tt><a href="#Label-setBuddy">setBuddy</a>(self,&nbsp;QWidget)</tt></dd></dl>
+
+<dl><dt><a name="Label-setIndent"><strong>setIndent</strong></a>(...)</dt><dd><tt><a href="#Label-setIndent">setIndent</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMargin"><strong>setMargin</strong></a>(...)</dt><dd><tt><a href="#Label-setMargin">setMargin</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMovie"><strong>setMovie</strong></a>(...)</dt><dd><tt><a href="#Label-setMovie">setMovie</a>(self,&nbsp;QMovie)</tt></dd></dl>
+
+<dl><dt><a name="Label-setNum"><strong>setNum</strong></a>(...)</dt><dd><tt><a href="#Label-setNum">setNum</a>(self,&nbsp;float)<br>
+<a href="#Label-setNum">setNum</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setOpenExternalLinks"><strong>setOpenExternalLinks</strong></a>(...)</dt><dd><tt><a href="#Label-setOpenExternalLinks">setOpenExternalLinks</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setPicture"><strong>setPicture</strong></a>(...)</dt><dd><tt><a href="#Label-setPicture">setPicture</a>(self,&nbsp;QPicture)</tt></dd></dl>
+
+<dl><dt><a name="Label-setPixmap"><strong>setPixmap</strong></a>(...)</dt><dd><tt><a href="#Label-setPixmap">setPixmap</a>(self,&nbsp;QPixmap)</tt></dd></dl>
+
+<dl><dt><a name="Label-setScaledContents"><strong>setScaledContents</strong></a>(...)</dt><dd><tt><a href="#Label-setScaledContents">setScaledContents</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setSelection"><strong>setSelection</strong></a>(...)</dt><dd><tt><a href="#Label-setSelection">setSelection</a>(self,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setText"><strong>setText</strong></a>(...)</dt><dd><tt><a href="#Label-setText">setText</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setTextFormat"><strong>setTextFormat</strong></a>(...)</dt><dd><tt><a href="#Label-setTextFormat">setTextFormat</a>(self,&nbsp;Qt.TextFormat)</tt></dd></dl>
+
+<dl><dt><a name="Label-setTextInteractionFlags"><strong>setTextInteractionFlags</strong></a>(...)</dt><dd><tt><a href="#Label-setTextInteractionFlags">setTextInteractionFlags</a>(self,&nbsp;Union[Qt.TextInteractionFlags,&nbsp;Qt.TextInteractionFlag])</tt></dd></dl>
+
+<dl><dt><a name="Label-setWordWrap"><strong>setWordWrap</strong></a>(...)</dt><dd><tt><a href="#Label-setWordWrap">setWordWrap</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-sizeHint"><strong>sizeHint</strong></a>(...)</dt><dd><tt><a href="#Label-sizeHint">sizeHint</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-text"><strong>text</strong></a>(...)</dt><dd><tt><a href="#Label-text">text</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-textFormat"><strong>textFormat</strong></a>(...)</dt><dd><tt><a href="#Label-textFormat">textFormat</a>(self)&nbsp;-&gt;&nbsp;Qt.TextFormat</tt></dd></dl>
+
+<dl><dt><a name="Label-textInteractionFlags"><strong>textInteractionFlags</strong></a>(...)</dt><dd><tt><a href="#Label-textInteractionFlags">textInteractionFlags</a>(self)&nbsp;-&gt;&nbsp;Qt.TextInteractionFlags</tt></dd></dl>
+
+<dl><dt><a name="Label-wordWrap"><strong>wordWrap</strong></a>(...)</dt><dd><tt><a href="#Label-wordWrap">wordWrap</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="PyQt5.QtWidgets.html#QFrame">PyQt5.QtWidgets.QFrame</a>:<br>
+<dl><dt><a name="Label-drawFrame"><strong>drawFrame</strong></a>(...)</dt><dd><tt><a href="#Label-drawFrame">drawFrame</a>(self,&nbsp;QPainter)</tt></dd></dl>
+
+<dl><dt><a name="Label-frameRect"><strong>frameRect</strong></a>(...)</dt><dd><tt><a href="#Label-frameRect">frameRect</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-frameShadow"><strong>frameShadow</strong></a>(...)</dt><dd><tt><a href="#Label-frameShadow">frameShadow</a>(self)&nbsp;-&gt;&nbsp;QFrame.Shadow</tt></dd></dl>
+
+<dl><dt><a name="Label-frameShape"><strong>frameShape</strong></a>(...)</dt><dd><tt><a href="#Label-frameShape">frameShape</a>(self)&nbsp;-&gt;&nbsp;QFrame.Shape</tt></dd></dl>
+
+<dl><dt><a name="Label-frameStyle"><strong>frameStyle</strong></a>(...)</dt><dd><tt><a href="#Label-frameStyle">frameStyle</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-frameWidth"><strong>frameWidth</strong></a>(...)</dt><dd><tt><a href="#Label-frameWidth">frameWidth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-initStyleOption"><strong>initStyleOption</strong></a>(...)</dt><dd><tt><a href="#Label-initStyleOption">initStyleOption</a>(self,&nbsp;QStyleOptionFrame)</tt></dd></dl>
+
+<dl><dt><a name="Label-lineWidth"><strong>lineWidth</strong></a>(...)</dt><dd><tt><a href="#Label-lineWidth">lineWidth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-midLineWidth"><strong>midLineWidth</strong></a>(...)</dt><dd><tt><a href="#Label-midLineWidth">midLineWidth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-setFrameRect"><strong>setFrameRect</strong></a>(...)</dt><dd><tt><a href="#Label-setFrameRect">setFrameRect</a>(self,&nbsp;QRect)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFrameShadow"><strong>setFrameShadow</strong></a>(...)</dt><dd><tt><a href="#Label-setFrameShadow">setFrameShadow</a>(self,&nbsp;QFrame.Shadow)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFrameShape"><strong>setFrameShape</strong></a>(...)</dt><dd><tt><a href="#Label-setFrameShape">setFrameShape</a>(self,&nbsp;QFrame.Shape)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFrameStyle"><strong>setFrameStyle</strong></a>(...)</dt><dd><tt><a href="#Label-setFrameStyle">setFrameStyle</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt><dd><tt><a href="#Label-setLineWidth">setLineWidth</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMidLineWidth"><strong>setMidLineWidth</strong></a>(...)</dt><dd><tt><a href="#Label-setMidLineWidth">setMidLineWidth</a>(self,&nbsp;int)</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="PyQt5.QtWidgets.html#QFrame">PyQt5.QtWidgets.QFrame</a>:<br>
+<dl><dt><strong>Box</strong> = 1</dl>
+
+<dl><dt><strong>HLine</strong> = 4</dl>
+
+<dl><dt><strong>NoFrame</strong> = 0</dl>
+
+<dl><dt><strong>Panel</strong> = 2</dl>
+
+<dl><dt><strong>Plain</strong> = 16</dl>
+
+<dl><dt><strong>Raised</strong> = 32</dl>
+
+<dl><dt><strong>Shadow</strong> = &lt;class 'PyQt5.QtWidgets.QFrame.Shadow'&gt;</dl>
+
+<dl><dt><strong>Shadow_Mask</strong> = 240</dl>
+
+<dl><dt><strong>Shape</strong> = &lt;class 'PyQt5.QtWidgets.QFrame.Shape'&gt;</dl>
+
+<dl><dt><strong>Shape_Mask</strong> = 15</dl>
+
+<dl><dt><strong>StyleMask</strong> = &lt;class 'PyQt5.QtWidgets.QFrame.StyleMask'&gt;</dl>
+
+<dl><dt><strong>StyledPanel</strong> = 6</dl>
+
+<dl><dt><strong>Sunken</strong> = 48</dl>
+
+<dl><dt><strong>VLine</strong> = 5</dl>
+
+<dl><dt><strong>WinPanel</strong> = 3</dl>
+
+<hr>
+Methods inherited from <a href="PyQt5.QtWidgets.html#QWidget">PyQt5.QtWidgets.QWidget</a>:<br>
+<dl><dt><a name="Label-acceptDrops"><strong>acceptDrops</strong></a>(...)</dt><dd><tt><a href="#Label-acceptDrops">acceptDrops</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-accessibleDescription"><strong>accessibleDescription</strong></a>(...)</dt><dd><tt><a href="#Label-accessibleDescription">accessibleDescription</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-accessibleName"><strong>accessibleName</strong></a>(...)</dt><dd><tt><a href="#Label-accessibleName">accessibleName</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-actionEvent"><strong>actionEvent</strong></a>(...)</dt><dd><tt><a href="#Label-actionEvent">actionEvent</a>(self,&nbsp;QActionEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-actions"><strong>actions</strong></a>(...)</dt><dd><tt><a href="#Label-actions">actions</a>(self)&nbsp;-&gt;&nbsp;List[QAction]</tt></dd></dl>
+
+<dl><dt><a name="Label-activateWindow"><strong>activateWindow</strong></a>(...)</dt><dd><tt><a href="#Label-activateWindow">activateWindow</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-addAction"><strong>addAction</strong></a>(...)</dt><dd><tt><a href="#Label-addAction">addAction</a>(self,&nbsp;QAction)</tt></dd></dl>
+
+<dl><dt><a name="Label-addActions"><strong>addActions</strong></a>(...)</dt><dd><tt><a href="#Label-addActions">addActions</a>(self,&nbsp;Iterable[QAction])</tt></dd></dl>
+
+<dl><dt><a name="Label-adjustSize"><strong>adjustSize</strong></a>(...)</dt><dd><tt><a href="#Label-adjustSize">adjustSize</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-autoFillBackground"><strong>autoFillBackground</strong></a>(...)</dt><dd><tt><a href="#Label-autoFillBackground">autoFillBackground</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-backgroundRole"><strong>backgroundRole</strong></a>(...)</dt><dd><tt><a href="#Label-backgroundRole">backgroundRole</a>(self)&nbsp;-&gt;&nbsp;QPalette.ColorRole</tt></dd></dl>
+
+<dl><dt><a name="Label-baseSize"><strong>baseSize</strong></a>(...)</dt><dd><tt><a href="#Label-baseSize">baseSize</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-childAt"><strong>childAt</strong></a>(...)</dt><dd><tt><a href="#Label-childAt">childAt</a>(self,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QWidget<br>
+<a href="#Label-childAt">childAt</a>(self,&nbsp;int,&nbsp;int)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-childrenRect"><strong>childrenRect</strong></a>(...)</dt><dd><tt><a href="#Label-childrenRect">childrenRect</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-childrenRegion"><strong>childrenRegion</strong></a>(...)</dt><dd><tt><a href="#Label-childrenRegion">childrenRegion</a>(self)&nbsp;-&gt;&nbsp;QRegion</tt></dd></dl>
+
+<dl><dt><a name="Label-clearFocus"><strong>clearFocus</strong></a>(...)</dt><dd><tt><a href="#Label-clearFocus">clearFocus</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-clearMask"><strong>clearMask</strong></a>(...)</dt><dd><tt><a href="#Label-clearMask">clearMask</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-close"><strong>close</strong></a>(...)</dt><dd><tt><a href="#Label-close">close</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-closeEvent"><strong>closeEvent</strong></a>(...)</dt><dd><tt><a href="#Label-closeEvent">closeEvent</a>(self,&nbsp;QCloseEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-contentsMargins"><strong>contentsMargins</strong></a>(...)</dt><dd><tt><a href="#Label-contentsMargins">contentsMargins</a>(self)&nbsp;-&gt;&nbsp;QMargins</tt></dd></dl>
+
+<dl><dt><a name="Label-contentsRect"><strong>contentsRect</strong></a>(...)</dt><dd><tt><a href="#Label-contentsRect">contentsRect</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-contextMenuPolicy"><strong>contextMenuPolicy</strong></a>(...)</dt><dd><tt><a href="#Label-contextMenuPolicy">contextMenuPolicy</a>(self)&nbsp;-&gt;&nbsp;Qt.ContextMenuPolicy</tt></dd></dl>
+
+<dl><dt><a name="Label-create"><strong>create</strong></a>(...)</dt><dd><tt><a href="#Label-create">create</a>(self,&nbsp;window:&nbsp;PyQt5.sip.voidptr&nbsp;=&nbsp;0,&nbsp;initializeWindow:&nbsp;bool&nbsp;=&nbsp;True,&nbsp;destroyOldWindow:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-createWindowContainer"><strong>createWindowContainer</strong></a>(...)</dt><dd><tt><a href="#Label-createWindowContainer">createWindowContainer</a>(QWindow,&nbsp;parent:&nbsp;QWidget&nbsp;=&nbsp;None,&nbsp;flags:&nbsp;Union[Qt.WindowFlags,&nbsp;Qt.WindowType]&nbsp;=&nbsp;0)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-cursor"><strong>cursor</strong></a>(...)</dt><dd><tt><a href="#Label-cursor">cursor</a>(self)&nbsp;-&gt;&nbsp;QCursor</tt></dd></dl>
+
+<strong>customContextMenuRequested</strong> = &lt;unbound PYQT_SIGNAL customContextMenuRequested(QPoint)&gt;
+<dl><dt><a name="Label-destroy"><strong>destroy</strong></a>(...)</dt><dd><tt><a href="#Label-destroy">destroy</a>(self,&nbsp;destroyWindow:&nbsp;bool&nbsp;=&nbsp;True,&nbsp;destroySubWindows:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-devType"><strong>devType</strong></a>(...)</dt><dd><tt><a href="#Label-devType">devType</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-dragEnterEvent"><strong>dragEnterEvent</strong></a>(...)</dt><dd><tt><a href="#Label-dragEnterEvent">dragEnterEvent</a>(self,&nbsp;QDragEnterEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-dragLeaveEvent"><strong>dragLeaveEvent</strong></a>(...)</dt><dd><tt><a href="#Label-dragLeaveEvent">dragLeaveEvent</a>(self,&nbsp;QDragLeaveEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-dragMoveEvent"><strong>dragMoveEvent</strong></a>(...)</dt><dd><tt><a href="#Label-dragMoveEvent">dragMoveEvent</a>(self,&nbsp;QDragMoveEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-dropEvent"><strong>dropEvent</strong></a>(...)</dt><dd><tt><a href="#Label-dropEvent">dropEvent</a>(self,&nbsp;QDropEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-effectiveWinId"><strong>effectiveWinId</strong></a>(...)</dt><dd><tt><a href="#Label-effectiveWinId">effectiveWinId</a>(self)&nbsp;-&gt;&nbsp;PyQt5.sip.voidptr</tt></dd></dl>
+
+<dl><dt><a name="Label-ensurePolished"><strong>ensurePolished</strong></a>(...)</dt><dd><tt><a href="#Label-ensurePolished">ensurePolished</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-enterEvent"><strong>enterEvent</strong></a>(...)</dt><dd><tt><a href="#Label-enterEvent">enterEvent</a>(self,&nbsp;QEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-find"><strong>find</strong></a>(...)</dt><dd><tt><a href="#Label-find">find</a>(PyQt5.sip.voidptr)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-focusNextChild"><strong>focusNextChild</strong></a>(...)</dt><dd><tt><a href="#Label-focusNextChild">focusNextChild</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-focusPolicy"><strong>focusPolicy</strong></a>(...)</dt><dd><tt><a href="#Label-focusPolicy">focusPolicy</a>(self)&nbsp;-&gt;&nbsp;Qt.FocusPolicy</tt></dd></dl>
+
+<dl><dt><a name="Label-focusPreviousChild"><strong>focusPreviousChild</strong></a>(...)</dt><dd><tt><a href="#Label-focusPreviousChild">focusPreviousChild</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-focusProxy"><strong>focusProxy</strong></a>(...)</dt><dd><tt><a href="#Label-focusProxy">focusProxy</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-focusWidget"><strong>focusWidget</strong></a>(...)</dt><dd><tt><a href="#Label-focusWidget">focusWidget</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-font"><strong>font</strong></a>(...)</dt><dd><tt><a href="#Label-font">font</a>(self)&nbsp;-&gt;&nbsp;QFont</tt></dd></dl>
+
+<dl><dt><a name="Label-fontInfo"><strong>fontInfo</strong></a>(...)</dt><dd><tt><a href="#Label-fontInfo">fontInfo</a>(self)&nbsp;-&gt;&nbsp;QFontInfo</tt></dd></dl>
+
+<dl><dt><a name="Label-fontMetrics"><strong>fontMetrics</strong></a>(...)</dt><dd><tt><a href="#Label-fontMetrics">fontMetrics</a>(self)&nbsp;-&gt;&nbsp;QFontMetrics</tt></dd></dl>
+
+<dl><dt><a name="Label-foregroundRole"><strong>foregroundRole</strong></a>(...)</dt><dd><tt><a href="#Label-foregroundRole">foregroundRole</a>(self)&nbsp;-&gt;&nbsp;QPalette.ColorRole</tt></dd></dl>
+
+<dl><dt><a name="Label-frameGeometry"><strong>frameGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-frameGeometry">frameGeometry</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-frameSize"><strong>frameSize</strong></a>(...)</dt><dd><tt><a href="#Label-frameSize">frameSize</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-geometry"><strong>geometry</strong></a>(...)</dt><dd><tt><a href="#Label-geometry">geometry</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-getContentsMargins"><strong>getContentsMargins</strong></a>(...)</dt><dd><tt><a href="#Label-getContentsMargins">getContentsMargins</a>(self)&nbsp;-&gt;&nbsp;Tuple[int,&nbsp;int,&nbsp;int,&nbsp;int]</tt></dd></dl>
+
+<dl><dt><a name="Label-grab"><strong>grab</strong></a>(...)</dt><dd><tt><a href="#Label-grab">grab</a>(self,&nbsp;rectangle:&nbsp;QRect&nbsp;=&nbsp;QRect(QPoint(0,0),QSize(-1,-1)))&nbsp;-&gt;&nbsp;QPixmap</tt></dd></dl>
+
+<dl><dt><a name="Label-grabGesture"><strong>grabGesture</strong></a>(...)</dt><dd><tt><a href="#Label-grabGesture">grabGesture</a>(self,&nbsp;Qt.GestureType,&nbsp;flags:&nbsp;Union[Qt.GestureFlags,&nbsp;Qt.GestureFlag]&nbsp;=&nbsp;Qt.GestureFlags())</tt></dd></dl>
+
+<dl><dt><a name="Label-grabKeyboard"><strong>grabKeyboard</strong></a>(...)</dt><dd><tt><a href="#Label-grabKeyboard">grabKeyboard</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-grabMouse"><strong>grabMouse</strong></a>(...)</dt><dd><tt><a href="#Label-grabMouse">grabMouse</a>(self)<br>
+<a href="#Label-grabMouse">grabMouse</a>(self,&nbsp;Union[QCursor,&nbsp;Qt.CursorShape])</tt></dd></dl>
+
+<dl><dt><a name="Label-grabShortcut"><strong>grabShortcut</strong></a>(...)</dt><dd><tt><a href="#Label-grabShortcut">grabShortcut</a>(self,&nbsp;Union[QKeySequence,&nbsp;QKeySequence.StandardKey,&nbsp;str,&nbsp;int],&nbsp;context:&nbsp;Qt.ShortcutContext&nbsp;=&nbsp;Qt.WindowShortcut)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-graphicsEffect"><strong>graphicsEffect</strong></a>(...)</dt><dd><tt><a href="#Label-graphicsEffect">graphicsEffect</a>(self)&nbsp;-&gt;&nbsp;QGraphicsEffect</tt></dd></dl>
+
+<dl><dt><a name="Label-graphicsProxyWidget"><strong>graphicsProxyWidget</strong></a>(...)</dt><dd><tt><a href="#Label-graphicsProxyWidget">graphicsProxyWidget</a>(self)&nbsp;-&gt;&nbsp;QGraphicsProxyWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-hasFocus"><strong>hasFocus</strong></a>(...)</dt><dd><tt><a href="#Label-hasFocus">hasFocus</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-hasHeightForWidth"><strong>hasHeightForWidth</strong></a>(...)</dt><dd><tt><a href="#Label-hasHeightForWidth">hasHeightForWidth</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-hasMouseTracking"><strong>hasMouseTracking</strong></a>(...)</dt><dd><tt><a href="#Label-hasMouseTracking">hasMouseTracking</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-hasTabletTracking"><strong>hasTabletTracking</strong></a>(...)</dt><dd><tt><a href="#Label-hasTabletTracking">hasTabletTracking</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-height"><strong>height</strong></a>(...)</dt><dd><tt><a href="#Label-height">height</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-hide"><strong>hide</strong></a>(...)</dt><dd><tt><a href="#Label-hide">hide</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-hideEvent"><strong>hideEvent</strong></a>(...)</dt><dd><tt><a href="#Label-hideEvent">hideEvent</a>(self,&nbsp;QHideEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-initPainter"><strong>initPainter</strong></a>(...)</dt><dd><tt><a href="#Label-initPainter">initPainter</a>(self,&nbsp;QPainter)</tt></dd></dl>
+
+<dl><dt><a name="Label-inputMethodEvent"><strong>inputMethodEvent</strong></a>(...)</dt><dd><tt><a href="#Label-inputMethodEvent">inputMethodEvent</a>(self,&nbsp;QInputMethodEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-inputMethodHints"><strong>inputMethodHints</strong></a>(...)</dt><dd><tt><a href="#Label-inputMethodHints">inputMethodHints</a>(self)&nbsp;-&gt;&nbsp;Qt.InputMethodHints</tt></dd></dl>
+
+<dl><dt><a name="Label-inputMethodQuery"><strong>inputMethodQuery</strong></a>(...)</dt><dd><tt><a href="#Label-inputMethodQuery">inputMethodQuery</a>(self,&nbsp;Qt.InputMethodQuery)&nbsp;-&gt;&nbsp;Any</tt></dd></dl>
+
+<dl><dt><a name="Label-insertAction"><strong>insertAction</strong></a>(...)</dt><dd><tt><a href="#Label-insertAction">insertAction</a>(self,&nbsp;QAction,&nbsp;QAction)</tt></dd></dl>
+
+<dl><dt><a name="Label-insertActions"><strong>insertActions</strong></a>(...)</dt><dd><tt><a href="#Label-insertActions">insertActions</a>(self,&nbsp;QAction,&nbsp;Iterable[QAction])</tt></dd></dl>
+
+<dl><dt><a name="Label-isActiveWindow"><strong>isActiveWindow</strong></a>(...)</dt><dd><tt><a href="#Label-isActiveWindow">isActiveWindow</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isAncestorOf"><strong>isAncestorOf</strong></a>(...)</dt><dd><tt><a href="#Label-isAncestorOf">isAncestorOf</a>(self,&nbsp;QWidget)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isEnabled"><strong>isEnabled</strong></a>(...)</dt><dd><tt><a href="#Label-isEnabled">isEnabled</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isEnabledTo"><strong>isEnabledTo</strong></a>(...)</dt><dd><tt><a href="#Label-isEnabledTo">isEnabledTo</a>(self,&nbsp;QWidget)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isFullScreen"><strong>isFullScreen</strong></a>(...)</dt><dd><tt><a href="#Label-isFullScreen">isFullScreen</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isHidden"><strong>isHidden</strong></a>(...)</dt><dd><tt><a href="#Label-isHidden">isHidden</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isLeftToRight"><strong>isLeftToRight</strong></a>(...)</dt><dd><tt><a href="#Label-isLeftToRight">isLeftToRight</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isMaximized"><strong>isMaximized</strong></a>(...)</dt><dd><tt><a href="#Label-isMaximized">isMaximized</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isMinimized"><strong>isMinimized</strong></a>(...)</dt><dd><tt><a href="#Label-isMinimized">isMinimized</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isModal"><strong>isModal</strong></a>(...)</dt><dd><tt><a href="#Label-isModal">isModal</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isRightToLeft"><strong>isRightToLeft</strong></a>(...)</dt><dd><tt><a href="#Label-isRightToLeft">isRightToLeft</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isVisible"><strong>isVisible</strong></a>(...)</dt><dd><tt><a href="#Label-isVisible">isVisible</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isVisibleTo"><strong>isVisibleTo</strong></a>(...)</dt><dd><tt><a href="#Label-isVisibleTo">isVisibleTo</a>(self,&nbsp;QWidget)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isWindow"><strong>isWindow</strong></a>(...)</dt><dd><tt><a href="#Label-isWindow">isWindow</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isWindowModified"><strong>isWindowModified</strong></a>(...)</dt><dd><tt><a href="#Label-isWindowModified">isWindowModified</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-keyReleaseEvent"><strong>keyReleaseEvent</strong></a>(...)</dt><dd><tt><a href="#Label-keyReleaseEvent">keyReleaseEvent</a>(self,&nbsp;QKeyEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-keyboardGrabber"><strong>keyboardGrabber</strong></a>(...)</dt><dd><tt><a href="#Label-keyboardGrabber">keyboardGrabber</a>()&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-layout"><strong>layout</strong></a>(...)</dt><dd><tt><a href="#Label-layout">layout</a>(self)&nbsp;-&gt;&nbsp;QLayout</tt></dd></dl>
+
+<dl><dt><a name="Label-layoutDirection"><strong>layoutDirection</strong></a>(...)</dt><dd><tt><a href="#Label-layoutDirection">layoutDirection</a>(self)&nbsp;-&gt;&nbsp;Qt.LayoutDirection</tt></dd></dl>
+
+<dl><dt><a name="Label-leaveEvent"><strong>leaveEvent</strong></a>(...)</dt><dd><tt><a href="#Label-leaveEvent">leaveEvent</a>(self,&nbsp;QEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-locale"><strong>locale</strong></a>(...)</dt><dd><tt><a href="#Label-locale">locale</a>(self)&nbsp;-&gt;&nbsp;QLocale</tt></dd></dl>
+
+<dl><dt><a name="Label-lower"><strong>lower</strong></a>(...)</dt><dd><tt><a href="#Label-lower">lower</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-mapFrom"><strong>mapFrom</strong></a>(...)</dt><dd><tt><a href="#Label-mapFrom">mapFrom</a>(self,&nbsp;QWidget,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mapFromGlobal"><strong>mapFromGlobal</strong></a>(...)</dt><dd><tt><a href="#Label-mapFromGlobal">mapFromGlobal</a>(self,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mapFromParent"><strong>mapFromParent</strong></a>(...)</dt><dd><tt><a href="#Label-mapFromParent">mapFromParent</a>(self,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mapTo"><strong>mapTo</strong></a>(...)</dt><dd><tt><a href="#Label-mapTo">mapTo</a>(self,&nbsp;QWidget,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mapToGlobal"><strong>mapToGlobal</strong></a>(...)</dt><dd><tt><a href="#Label-mapToGlobal">mapToGlobal</a>(self,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mapToParent"><strong>mapToParent</strong></a>(...)</dt><dd><tt><a href="#Label-mapToParent">mapToParent</a>(self,&nbsp;QPoint)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-mask"><strong>mask</strong></a>(...)</dt><dd><tt><a href="#Label-mask">mask</a>(self)&nbsp;-&gt;&nbsp;QRegion</tt></dd></dl>
+
+<dl><dt><a name="Label-maximumHeight"><strong>maximumHeight</strong></a>(...)</dt><dd><tt><a href="#Label-maximumHeight">maximumHeight</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-maximumSize"><strong>maximumSize</strong></a>(...)</dt><dd><tt><a href="#Label-maximumSize">maximumSize</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-maximumWidth"><strong>maximumWidth</strong></a>(...)</dt><dd><tt><a href="#Label-maximumWidth">maximumWidth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-metric"><strong>metric</strong></a>(...)</dt><dd><tt><a href="#Label-metric">metric</a>(self,&nbsp;QPaintDevice.PaintDeviceMetric)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-minimumHeight"><strong>minimumHeight</strong></a>(...)</dt><dd><tt><a href="#Label-minimumHeight">minimumHeight</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-minimumSize"><strong>minimumSize</strong></a>(...)</dt><dd><tt><a href="#Label-minimumSize">minimumSize</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-minimumWidth"><strong>minimumWidth</strong></a>(...)</dt><dd><tt><a href="#Label-minimumWidth">minimumWidth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-mouseDoubleClickEvent"><strong>mouseDoubleClickEvent</strong></a>(...)</dt><dd><tt><a href="#Label-mouseDoubleClickEvent">mouseDoubleClickEvent</a>(self,&nbsp;QMouseEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-mouseGrabber"><strong>mouseGrabber</strong></a>(...)</dt><dd><tt><a href="#Label-mouseGrabber">mouseGrabber</a>()&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-move"><strong>move</strong></a>(...)</dt><dd><tt><a href="#Label-move">move</a>(self,&nbsp;QPoint)<br>
+<a href="#Label-move">move</a>(self,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-moveEvent"><strong>moveEvent</strong></a>(...)</dt><dd><tt><a href="#Label-moveEvent">moveEvent</a>(self,&nbsp;QMoveEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-nativeEvent"><strong>nativeEvent</strong></a>(...)</dt><dd><tt><a href="#Label-nativeEvent">nativeEvent</a>(self,&nbsp;Union[QByteArray,&nbsp;bytes,&nbsp;bytearray],&nbsp;PyQt5.sip.voidptr)&nbsp;-&gt;&nbsp;Tuple[bool,&nbsp;int]</tt></dd></dl>
+
+<dl><dt><a name="Label-nativeParentWidget"><strong>nativeParentWidget</strong></a>(...)</dt><dd><tt><a href="#Label-nativeParentWidget">nativeParentWidget</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-nextInFocusChain"><strong>nextInFocusChain</strong></a>(...)</dt><dd><tt><a href="#Label-nextInFocusChain">nextInFocusChain</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-normalGeometry"><strong>normalGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-normalGeometry">normalGeometry</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-overrideWindowFlags"><strong>overrideWindowFlags</strong></a>(...)</dt><dd><tt><a href="#Label-overrideWindowFlags">overrideWindowFlags</a>(self,&nbsp;Union[Qt.WindowFlags,&nbsp;Qt.WindowType])</tt></dd></dl>
+
+<dl><dt><a name="Label-overrideWindowState"><strong>overrideWindowState</strong></a>(...)</dt><dd><tt><a href="#Label-overrideWindowState">overrideWindowState</a>(self,&nbsp;Union[Qt.WindowStates,&nbsp;Qt.WindowState])</tt></dd></dl>
+
+<dl><dt><a name="Label-paintEngine"><strong>paintEngine</strong></a>(...)</dt><dd><tt><a href="#Label-paintEngine">paintEngine</a>(self)&nbsp;-&gt;&nbsp;QPaintEngine</tt></dd></dl>
+
+<dl><dt><a name="Label-palette"><strong>palette</strong></a>(...)</dt><dd><tt><a href="#Label-palette">palette</a>(self)&nbsp;-&gt;&nbsp;QPalette</tt></dd></dl>
+
+<dl><dt><a name="Label-parentWidget"><strong>parentWidget</strong></a>(...)</dt><dd><tt><a href="#Label-parentWidget">parentWidget</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-pos"><strong>pos</strong></a>(...)</dt><dd><tt><a href="#Label-pos">pos</a>(self)&nbsp;-&gt;&nbsp;QPoint</tt></dd></dl>
+
+<dl><dt><a name="Label-previousInFocusChain"><strong>previousInFocusChain</strong></a>(...)</dt><dd><tt><a href="#Label-previousInFocusChain">previousInFocusChain</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-raise_"><strong>raise_</strong></a>(...)</dt><dd><tt><a href="#Label-raise_">raise_</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-rect"><strong>rect</strong></a>(...)</dt><dd><tt><a href="#Label-rect">rect</a>(self)&nbsp;-&gt;&nbsp;QRect</tt></dd></dl>
+
+<dl><dt><a name="Label-releaseKeyboard"><strong>releaseKeyboard</strong></a>(...)</dt><dd><tt><a href="#Label-releaseKeyboard">releaseKeyboard</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-releaseMouse"><strong>releaseMouse</strong></a>(...)</dt><dd><tt><a href="#Label-releaseMouse">releaseMouse</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-releaseShortcut"><strong>releaseShortcut</strong></a>(...)</dt><dd><tt><a href="#Label-releaseShortcut">releaseShortcut</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-removeAction"><strong>removeAction</strong></a>(...)</dt><dd><tt><a href="#Label-removeAction">removeAction</a>(self,&nbsp;QAction)</tt></dd></dl>
+
+<dl><dt><a name="Label-render"><strong>render</strong></a>(...)</dt><dd><tt><a href="#Label-render">render</a>(self,&nbsp;QPaintDevice,&nbsp;targetOffset:&nbsp;QPoint&nbsp;=&nbsp;QPoint(),&nbsp;sourceRegion:&nbsp;QRegion&nbsp;=&nbsp;QRegion(),&nbsp;flags:&nbsp;Union[QWidget.RenderFlags,&nbsp;QWidget.RenderFlag]&nbsp;=&nbsp;QWidget.<a href="#Label-RenderFlags">RenderFlags</a>(QWidget.RenderFlag.DrawWindowBackground|QWidget.RenderFlag.DrawChildren))<br>
+<a href="#Label-render">render</a>(self,&nbsp;QPainter,&nbsp;targetOffset:&nbsp;QPoint&nbsp;=&nbsp;QPoint(),&nbsp;sourceRegion:&nbsp;QRegion&nbsp;=&nbsp;QRegion(),&nbsp;flags:&nbsp;Union[QWidget.RenderFlags,&nbsp;QWidget.RenderFlag]&nbsp;=&nbsp;QWidget.<a href="#Label-RenderFlags">RenderFlags</a>(QWidget.RenderFlag.DrawWindowBackground|QWidget.RenderFlag.DrawChildren))</tt></dd></dl>
+
+<dl><dt><a name="Label-repaint"><strong>repaint</strong></a>(...)</dt><dd><tt><a href="#Label-repaint">repaint</a>(self)<br>
+<a href="#Label-repaint">repaint</a>(self,&nbsp;int,&nbsp;int,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-repaint">repaint</a>(self,&nbsp;QRect)<br>
+<a href="#Label-repaint">repaint</a>(self,&nbsp;QRegion)</tt></dd></dl>
+
+<dl><dt><a name="Label-resize"><strong>resize</strong></a>(...)</dt><dd><tt><a href="#Label-resize">resize</a>(self,&nbsp;QSize)<br>
+<a href="#Label-resize">resize</a>(self,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-resizeEvent"><strong>resizeEvent</strong></a>(...)</dt><dd><tt><a href="#Label-resizeEvent">resizeEvent</a>(self,&nbsp;QResizeEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-restoreGeometry"><strong>restoreGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-restoreGeometry">restoreGeometry</a>(self,&nbsp;Union[QByteArray,&nbsp;bytes,&nbsp;bytearray])&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-saveGeometry"><strong>saveGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-saveGeometry">saveGeometry</a>(self)&nbsp;-&gt;&nbsp;QByteArray</tt></dd></dl>
+
+<dl><dt><a name="Label-screen"><strong>screen</strong></a>(...)</dt><dd><tt><a href="#Label-screen">screen</a>(self)&nbsp;-&gt;&nbsp;QScreen</tt></dd></dl>
+
+<dl><dt><a name="Label-scroll"><strong>scroll</strong></a>(...)</dt><dd><tt><a href="#Label-scroll">scroll</a>(self,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-scroll">scroll</a>(self,&nbsp;int,&nbsp;int,&nbsp;QRect)</tt></dd></dl>
+
+<dl><dt><a name="Label-setAcceptDrops"><strong>setAcceptDrops</strong></a>(...)</dt><dd><tt><a href="#Label-setAcceptDrops">setAcceptDrops</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setAccessibleDescription"><strong>setAccessibleDescription</strong></a>(...)</dt><dd><tt><a href="#Label-setAccessibleDescription">setAccessibleDescription</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setAccessibleName"><strong>setAccessibleName</strong></a>(...)</dt><dd><tt><a href="#Label-setAccessibleName">setAccessibleName</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setAttribute"><strong>setAttribute</strong></a>(...)</dt><dd><tt><a href="#Label-setAttribute">setAttribute</a>(self,&nbsp;Qt.WidgetAttribute,&nbsp;on:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-setAutoFillBackground"><strong>setAutoFillBackground</strong></a>(...)</dt><dd><tt><a href="#Label-setAutoFillBackground">setAutoFillBackground</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setBackgroundRole"><strong>setBackgroundRole</strong></a>(...)</dt><dd><tt><a href="#Label-setBackgroundRole">setBackgroundRole</a>(self,&nbsp;QPalette.ColorRole)</tt></dd></dl>
+
+<dl><dt><a name="Label-setBaseSize"><strong>setBaseSize</strong></a>(...)</dt><dd><tt><a href="#Label-setBaseSize">setBaseSize</a>(self,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-setBaseSize">setBaseSize</a>(self,&nbsp;QSize)</tt></dd></dl>
+
+<dl><dt><a name="Label-setContentsMargins"><strong>setContentsMargins</strong></a>(...)</dt><dd><tt><a href="#Label-setContentsMargins">setContentsMargins</a>(self,&nbsp;int,&nbsp;int,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-setContentsMargins">setContentsMargins</a>(self,&nbsp;QMargins)</tt></dd></dl>
+
+<dl><dt><a name="Label-setContextMenuPolicy"><strong>setContextMenuPolicy</strong></a>(...)</dt><dd><tt><a href="#Label-setContextMenuPolicy">setContextMenuPolicy</a>(self,&nbsp;Qt.ContextMenuPolicy)</tt></dd></dl>
+
+<dl><dt><a name="Label-setCursor"><strong>setCursor</strong></a>(...)</dt><dd><tt><a href="#Label-setCursor">setCursor</a>(self,&nbsp;Union[QCursor,&nbsp;Qt.CursorShape])</tt></dd></dl>
+
+<dl><dt><a name="Label-setDisabled"><strong>setDisabled</strong></a>(...)</dt><dd><tt><a href="#Label-setDisabled">setDisabled</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setEnabled"><strong>setEnabled</strong></a>(...)</dt><dd><tt><a href="#Label-setEnabled">setEnabled</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFixedHeight"><strong>setFixedHeight</strong></a>(...)</dt><dd><tt><a href="#Label-setFixedHeight">setFixedHeight</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFixedSize"><strong>setFixedSize</strong></a>(...)</dt><dd><tt><a href="#Label-setFixedSize">setFixedSize</a>(self,&nbsp;QSize)<br>
+<a href="#Label-setFixedSize">setFixedSize</a>(self,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFixedWidth"><strong>setFixedWidth</strong></a>(...)</dt><dd><tt><a href="#Label-setFixedWidth">setFixedWidth</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFocus"><strong>setFocus</strong></a>(...)</dt><dd><tt><a href="#Label-setFocus">setFocus</a>(self)<br>
+<a href="#Label-setFocus">setFocus</a>(self,&nbsp;Qt.FocusReason)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFocusPolicy"><strong>setFocusPolicy</strong></a>(...)</dt><dd><tt><a href="#Label-setFocusPolicy">setFocusPolicy</a>(self,&nbsp;Qt.FocusPolicy)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFocusProxy"><strong>setFocusProxy</strong></a>(...)</dt><dd><tt><a href="#Label-setFocusProxy">setFocusProxy</a>(self,&nbsp;QWidget)</tt></dd></dl>
+
+<dl><dt><a name="Label-setFont"><strong>setFont</strong></a>(...)</dt><dd><tt><a href="#Label-setFont">setFont</a>(self,&nbsp;QFont)</tt></dd></dl>
+
+<dl><dt><a name="Label-setForegroundRole"><strong>setForegroundRole</strong></a>(...)</dt><dd><tt><a href="#Label-setForegroundRole">setForegroundRole</a>(self,&nbsp;QPalette.ColorRole)</tt></dd></dl>
+
+<dl><dt><a name="Label-setGeometry"><strong>setGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-setGeometry">setGeometry</a>(self,&nbsp;QRect)<br>
+<a href="#Label-setGeometry">setGeometry</a>(self,&nbsp;int,&nbsp;int,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setGraphicsEffect"><strong>setGraphicsEffect</strong></a>(...)</dt><dd><tt><a href="#Label-setGraphicsEffect">setGraphicsEffect</a>(self,&nbsp;QGraphicsEffect)</tt></dd></dl>
+
+<dl><dt><a name="Label-setHidden"><strong>setHidden</strong></a>(...)</dt><dd><tt><a href="#Label-setHidden">setHidden</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setInputMethodHints"><strong>setInputMethodHints</strong></a>(...)</dt><dd><tt><a href="#Label-setInputMethodHints">setInputMethodHints</a>(self,&nbsp;Union[Qt.InputMethodHints,&nbsp;Qt.InputMethodHint])</tt></dd></dl>
+
+<dl><dt><a name="Label-setLayout"><strong>setLayout</strong></a>(...)</dt><dd><tt><a href="#Label-setLayout">setLayout</a>(self,&nbsp;QLayout)</tt></dd></dl>
+
+<dl><dt><a name="Label-setLayoutDirection"><strong>setLayoutDirection</strong></a>(...)</dt><dd><tt><a href="#Label-setLayoutDirection">setLayoutDirection</a>(self,&nbsp;Qt.LayoutDirection)</tt></dd></dl>
+
+<dl><dt><a name="Label-setLocale"><strong>setLocale</strong></a>(...)</dt><dd><tt><a href="#Label-setLocale">setLocale</a>(self,&nbsp;QLocale)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMask"><strong>setMask</strong></a>(...)</dt><dd><tt><a href="#Label-setMask">setMask</a>(self,&nbsp;QBitmap)<br>
+<a href="#Label-setMask">setMask</a>(self,&nbsp;QRegion)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMaximumHeight"><strong>setMaximumHeight</strong></a>(...)</dt><dd><tt><a href="#Label-setMaximumHeight">setMaximumHeight</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMaximumSize"><strong>setMaximumSize</strong></a>(...)</dt><dd><tt><a href="#Label-setMaximumSize">setMaximumSize</a>(self,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-setMaximumSize">setMaximumSize</a>(self,&nbsp;QSize)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMaximumWidth"><strong>setMaximumWidth</strong></a>(...)</dt><dd><tt><a href="#Label-setMaximumWidth">setMaximumWidth</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMinimumHeight"><strong>setMinimumHeight</strong></a>(...)</dt><dd><tt><a href="#Label-setMinimumHeight">setMinimumHeight</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMinimumSize"><strong>setMinimumSize</strong></a>(...)</dt><dd><tt><a href="#Label-setMinimumSize">setMinimumSize</a>(self,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-setMinimumSize">setMinimumSize</a>(self,&nbsp;QSize)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMinimumWidth"><strong>setMinimumWidth</strong></a>(...)</dt><dd><tt><a href="#Label-setMinimumWidth">setMinimumWidth</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setMouseTracking"><strong>setMouseTracking</strong></a>(...)</dt><dd><tt><a href="#Label-setMouseTracking">setMouseTracking</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setPalette"><strong>setPalette</strong></a>(...)</dt><dd><tt><a href="#Label-setPalette">setPalette</a>(self,&nbsp;QPalette)</tt></dd></dl>
+
+<dl><dt><a name="Label-setParent"><strong>setParent</strong></a>(...)</dt><dd><tt><a href="#Label-setParent">setParent</a>(self,&nbsp;QWidget)<br>
+<a href="#Label-setParent">setParent</a>(self,&nbsp;QWidget,&nbsp;Union[Qt.WindowFlags,&nbsp;Qt.WindowType])</tt></dd></dl>
+
+<dl><dt><a name="Label-setShortcutAutoRepeat"><strong>setShortcutAutoRepeat</strong></a>(...)</dt><dd><tt><a href="#Label-setShortcutAutoRepeat">setShortcutAutoRepeat</a>(self,&nbsp;int,&nbsp;enabled:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-setShortcutEnabled"><strong>setShortcutEnabled</strong></a>(...)</dt><dd><tt><a href="#Label-setShortcutEnabled">setShortcutEnabled</a>(self,&nbsp;int,&nbsp;enabled:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-setSizeIncrement"><strong>setSizeIncrement</strong></a>(...)</dt><dd><tt><a href="#Label-setSizeIncrement">setSizeIncrement</a>(self,&nbsp;int,&nbsp;int)<br>
+<a href="#Label-setSizeIncrement">setSizeIncrement</a>(self,&nbsp;QSize)</tt></dd></dl>
+
+<dl><dt><a name="Label-setSizePolicy"><strong>setSizePolicy</strong></a>(...)</dt><dd><tt><a href="#Label-setSizePolicy">setSizePolicy</a>(self,&nbsp;QSizePolicy)<br>
+<a href="#Label-setSizePolicy">setSizePolicy</a>(self,&nbsp;QSizePolicy.Policy,&nbsp;QSizePolicy.Policy)</tt></dd></dl>
+
+<dl><dt><a name="Label-setStatusTip"><strong>setStatusTip</strong></a>(...)</dt><dd><tt><a href="#Label-setStatusTip">setStatusTip</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setStyle"><strong>setStyle</strong></a>(...)</dt><dd><tt><a href="#Label-setStyle">setStyle</a>(self,&nbsp;QStyle)</tt></dd></dl>
+
+<dl><dt><a name="Label-setStyleSheet"><strong>setStyleSheet</strong></a>(...)</dt><dd><tt><a href="#Label-setStyleSheet">setStyleSheet</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setTabOrder"><strong>setTabOrder</strong></a>(...)</dt><dd><tt><a href="#Label-setTabOrder">setTabOrder</a>(QWidget,&nbsp;QWidget)</tt></dd></dl>
+
+<dl><dt><a name="Label-setTabletTracking"><strong>setTabletTracking</strong></a>(...)</dt><dd><tt><a href="#Label-setTabletTracking">setTabletTracking</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setToolTip"><strong>setToolTip</strong></a>(...)</dt><dd><tt><a href="#Label-setToolTip">setToolTip</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setToolTipDuration"><strong>setToolTipDuration</strong></a>(...)</dt><dd><tt><a href="#Label-setToolTipDuration">setToolTipDuration</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-setUpdatesEnabled"><strong>setUpdatesEnabled</strong></a>(...)</dt><dd><tt><a href="#Label-setUpdatesEnabled">setUpdatesEnabled</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setVisible"><strong>setVisible</strong></a>(...)</dt><dd><tt><a href="#Label-setVisible">setVisible</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWhatsThis"><strong>setWhatsThis</strong></a>(...)</dt><dd><tt><a href="#Label-setWhatsThis">setWhatsThis</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowFilePath"><strong>setWindowFilePath</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowFilePath">setWindowFilePath</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowFlag"><strong>setWindowFlag</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowFlag">setWindowFlag</a>(self,&nbsp;Qt.WindowType,&nbsp;on:&nbsp;bool&nbsp;=&nbsp;True)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowFlags"><strong>setWindowFlags</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowFlags">setWindowFlags</a>(self,&nbsp;Union[Qt.WindowFlags,&nbsp;Qt.WindowType])</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowIcon"><strong>setWindowIcon</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowIcon">setWindowIcon</a>(self,&nbsp;QIcon)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowIconText"><strong>setWindowIconText</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowIconText">setWindowIconText</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowModality"><strong>setWindowModality</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowModality">setWindowModality</a>(self,&nbsp;Qt.WindowModality)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowModified"><strong>setWindowModified</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowModified">setWindowModified</a>(self,&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowOpacity"><strong>setWindowOpacity</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowOpacity">setWindowOpacity</a>(self,&nbsp;float)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowRole"><strong>setWindowRole</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowRole">setWindowRole</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowState"><strong>setWindowState</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowState">setWindowState</a>(self,&nbsp;Union[Qt.WindowStates,&nbsp;Qt.WindowState])</tt></dd></dl>
+
+<dl><dt><a name="Label-setWindowTitle"><strong>setWindowTitle</strong></a>(...)</dt><dd><tt><a href="#Label-setWindowTitle">setWindowTitle</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-sharedPainter"><strong>sharedPainter</strong></a>(...)</dt><dd><tt><a href="#Label-sharedPainter">sharedPainter</a>(self)&nbsp;-&gt;&nbsp;QPainter</tt></dd></dl>
+
+<dl><dt><a name="Label-show"><strong>show</strong></a>(...)</dt><dd><tt><a href="#Label-show">show</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-showEvent"><strong>showEvent</strong></a>(...)</dt><dd><tt><a href="#Label-showEvent">showEvent</a>(self,&nbsp;QShowEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-showFullScreen"><strong>showFullScreen</strong></a>(...)</dt><dd><tt><a href="#Label-showFullScreen">showFullScreen</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-showMaximized"><strong>showMaximized</strong></a>(...)</dt><dd><tt><a href="#Label-showMaximized">showMaximized</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-showMinimized"><strong>showMinimized</strong></a>(...)</dt><dd><tt><a href="#Label-showMinimized">showMinimized</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-showNormal"><strong>showNormal</strong></a>(...)</dt><dd><tt><a href="#Label-showNormal">showNormal</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-size"><strong>size</strong></a>(...)</dt><dd><tt><a href="#Label-size">size</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-sizeIncrement"><strong>sizeIncrement</strong></a>(...)</dt><dd><tt><a href="#Label-sizeIncrement">sizeIncrement</a>(self)&nbsp;-&gt;&nbsp;QSize</tt></dd></dl>
+
+<dl><dt><a name="Label-sizePolicy"><strong>sizePolicy</strong></a>(...)</dt><dd><tt><a href="#Label-sizePolicy">sizePolicy</a>(self)&nbsp;-&gt;&nbsp;QSizePolicy</tt></dd></dl>
+
+<dl><dt><a name="Label-stackUnder"><strong>stackUnder</strong></a>(...)</dt><dd><tt><a href="#Label-stackUnder">stackUnder</a>(self,&nbsp;QWidget)</tt></dd></dl>
+
+<dl><dt><a name="Label-statusTip"><strong>statusTip</strong></a>(...)</dt><dd><tt><a href="#Label-statusTip">statusTip</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-style"><strong>style</strong></a>(...)</dt><dd><tt><a href="#Label-style">style</a>(self)&nbsp;-&gt;&nbsp;QStyle</tt></dd></dl>
+
+<dl><dt><a name="Label-styleSheet"><strong>styleSheet</strong></a>(...)</dt><dd><tt><a href="#Label-styleSheet">styleSheet</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-tabletEvent"><strong>tabletEvent</strong></a>(...)</dt><dd><tt><a href="#Label-tabletEvent">tabletEvent</a>(self,&nbsp;QTabletEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-testAttribute"><strong>testAttribute</strong></a>(...)</dt><dd><tt><a href="#Label-testAttribute">testAttribute</a>(self,&nbsp;Qt.WidgetAttribute)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-toolTip"><strong>toolTip</strong></a>(...)</dt><dd><tt><a href="#Label-toolTip">toolTip</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-toolTipDuration"><strong>toolTipDuration</strong></a>(...)</dt><dd><tt><a href="#Label-toolTipDuration">toolTipDuration</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-underMouse"><strong>underMouse</strong></a>(...)</dt><dd><tt><a href="#Label-underMouse">underMouse</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-ungrabGesture"><strong>ungrabGesture</strong></a>(...)</dt><dd><tt><a href="#Label-ungrabGesture">ungrabGesture</a>(self,&nbsp;Qt.GestureType)</tt></dd></dl>
+
+<dl><dt><a name="Label-unsetCursor"><strong>unsetCursor</strong></a>(...)</dt><dd><tt><a href="#Label-unsetCursor">unsetCursor</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-unsetLayoutDirection"><strong>unsetLayoutDirection</strong></a>(...)</dt><dd><tt><a href="#Label-unsetLayoutDirection">unsetLayoutDirection</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-unsetLocale"><strong>unsetLocale</strong></a>(...)</dt><dd><tt><a href="#Label-unsetLocale">unsetLocale</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-update"><strong>update</strong></a>(...)</dt><dd><tt><a href="#Label-update">update</a>(self)<br>
+<a href="#Label-update">update</a>(self,&nbsp;QRect)<br>
+<a href="#Label-update">update</a>(self,&nbsp;QRegion)<br>
+<a href="#Label-update">update</a>(self,&nbsp;int,&nbsp;int,&nbsp;int,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-updateGeometry"><strong>updateGeometry</strong></a>(...)</dt><dd><tt><a href="#Label-updateGeometry">updateGeometry</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-updateMicroFocus"><strong>updateMicroFocus</strong></a>(...)</dt><dd><tt><a href="#Label-updateMicroFocus">updateMicroFocus</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-updatesEnabled"><strong>updatesEnabled</strong></a>(...)</dt><dd><tt><a href="#Label-updatesEnabled">updatesEnabled</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-visibleRegion"><strong>visibleRegion</strong></a>(...)</dt><dd><tt><a href="#Label-visibleRegion">visibleRegion</a>(self)&nbsp;-&gt;&nbsp;QRegion</tt></dd></dl>
+
+<dl><dt><a name="Label-whatsThis"><strong>whatsThis</strong></a>(...)</dt><dd><tt><a href="#Label-whatsThis">whatsThis</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-wheelEvent"><strong>wheelEvent</strong></a>(...)</dt><dd><tt><a href="#Label-wheelEvent">wheelEvent</a>(self,&nbsp;QWheelEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-width"><strong>width</strong></a>(...)</dt><dd><tt><a href="#Label-width">width</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-winId"><strong>winId</strong></a>(...)</dt><dd><tt><a href="#Label-winId">winId</a>(self)&nbsp;-&gt;&nbsp;PyQt5.sip.voidptr</tt></dd></dl>
+
+<dl><dt><a name="Label-window"><strong>window</strong></a>(...)</dt><dd><tt><a href="#Label-window">window</a>(self)&nbsp;-&gt;&nbsp;QWidget</tt></dd></dl>
+
+<dl><dt><a name="Label-windowFilePath"><strong>windowFilePath</strong></a>(...)</dt><dd><tt><a href="#Label-windowFilePath">windowFilePath</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-windowFlags"><strong>windowFlags</strong></a>(...)</dt><dd><tt><a href="#Label-windowFlags">windowFlags</a>(self)&nbsp;-&gt;&nbsp;Qt.WindowFlags</tt></dd></dl>
+
+<dl><dt><a name="Label-windowHandle"><strong>windowHandle</strong></a>(...)</dt><dd><tt><a href="#Label-windowHandle">windowHandle</a>(self)&nbsp;-&gt;&nbsp;QWindow</tt></dd></dl>
+
+<dl><dt><a name="Label-windowIcon"><strong>windowIcon</strong></a>(...)</dt><dd><tt><a href="#Label-windowIcon">windowIcon</a>(self)&nbsp;-&gt;&nbsp;QIcon</tt></dd></dl>
+
+<strong>windowIconChanged</strong> = &lt;unbound PYQT_SIGNAL windowIconChanged(QIcon)&gt;
+<dl><dt><a name="Label-windowIconText"><strong>windowIconText</strong></a>(...)</dt><dd><tt><a href="#Label-windowIconText">windowIconText</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<strong>windowIconTextChanged</strong> = &lt;unbound PYQT_SIGNAL windowIconTextChanged(QString)&gt;
+<dl><dt><a name="Label-windowModality"><strong>windowModality</strong></a>(...)</dt><dd><tt><a href="#Label-windowModality">windowModality</a>(self)&nbsp;-&gt;&nbsp;Qt.WindowModality</tt></dd></dl>
+
+<dl><dt><a name="Label-windowOpacity"><strong>windowOpacity</strong></a>(...)</dt><dd><tt><a href="#Label-windowOpacity">windowOpacity</a>(self)&nbsp;-&gt;&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="Label-windowRole"><strong>windowRole</strong></a>(...)</dt><dd><tt><a href="#Label-windowRole">windowRole</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<dl><dt><a name="Label-windowState"><strong>windowState</strong></a>(...)</dt><dd><tt><a href="#Label-windowState">windowState</a>(self)&nbsp;-&gt;&nbsp;Qt.WindowStates</tt></dd></dl>
+
+<dl><dt><a name="Label-windowTitle"><strong>windowTitle</strong></a>(...)</dt><dd><tt><a href="#Label-windowTitle">windowTitle</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<strong>windowTitleChanged</strong> = &lt;unbound PYQT_SIGNAL windowTitleChanged(QString)&gt;
+<dl><dt><a name="Label-windowType"><strong>windowType</strong></a>(...)</dt><dd><tt><a href="#Label-windowType">windowType</a>(self)&nbsp;-&gt;&nbsp;Qt.WindowType</tt></dd></dl>
+
+<dl><dt><a name="Label-x"><strong>x</strong></a>(...)</dt><dd><tt><a href="#Label-x">x</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-y"><strong>y</strong></a>(...)</dt><dd><tt><a href="#Label-y">y</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="PyQt5.QtWidgets.html#QWidget">PyQt5.QtWidgets.QWidget</a>:<br>
+<dl><dt><strong>DrawChildren</strong> = 2</dl>
+
+<dl><dt><strong>DrawWindowBackground</strong> = 1</dl>
+
+<dl><dt><strong>IgnoreMask</strong> = 4</dl>
+
+<dl><dt><strong>RenderFlag</strong> = &lt;class 'PyQt5.QtWidgets.QWidget.RenderFlag'&gt;</dl>
+
+<dl><dt><strong>RenderFlags</strong> = &lt;class 'PyQt5.QtWidgets.QWidget.RenderFlags'&gt;<dd><tt>QWidget.<a href="#Label-RenderFlags">RenderFlags</a>()<br>
+QWidget.<a href="#Label-RenderFlags">RenderFlags</a>(Union[QWidget.RenderFlags,&nbsp;QWidget.RenderFlag])<br>
+QWidget.<a href="#Label-RenderFlags">RenderFlags</a>(QWidget.RenderFlags)</tt></dl>
+
+<hr>
+Methods inherited from <a href="PyQt5.QtCore.html#QObject">PyQt5.QtCore.QObject</a>:<br>
+<dl><dt><a name="Label-__getattr__"><strong>__getattr__</strong></a>(...)</dt><dd><tt><a href="#Label-__getattr__">__getattr__</a>(self,&nbsp;str)&nbsp;-&gt;&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="Label-blockSignals"><strong>blockSignals</strong></a>(...)</dt><dd><tt><a href="#Label-blockSignals">blockSignals</a>(self,&nbsp;bool)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-childEvent"><strong>childEvent</strong></a>(...)</dt><dd><tt><a href="#Label-childEvent">childEvent</a>(self,&nbsp;QChildEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-children"><strong>children</strong></a>(...)</dt><dd><tt><a href="#Label-children">children</a>(self)&nbsp;-&gt;&nbsp;List[QObject]</tt></dd></dl>
+
+<dl><dt><a name="Label-connectNotify"><strong>connectNotify</strong></a>(...)</dt><dd><tt><a href="#Label-connectNotify">connectNotify</a>(self,&nbsp;QMetaMethod)</tt></dd></dl>
+
+<dl><dt><a name="Label-customEvent"><strong>customEvent</strong></a>(...)</dt><dd><tt><a href="#Label-customEvent">customEvent</a>(self,&nbsp;QEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-deleteLater"><strong>deleteLater</strong></a>(...)</dt><dd><tt><a href="#Label-deleteLater">deleteLater</a>(self)</tt></dd></dl>
+
+<strong>destroyed</strong> = &lt;unbound PYQT_SIGNAL destroyed(QObject*)&gt;
+<dl><dt><a name="Label-disconnect"><strong>disconnect</strong></a>(...)</dt><dd><tt><a href="#Label-disconnect">disconnect</a>(QMetaObject.Connection)&nbsp;-&gt;&nbsp;bool<br>
+<a href="#Label-disconnect">disconnect</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-disconnectNotify"><strong>disconnectNotify</strong></a>(...)</dt><dd><tt><a href="#Label-disconnectNotify">disconnectNotify</a>(self,&nbsp;QMetaMethod)</tt></dd></dl>
+
+<dl><dt><a name="Label-dumpObjectInfo"><strong>dumpObjectInfo</strong></a>(...)</dt><dd><tt><a href="#Label-dumpObjectInfo">dumpObjectInfo</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-dumpObjectTree"><strong>dumpObjectTree</strong></a>(...)</dt><dd><tt><a href="#Label-dumpObjectTree">dumpObjectTree</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="Label-dynamicPropertyNames"><strong>dynamicPropertyNames</strong></a>(...)</dt><dd><tt><a href="#Label-dynamicPropertyNames">dynamicPropertyNames</a>(self)&nbsp;-&gt;&nbsp;List[QByteArray]</tt></dd></dl>
+
+<dl><dt><a name="Label-eventFilter"><strong>eventFilter</strong></a>(...)</dt><dd><tt><a href="#Label-eventFilter">eventFilter</a>(self,&nbsp;QObject,&nbsp;QEvent)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-findChild"><strong>findChild</strong></a>(...)</dt><dd><tt><a href="#Label-findChild">findChild</a>(self,&nbsp;type,&nbsp;name:&nbsp;str&nbsp;=&nbsp;'',&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;QObject<br>
+<a href="#Label-findChild">findChild</a>(self,&nbsp;Tuple,&nbsp;name:&nbsp;str&nbsp;=&nbsp;'',&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;QObject</tt></dd></dl>
+
+<dl><dt><a name="Label-findChildren"><strong>findChildren</strong></a>(...)</dt><dd><tt><a href="#Label-findChildren">findChildren</a>(self,&nbsp;type,&nbsp;name:&nbsp;str&nbsp;=&nbsp;'',&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]<br>
+<a href="#Label-findChildren">findChildren</a>(self,&nbsp;Tuple,&nbsp;name:&nbsp;str&nbsp;=&nbsp;'',&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]<br>
+<a href="#Label-findChildren">findChildren</a>(self,&nbsp;type,&nbsp;QRegExp,&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]<br>
+<a href="#Label-findChildren">findChildren</a>(self,&nbsp;Tuple,&nbsp;QRegExp,&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]<br>
+<a href="#Label-findChildren">findChildren</a>(self,&nbsp;type,&nbsp;QRegularExpression,&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]<br>
+<a href="#Label-findChildren">findChildren</a>(self,&nbsp;Tuple,&nbsp;QRegularExpression,&nbsp;options:&nbsp;Union[Qt.FindChildOptions,&nbsp;Qt.FindChildOption]&nbsp;=&nbsp;Qt.FindChildrenRecursively)&nbsp;-&gt;&nbsp;List[QObject]</tt></dd></dl>
+
+<dl><dt><a name="Label-inherits"><strong>inherits</strong></a>(...)</dt><dd><tt><a href="#Label-inherits">inherits</a>(self,&nbsp;str)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-installEventFilter"><strong>installEventFilter</strong></a>(...)</dt><dd><tt><a href="#Label-installEventFilter">installEventFilter</a>(self,&nbsp;QObject)</tt></dd></dl>
+
+<dl><dt><a name="Label-isSignalConnected"><strong>isSignalConnected</strong></a>(...)</dt><dd><tt><a href="#Label-isSignalConnected">isSignalConnected</a>(self,&nbsp;QMetaMethod)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isWidgetType"><strong>isWidgetType</strong></a>(...)</dt><dd><tt><a href="#Label-isWidgetType">isWidgetType</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-isWindowType"><strong>isWindowType</strong></a>(...)</dt><dd><tt><a href="#Label-isWindowType">isWindowType</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-killTimer"><strong>killTimer</strong></a>(...)</dt><dd><tt><a href="#Label-killTimer">killTimer</a>(self,&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="Label-metaObject"><strong>metaObject</strong></a>(...)</dt><dd><tt><a href="#Label-metaObject">metaObject</a>(self)&nbsp;-&gt;&nbsp;QMetaObject</tt></dd></dl>
+
+<dl><dt><a name="Label-moveToThread"><strong>moveToThread</strong></a>(...)</dt><dd><tt><a href="#Label-moveToThread">moveToThread</a>(self,&nbsp;QThread)</tt></dd></dl>
+
+<dl><dt><a name="Label-objectName"><strong>objectName</strong></a>(...)</dt><dd><tt><a href="#Label-objectName">objectName</a>(self)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<strong>objectNameChanged</strong> = &lt;unbound PYQT_SIGNAL objectNameChanged(QString)&gt;
+<dl><dt><a name="Label-parent"><strong>parent</strong></a>(...)</dt><dd><tt><a href="#Label-parent">parent</a>(self)&nbsp;-&gt;&nbsp;QObject</tt></dd></dl>
+
+<dl><dt><a name="Label-property"><strong>property</strong></a>(...)</dt><dd><tt><a href="#Label-property">property</a>(self,&nbsp;str)&nbsp;-&gt;&nbsp;Any</tt></dd></dl>
+
+<dl><dt><a name="Label-pyqtConfigure"><strong>pyqtConfigure</strong></a>(...)</dt><dd><tt>QObject.<a href="#Label-pyqtConfigure">pyqtConfigure</a>(...)<br>
+&nbsp;<br>
+Each&nbsp;keyword&nbsp;argument&nbsp;is&nbsp;either&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;Qt&nbsp;property&nbsp;or&nbsp;a&nbsp;Qt&nbsp;signal.<br>
+For&nbsp;properties&nbsp;the&nbsp;property&nbsp;is&nbsp;set&nbsp;to&nbsp;the&nbsp;given&nbsp;value&nbsp;which&nbsp;should&nbsp;be&nbsp;of&nbsp;an<br>
+appropriate&nbsp;type.<br>
+For&nbsp;signals&nbsp;the&nbsp;signal&nbsp;is&nbsp;connected&nbsp;to&nbsp;the&nbsp;given&nbsp;value&nbsp;which&nbsp;should&nbsp;be&nbsp;a<br>
+callable.</tt></dd></dl>
+
+<dl><dt><a name="Label-receivers"><strong>receivers</strong></a>(...)</dt><dd><tt><a href="#Label-receivers">receivers</a>(self,&nbsp;PYQT_SIGNAL)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-removeEventFilter"><strong>removeEventFilter</strong></a>(...)</dt><dd><tt><a href="#Label-removeEventFilter">removeEventFilter</a>(self,&nbsp;QObject)</tt></dd></dl>
+
+<dl><dt><a name="Label-sender"><strong>sender</strong></a>(...)</dt><dd><tt><a href="#Label-sender">sender</a>(self)&nbsp;-&gt;&nbsp;QObject</tt></dd></dl>
+
+<dl><dt><a name="Label-senderSignalIndex"><strong>senderSignalIndex</strong></a>(...)</dt><dd><tt><a href="#Label-senderSignalIndex">senderSignalIndex</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-setObjectName"><strong>setObjectName</strong></a>(...)</dt><dd><tt><a href="#Label-setObjectName">setObjectName</a>(self,&nbsp;str)</tt></dd></dl>
+
+<dl><dt><a name="Label-setProperty"><strong>setProperty</strong></a>(...)</dt><dd><tt><a href="#Label-setProperty">setProperty</a>(self,&nbsp;str,&nbsp;Any)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-signalsBlocked"><strong>signalsBlocked</strong></a>(...)</dt><dd><tt><a href="#Label-signalsBlocked">signalsBlocked</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-startTimer"><strong>startTimer</strong></a>(...)</dt><dd><tt><a href="#Label-startTimer">startTimer</a>(self,&nbsp;int,&nbsp;timerType:&nbsp;Qt.TimerType&nbsp;=&nbsp;Qt.CoarseTimer)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-thread"><strong>thread</strong></a>(...)</dt><dd><tt><a href="#Label-thread">thread</a>(self)&nbsp;-&gt;&nbsp;QThread</tt></dd></dl>
+
+<dl><dt><a name="Label-timerEvent"><strong>timerEvent</strong></a>(...)</dt><dd><tt><a href="#Label-timerEvent">timerEvent</a>(self,&nbsp;QTimerEvent)</tt></dd></dl>
+
+<dl><dt><a name="Label-tr"><strong>tr</strong></a>(...)</dt><dd><tt><a href="#Label-tr">tr</a>(self,&nbsp;str,&nbsp;disambiguation:&nbsp;str&nbsp;=&nbsp;None,&nbsp;n:&nbsp;int&nbsp;=&nbsp;-1)&nbsp;-&gt;&nbsp;str</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="PyQt5.QtCore.html#QObject">PyQt5.QtCore.QObject</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="PyQt5.QtCore.html#QObject">PyQt5.QtCore.QObject</a>:<br>
+<dl><dt><strong>staticMetaObject</strong> = &lt;PyQt5.QtCore.QMetaObject object&gt;</dl>
+
+<hr>
+Methods inherited from <a href="PyQt5.QtGui.html#QPaintDevice">PyQt5.QtGui.QPaintDevice</a>:<br>
+<dl><dt><a name="Label-colorCount"><strong>colorCount</strong></a>(...)</dt><dd><tt><a href="#Label-colorCount">colorCount</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-depth"><strong>depth</strong></a>(...)</dt><dd><tt><a href="#Label-depth">depth</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-devicePixelRatio"><strong>devicePixelRatio</strong></a>(...)</dt><dd><tt><a href="#Label-devicePixelRatio">devicePixelRatio</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-devicePixelRatioF"><strong>devicePixelRatioF</strong></a>(...)</dt><dd><tt><a href="#Label-devicePixelRatioF">devicePixelRatioF</a>(self)&nbsp;-&gt;&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="Label-devicePixelRatioFScale"><strong>devicePixelRatioFScale</strong></a>(...)</dt><dd><tt><a href="#Label-devicePixelRatioFScale">devicePixelRatioFScale</a>()&nbsp;-&gt;&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="Label-heightMM"><strong>heightMM</strong></a>(...)</dt><dd><tt><a href="#Label-heightMM">heightMM</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-logicalDpiX"><strong>logicalDpiX</strong></a>(...)</dt><dd><tt><a href="#Label-logicalDpiX">logicalDpiX</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-logicalDpiY"><strong>logicalDpiY</strong></a>(...)</dt><dd><tt><a href="#Label-logicalDpiY">logicalDpiY</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-paintingActive"><strong>paintingActive</strong></a>(...)</dt><dd><tt><a href="#Label-paintingActive">paintingActive</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="Label-physicalDpiX"><strong>physicalDpiX</strong></a>(...)</dt><dd><tt><a href="#Label-physicalDpiX">physicalDpiX</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-physicalDpiY"><strong>physicalDpiY</strong></a>(...)</dt><dd><tt><a href="#Label-physicalDpiY">physicalDpiY</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Label-widthMM"><strong>widthMM</strong></a>(...)</dt><dd><tt><a href="#Label-widthMM">widthMM</a>(self)&nbsp;-&gt;&nbsp;int</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="PyQt5.QtGui.html#QPaintDevice">PyQt5.QtGui.QPaintDevice</a>:<br>
+<dl><dt><strong>PaintDeviceMetric</strong> = &lt;class 'PyQt5.QtGui.QPaintDevice.PaintDeviceMetric'&gt;</dl>
+
+<dl><dt><strong>PdmDepth</strong> = 6</dl>
+
+<dl><dt><strong>PdmDevicePixelRatio</strong> = 11</dl>
+
+<dl><dt><strong>PdmDevicePixelRatioScaled</strong> = 12</dl>
+
+<dl><dt><strong>PdmDpiX</strong> = 7</dl>
+
+<dl><dt><strong>PdmDpiY</strong> = 8</dl>
+
+<dl><dt><strong>PdmHeight</strong> = 2</dl>
+
+<dl><dt><strong>PdmHeightMM</strong> = 4</dl>
+
+<dl><dt><strong>PdmNumColors</strong> = 5</dl>
+
+<dl><dt><strong>PdmPhysicalDpiX</strong> = 9</dl>
+
+<dl><dt><strong>PdmPhysicalDpiY</strong> = 10</dl>
+
+<dl><dt><strong>PdmWidth</strong> = 1</dl>
+
+<dl><dt><strong>PdmWidthMM</strong> = 3</dl>
+
+<hr>
+Static methods inherited from <a href="PyQt5.sip.html#simplewrapper">sip.simplewrapper</a>:<br>
+<dl><dt><a name="Label-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="PyQt5.sip.html#wrappertype">sip.wrappertype</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="PyQt5.sip.html#simplewrapper">sip.simplewrapper</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
