@@ -307,8 +307,6 @@ QSlider::sub-page:vertical {
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionZoomIn"/>
-    <addaction name="actionZoomOut"/>
     <addaction name="action_undo"/>
    </widget>
    <widget class="QMenu" name="menuFilter">
@@ -324,7 +322,6 @@ QSlider::sub-page:vertical {
     <property name="title">
      <string>Select</string>
     </property>
-    <addaction name="actionRect"/>
    </widget>
    <widget class="QMenu" name="menuMask">
     <property name="title">
@@ -332,7 +329,6 @@ QSlider::sub-page:vertical {
     </property>
     <addaction name="action_select_from_image"/>
     <addaction name="action_select_from_settings"/>
-    <addaction name="action_apply_mask"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
