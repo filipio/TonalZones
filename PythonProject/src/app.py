@@ -6,8 +6,8 @@ from Image import Image
 from UI import UI
 from functools import partial
 from FiltersEnum import Filter
-from ParamsFactory import ParamsFactory
-from PixelList import PixelList
+from MaskViewController import MaskViewController
+from PixelListView import PixelListView
 
 
 # all libraries and necessery files should be imported above.
@@ -25,11 +25,11 @@ class Window(QMainWindow, UI):
         super().__init__(parent)
         
         self.setupUi(self)
-        self.mask_was_deleted = 0
+        self.mask_deleted_indicator = 0
         default_mask_name = self.read_mask_c_box.currentText()
         self.image = Image(self.graphicArea, default_mask_name)
-        self.pixel_list_operator = PixelList(self.pixel_list)
-        self.params_f=ParamsFactory(self)
+        self.pixel_list_view = PixelListView(self.pixel_list)
+        self.params_f=MaskViewController(self)
         self.connect_signals()
     def connect_signals(self):
         self.actionLoad.triggered.connect(self.image.load)
@@ -40,8 +40,6 @@ class Window(QMainWindow, UI):
         self.actionBilateral.triggered.connect(self.image.blur_bilateral_filter)
         self.actionGaussian.triggered.connect(self.image.blur_gauss_filter)
         self.actionMedian.triggered.connect(self.image.blur_med_filter)
-        #select methods connection
-        self.actionRect.triggered.connect(self.image.select_rect)
         #bileteral filter
         self.bilateral_diameter.valueChanged.connect(self.image.Bilateral.set_ksize)
         self.bilateral_sigma_color.valueChanged.connect(self.image.Bilateral.set_sigma_color)
@@ -61,12 +59,7 @@ class Window(QMainWindow, UI):
         self.avaraging_anchor_x.valueChanged.connect(self.image.Avaraging.set_anchor_x)
         self.avaraging_anchor_y.valueChanged.connect(self.image.Avaraging.set_anchor_y)
         self.avaraging_border_type_2.currentIndexChanged.connect(self.image.Avaraging.set_border)
-        # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
-        self.graphicArea.rect_change.connect(self.image.select_rect)
     
-        self.actionRect.triggered.connect(self.graphicArea.switch_rect_selection)
-        # self.actionSelectionCustom.triggered.connect(self.image.select_custom)
-        self.graphicArea.rect_change.connect(self.image.select_rect)
         # thresold settings
         # slider value changes is here
         self.threshold_slider.valueChanged.connect(self.image.Otsu.set_thres_val)
@@ -78,11 +71,11 @@ class Window(QMainWindow, UI):
         self.action_undo.triggered.connect(self.image.undo)
         
         self._connect_mask()
-        self.remove_last_btn.clicked.connect(self.pixel_list_operator.remove_last)
+        self.remove_last_btn.clicked.connect(self.pixel_list_view.remove_last)
         self.remove_last_btn.clicked.connect(self.image.pop_mask_pixel)
         self.remove_last_btn.clicked.connect(self.graphicArea.pop_last_pixel)
         self.pixel_tolerance_slider.sliderReleased.connect(lambda : self.image.update_mask_pixel_tol(self.pixel_tolerance_slider.value()))
-        self.image.pixel_selected.connect(self.pixel_list_operator.add_element)
+        self.image.pixel_selected.connect(self.pixel_list_view.add_element)
         self.image.thresh_val_calc.connect(self.threshold_slider.setValue)
         
         
@@ -109,24 +102,20 @@ class Window(QMainWindow, UI):
 
         #mask buttons
         self.hide_mask_btn.clicked.connect(self.image.show_curr_img)
-        self.show_mask_btn.clicked.connect(lambda : self.image.show_curr_mask(modified=False))
+        self.show_mask_btn.clicked.connect(self.image.show_curr_mask)
         self.not_thresholded_btn.clicked.connect(self.image.not_thresholded_handler)
         self.new_mask_btn.clicked.connect(lambda : self.read_mask_c_box.setCurrentText(self.image.default_mask_name))
-        self.new_mask_btn.clicked.connect(self.pixel_list_operator.clear)
+        self.new_mask_btn.clicked.connect(self.pixel_list_view.clear)
         self.new_mask_btn.clicked.connect(self.image.new_mask)
         self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
         self.save_mask_btn.clicked.connect(lambda : self.image.save_mask(self.mask_name_input.text()))
         self.delete_mask_btn.clicked.connect(lambda : self.image.delete_mask(self.read_mask_c_box.currentText()))
         def set_mask_deleted():
-            self.mask_was_deleted = 2
-            print("mask was deleted set to true.")
+            self.mask_deleted_indicator = 2
         def set_combo_box_index(index):
-            print("set_combo_box_index() called")
-            if self.mask_was_deleted:
-                self.mask_was_deleted -=1
-                print("mask_was_deleted set to false")
+            if self.mask_deleted_indicator:
+                self.mask_deleted_indicator -=1
             else:
-                print("setting text of combo boxes.")
                 self.read_mask_c_box.setCurrentIndex(index)
                 self.thresh_read_mask_c_box.setCurrentIndex(index)
 
@@ -136,7 +125,7 @@ class Window(QMainWindow, UI):
         self.image.mask_saved.connect(lambda value: self.mask_name_input.clear())
         self.image.mask_saved.connect(lambda : self.read_mask_c_box.setCurrentIndex(self.read_mask_c_box.count() - 1))
         self.image.mask_saved.connect(lambda : self.thresh_read_mask_c_box.setCurrentIndex(self.thresh_read_mask_c_box.count() - 1))
-        self.image.mask_loaded.connect(self.pixel_list_operator.load_from_mask)
+        self.image.mask_loaded.connect(self.pixel_list_view.load_from_mask)
         self.image.mask_loaded.connect(self.params_f.set_data_from_mask)
 
         self.delete_mask_btn.clicked.connect(lambda : set_mask_deleted())
