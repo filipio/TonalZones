@@ -305,6 +305,10 @@ class Image(QObject):
         print('select_custom')
     
     def blur_avg_filter(self,params_dict):
+        """
+            method to apply averaging filter, all methods in this class
+            ending with _filter are used to apply filters indicatated by method name.
+        """
         self._update_img(self.Avaraging.apply(self.tmp_image))
     
     def blur_bilateral_filter(self,params_dict):
@@ -314,11 +318,13 @@ class Image(QObject):
         self._update_img(self.Gaussian.apply(self.tmp_image))
     
     def blur_med_filter(self,params_dict):
-        print('is image None? : ',self.tmp_image==None)
+        # print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
     
     def apply_otsu(self):
-        print('applying otsu')
+        """
+            method to find and apply to image lookup otsu thresolding
+        """
         if self.is_thresolded == False:
             self.mask_copy=np.copy(self.tmp_image)
             self.is_thresolded=True
@@ -330,6 +336,10 @@ class Image(QObject):
             self.thresh_val_calc.emit(ret)
     
     def apply_thres(self):
+        """
+            Function to apply changes made by moving and realising slider
+            TODO: architecture here can be better :)(
+        """
         if self.is_thresolded == False:
             self.is_thresolded=True
             self.mask_copy=np.copy(self.tmp_image)
@@ -341,6 +351,11 @@ class Image(QObject):
         self._update_img(self.tmp_image)
 
     def apply_thres_by_button(self):
+        """
+            apply thresold using apply button.
+            After this operation it is not possible to
+            remove applied changes
+        """
         if self.is_thresolded == False:
             self.is_thresolded=True
         self.mask_copy=np.copy(self.tmp_image)
@@ -352,6 +367,10 @@ class Image(QObject):
         self._update_img(self.tmp_image)
     
     def remove_threshold(self):
+        """
+            remove visible changes on image.
+            Set slider of thresolding to 0
+        """
         # send signal to set slider to 0
         self.thresh_val_calc.emit(0)
         self._update_img(self.mask_copy)
