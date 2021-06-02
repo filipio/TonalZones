@@ -41,6 +41,5 @@ class Avaraging:
                 borderType=self.border
             )
         else:
-            print('Avaraging filter error')
             QMessageBox.critical(self.img_view, 'Error, following inequalities must hold: ', 'Kernel X>Anchor X and Kernel Y>Anchor Y')
             return img

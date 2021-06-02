@@ -2,10 +2,10 @@ import numpy as np
 from Enums import (MaskBelonging, MaskModification)
 class Mask:
     # Mask identifier - do not change it manually.
-    free_index = 0
     """
     This class contains all operations that modify the mask.
     """
+    free_index = 0
     def __init__(self, height, width):
         self.id = Mask.free_index
         Mask.free_index += 1

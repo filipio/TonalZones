@@ -149,14 +149,7 @@ class Window(QMainWindow, UI):
         self.read_mask_c_box.currentIndexChanged.connect(set_combo_box_index)
         self.read_mask_c_box.currentIndexChanged.connect(lambda : self.image.load_mask(self.read_mask_c_box.currentText()))
         self.thresh_read_mask_c_box.currentIndexChanged.connect(set_combo_box_index)
-        
-        
-
-
-
-
-        
-
+    
 
 if __name__ == "__main__":
     """
