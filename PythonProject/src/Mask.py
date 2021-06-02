@@ -1,22 +1,27 @@
 import numpy as np
 from Enums import (MaskBelonging, MaskModification)
 class Mask:
+    # Mask identifier - do not change it manually.
+    free_index = 0
     """
     This class contains all operations that modify the mask.
     """
-    def __init__(self, height, width, m_id):
-        self.id = m_id
+    def __init__(self, height, width):
+        self.id = Mask.free_index
+        Mask.free_index += 1
         self.pixel_values = []
         self.pixels_tol = 0
         self.slider_min = 0
         self.slider_max = 0
         self.slider_tol = 0
         self.mask = np.full((height, width), False, dtype=bool)
+        self.new = True
         self.is_read = False
         self.saved = False
-        self.new = True
-        self.last_modification = MaskModification.PIXEL # not sure whether this is necessery...
+        self.last_modification = MaskModification.RANGE
 
+    def __eq__(self, other):
+        return self.id == other.id
 
     def get(self, img=None, mask_belonging_arr=None, thresholded_pixels=None, modified = True):
         """
@@ -29,9 +34,9 @@ class Mask:
         if(self.last_modification == MaskModification.RANGE):
             self._calc_mask([self.slider_min - self.slider_tol], [self.slider_max + self.slider_tol], img, mask_belonging_arr, thresholded_pixels)
         else:
-            mask_mins = [self.pixel_values[i] - self.pixels_tol for i in range(len(self.pixel_values))]
-            mask_maxs = [self.pixel_values[i] + self.pixels_tol for i in range(len(self.pixel_values))]
-            self._calc_mask(mask_mins, mask_maxs, img, mask_belonging_arr, thresholded_pixels)
+            pixel_mins = [self.pixel_values[i] - self.pixels_tol for i in range(len(self.pixel_values))]
+            pixel_maxs = [self.pixel_values[i] + self.pixels_tol for i in range(len(self.pixel_values))]
+            self._calc_mask(pixel_mins, pixel_maxs, img, mask_belonging_arr, thresholded_pixels)
         return self.mask
 
     def remove(self, row, column):
@@ -88,15 +93,15 @@ class Mask:
             self.slider_tol = 0
 
 
-    def _calc_mask(self, mask_mins, mask_maxs, img, mask_belonging_arr, thresholded_pixels):
+    def _calc_mask(self, mins, maxs, img, mask_belonging_arr, thresholded_pixels):
         """
         calculates the mask from lists of minimal and maximal values
-        each pair mask_mins[i] and mask_maxs[i] is a 'from-to' range for a mask
+        each pair mins[i] and maxs[i] is a 'from-to' range for a mask
         """
         self.new = False
         self.mask = np.full((img.shape[0], img.shape[1]), False, dtype=bool)
-        for i in range(len(mask_mins)):
-            self.mask = self.mask | ((mask_mins[i] <= img) & (img <= mask_maxs[i]))
+        for i in range(len(mins)):
+            self.mask = self.mask | ((mins[i] <= img) & (img <= maxs[i]))
         if self.is_read and self.saved:
             self.mask[thresholded_pixels] = False
         else:

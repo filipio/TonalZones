@@ -13,6 +13,7 @@ from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
 from Thresold import Thresold
+from copy import deepcopy
 
 class Image(QObject):
     """
@@ -40,7 +41,6 @@ class Image(QObject):
         self.Gaussian=Gaussian(self.graphic_area)
         self.Median=Median()
         self.active_mask = None
-        self.mask_index = -1
         self.masks = {}
         self.masks_mapping = {}
         self.history = []
@@ -129,9 +129,9 @@ class Image(QObject):
             self._update_all_masks()
 
     def _update_all_masks(self):
-        for key, value in self.masks.items():
-            if key != self.default_mask_name:
-                self.mask_belongings[value.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = value.id
+        for name, mask in self.masks.items():
+            if name != self.default_mask_name:
+                self.mask_belongings[mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = mask.id
 
 
     def undo(self):
@@ -214,10 +214,9 @@ class Image(QObject):
         """
         function to create a new mask.
         """
-        self.mask_index += 1
         if self.active_mask:
             self.active_mask.is_read = False
-        self.active_mask = Mask(self.image.shape[0], self.image.shape[1], self.mask_index)
+        self.active_mask = Mask(self.image.shape[0], self.image.shape[1])
         self.masks[self.default_mask_name] = self.active_mask
         self.mask_loaded.emit(self.active_mask)
         self.show_curr_img()
@@ -239,6 +238,13 @@ class Image(QObject):
         """
         function to delete mask given by name.
         """
+        default_mask = self.masks[self.default_mask_name]
+        #TODO
+        if self.active_mask == default_mask:
+            default_mask = deepcopy(self.active_mask)
+            default_mask.saved = False
+            self.masks[self.default_mask_name] = default_mask
+            
         self.mask_belongings[self.active_mask.get(modified=False)] = MaskBelonging.NONE
         self.masks.pop(name)
         self.masks_mapping.pop(self.active_mask.id)
@@ -249,12 +255,16 @@ class Image(QObject):
         """
         function to pop a pixel from a current mask pixel list.
         """
-        prev_mask = self.active_mask.get(modified=False)
+        
         try : 
+            prev_mask = self.active_mask.get(modified=False)
             self.active_mask.pop_pixel()
+            self.apply_mask(prev_mask)
         except IndexError as err:
             QMessageBox.information(self.graphic_area, "Error",  err.args[0])
-        self.apply_mask(prev_mask)
+        except AttributeError as err:
+            QMessageBox.information(self.graphic_area, "Error", "Mask hasn't been created yet.")
+        
     
     def update_mask_pixel_tol(self, value):
         """
@@ -338,9 +348,7 @@ class Image(QObject):
             self.thresh_val_calc.emit(ret)
     
     def apply_thres(self):
-        """
-            apply thresolding by moving and realising slider
-        """
+        print("apply thresh called")
         if self.is_thresolded == False:
             self.is_thresolded=True
             self.mask_copy=np.copy(self.tmp_image)
@@ -352,12 +360,9 @@ class Image(QObject):
         self._update_img(self.tmp_image)
 
     def apply_thres_by_button(self):
-        """
-            apply thresolding by pushing apply button, it is not possible to 
-            get back by pushing remove button then.
-        """
+        print("apply thresh_by_button called")
         if self.is_thresolded == False:
-            self.is_thresolded=True
+            self.is_thresolded = True
         self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         img_to_thr=self.mask_copy[indexes_to_thr]

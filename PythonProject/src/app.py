@@ -8,6 +8,7 @@ from functools import partial
 from FiltersEnum import Filter
 from MaskViewController import MaskViewController
 from PixelListView import PixelListView
+from Enums import MaskModification
 
 
 # all libraries and necessery files should be imported above.
@@ -113,8 +114,10 @@ class Window(QMainWindow, UI):
         self.new_mask_btn.clicked.connect(self.pixel_list_view.clear)
         self.new_mask_btn.clicked.connect(self.image.new_mask)
         self.new_mask_btn.clicked.connect(self.graphicArea.clear_pixels)
+        self.new_mask_btn.clicked.connect(lambda : self.mask_tab_widget.setCurrentIndex(0))
         self.save_mask_btn.clicked.connect(lambda : self.image.save_mask(self.mask_name_input.text()))
         self.delete_mask_btn.clicked.connect(lambda : self.image.delete_mask(self.read_mask_c_box.currentText()))
+        # help function to synchronize order of events
         def set_mask_deleted():
             self.mask_deleted_indicator = 2
         def set_combo_box_index(index):
@@ -132,8 +135,10 @@ class Window(QMainWindow, UI):
         self.image.mask_saved.connect(lambda : self.thresh_read_mask_c_box.setCurrentIndex(self.thresh_read_mask_c_box.count() - 1))
         self.image.mask_loaded.connect(self.pixel_list_view.load_from_mask)
         self.image.mask_loaded.connect(self.params_f.set_data_from_mask)
+        self.image.mask_loaded.connect(lambda mask: self.mask_tab_widget.setCurrentIndex(0) if mask.last_modification == MaskModification.RANGE else self.mask_tab_widget.setCurrentIndex(1))
+        self.image.mask_loaded.connect(lambda mask : self.save_mask_btn.setEnabled(not mask.saved))
 
-        self.delete_mask_btn.clicked.connect(lambda : set_mask_deleted())
+        self.delete_mask_btn.clicked.connect(set_mask_deleted)
         self.delete_mask_btn.clicked.connect(lambda : self.thresh_read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
         self.delete_mask_btn.clicked.connect(lambda : self.read_mask_c_box.removeItem(self.read_mask_c_box.currentIndex()))
 
