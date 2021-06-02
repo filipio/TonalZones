@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMessageBox
 class Avaraging:
     """
         Class for avaraging filter, for more info see docs for Gaussian Filter
+        docs: https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
     """
     def __init__(self,img_view):
         self.img_view=img_view

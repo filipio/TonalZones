@@ -2,6 +2,7 @@ import cv2 as cv
 class Bilateral:
     """
         class for bilateral filetr, for more info see docs for Gaussian
+        docs: https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed
     """
     def __init__(self):
         self.ksize=0
