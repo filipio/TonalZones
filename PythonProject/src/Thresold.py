@@ -12,7 +12,9 @@ class Thresold:
         ]
         self.type1=self.types[0]
     def set_thres_val(self,val):
-        print('setting thresold value')
+        """
+            set value of thresolding
+        """
         self.thres_val=val
     def set_type1(self,indx):
         """

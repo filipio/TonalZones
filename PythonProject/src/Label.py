@@ -25,6 +25,9 @@ class Label(QtWidgets.QLabel):
         self.draw_size = 3
 
     def switch_mouse_selection(self):
+        """
+            change cursos shape
+        """
         self.pixel_mode_active = not self.pixel_mode_active
         if self.pixel_mode_active:
             QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
@@ -33,12 +36,18 @@ class Label(QtWidgets.QLabel):
 
 
     def enter_pixel_mode(self):
+        """
+            enter mode in which you manually select pixels by clicking on them
+        """
         self.switch_mouse_selection()
         self.pixel_mode_entered.emit()
         self.should_draw = True
         self.update()
 
     def mouseReleaseEvent(self, event):
+        """
+            overriden method for mouse release handling
+        """
         if event.button() == Qt.LeftButton and self.pixel_mode_active:
             x = event.pos().x()
             y = event.pos().y()

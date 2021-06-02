@@ -33,6 +33,9 @@ class Window(QMainWindow, UI):
         self.params_f=MaskViewController(self)
         self.connect_signals()
     def connect_signals(self):
+        """
+            connect signals and sliders to masks
+        """
         self.actionLoad.triggered.connect(self.image.load)
         self.actionSave.triggered.connect(self.image.save)
 
@@ -81,7 +84,9 @@ class Window(QMainWindow, UI):
         
         
     def _connect_mask(self):
-
+        """
+            connects signals and sliders to handlers
+        """
         # #mask sliders
         mask_update = lambda : self.image.update_slider_mask(self.mask_min_slider.value(), self.mask_max_slider.value(), self.mask_tolerance_slider.value())
         self.mask_min_slider.sliderReleased.connect(mask_update)
