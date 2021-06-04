@@ -67,10 +67,12 @@ class Window(QMainWindow, UI):
         # thresold settings
         # slider value changes is here
         self.threshold_slider.valueChanged.connect(self.image.Otsu.set_thres_val)
-        self.threshold_slider.sliderReleased.connect(self.image.apply_thres)
+        self.threshold_slider.sliderReleased.connect(lambda: self.image.threshold(method='VAL'))
         self.threshold_combobox.currentIndexChanged.connect(self.image.Otsu.set_type1)
-        self.otsu_button.clicked.connect(self.image.apply_otsu)
-        self.apply_threshold_button.clicked.connect(self.image.apply_thres_by_button)
+        self.otsu_button.clicked.connect(lambda :self.image.threshold(
+            method='OTSU'
+        ))
+        self.apply_threshold_button.clicked.connect(lambda: self.image.apply_threshold())
         self.remove_threshold_button.clicked.connect(self.image.remove_threshold)
         self.action_undo.triggered.connect(self.image.undo)
         

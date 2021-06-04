@@ -46,7 +46,7 @@ class Image(QObject):
         self.history = []
         self.Otsu=Thresold()
         self.is_thresolded=False
-
+        self.latest_img=None#latest image 
     def _show_img(self, frame):
         """
         function to show image represented by the frame.
@@ -331,51 +331,32 @@ class Image(QObject):
         print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
     
-    def apply_otsu(self):
+    def threshold(self,method='VAL'):
         """
-            apply thresolding value found by otsu algorithm
-            bu pushing button
+            set thresolding to given value
         """
-        print('applying otsu')
-        if self.is_thresolded == False:
-            self.mask_copy=np.copy(self.tmp_image)
-            self.is_thresolded=True
-            indexes_to_thr=np.where(self.active_mask.get(modified=False))
-            img_to_thr=self.mask_copy[indexes_to_thr]
-            otsu_res,ret=self.Otsu.apply_otsu(img_to_thr)
-            self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
-            self._update_img(self.tmp_image)
-            self.thresh_val_calc.emit(ret)
-    
-    def apply_thres(self):
-        print("apply thresh called")
-        if self.is_thresolded == False:
-            self.is_thresolded=True
+        if self.is_thresolded==False:
             self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
-        img_to_thr=self.mask_copy[indexes_to_thr]
-        otsu_res=self.Otsu.apply(img_to_thr)
-        self.thresholded_pixels[tuple((indexes_to_thr))] = True
+        otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
+        print(otsu_res,'setting slider to ',thres_val)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
+        self.latest_img=self.tmp_image.copy()
         self._update_img(self.tmp_image)
+        self.thresh_val_calc.emit(thres_val)
+        self.tmp_image=self.mask_copy
+        
+    def apply_threshold(self):
+        """method to apply thresold to given image"""
+        self.is_thresolded=True
+        self.thresholded_pixels[tuple((indexes_to_thr))] = True
 
-    def apply_thres_by_button(self):
-        print("apply thresh_by_button called")
-        if self.is_thresolded == False:
-            self.is_thresolded = True
-        self.mask_copy=np.copy(self.tmp_image)
-        indexes_to_thr=np.where(self.active_mask.get(modified=False))
-        img_to_thr=self.mask_copy[indexes_to_thr]
-        otsu_res=self.Otsu.apply(img_to_thr)
-        self.thresholded_pixels[tuple((indexes_to_thr))] = True
-        self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
-        self._update_img(self.tmp_image)
-    
     def remove_threshold(self):
         """
             remove thresolding from image, if it have not been applied before
         """
         self.thresh_val_calc.emit(0)
-        self._update_img(self.mask_copy)
-        self.is_thresolded=False
+        if self.is_thresolded==False:
+            self._update_img(self.mask_copy)
+            self.is_thresolded=False
 
