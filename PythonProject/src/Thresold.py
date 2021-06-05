@@ -22,22 +22,16 @@ class Thresold:
         """
         self.type1=self.types[indx]
         print(self.type1)
-    def apply(self,img):
+    def apply(self,img,type='VAL'):
         """
             apply thresolding to image
         """
         print('applying thresold to img')
         # should be used to set image depending on slider value
-        ret,thres_img=cv.threshold(img,self.thres_val,255,self.type1)
-        return thres_img                
-    def apply_otsu(self,img):
-        """
-            apply otsu thresolding to image
-        """
-        # apply otsu algorithm to selected subset of image
-        # returns image and value of thresold to which slider should be set 
-        ret,thres_img=cv.threshold(img,0,255,self.type1+cv.THRESH_OTSU)
-        return thres_img,ret        
-    def remove_threshold(self):
-        #TODO
-        pass
+        if type=='VAL':
+            print('type is VAL')
+            thres_img=cv.threshold(img,self.thres_val,255,self.type1)
+            return thres_img[1],self.thres_val                
+        elif type=='OTSU':
+            ret,thres_img=cv.threshold(img,0,255,self.type1+cv.THRESH_OTSU)
+            return thres_img, ret      
