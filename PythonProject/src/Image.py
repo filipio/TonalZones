@@ -335,8 +335,8 @@ class Image(QObject):
         """
             set thresolding to given value
         """
-        if self.is_thresolded==False:
-            self.mask_copy=np.copy(self.tmp_image)
+        # if self.is_thresolded==False:
+        self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
         print(otsu_res,'setting slider to ',thres_val)
@@ -348,8 +348,10 @@ class Image(QObject):
         
     def apply_threshold(self):
         """method to apply thresold to given image"""
-        self.is_thresolded=True
+        # self.is_thresolded=True
+        indexes_to_thr=np.where(self.active_mask.get(modified=False))
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
+        self._update_img(self.latest_img)
 
     def remove_threshold(self):
         """
