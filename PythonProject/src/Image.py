@@ -12,6 +12,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
+from Memento import Memento
 from Thresold import Thresold
 from copy import deepcopy
 
@@ -59,7 +60,7 @@ class Image(QObject):
         function to display and save new state of image.
         """
         if save:
-            self.history.append(self.tmp_image)
+            self.history.append(Memento(np.copy(self.tmp_image), np.copy(self.thresholded_pixels)))
         self.tmp_image = img
         frame = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self._show_img(frame)
@@ -139,8 +140,11 @@ class Image(QObject):
         ctrl + z mechanism.
         """
         try:
-            last_image = self.history.pop()
-            self._update_img(last_image, save=False)
+            last_state = self.history.pop()
+            self.thresholded_pixels = last_state.thresholded_pixels
+            self.tmp_image = last_state.img
+
+            self._update_img(self.tmp_image, save=False)
         except IndexError:
             QMessageBox.information(self.graphic_area, "Undo error", "this is the basic state of your image.")
 
@@ -339,7 +343,7 @@ class Image(QObject):
         # if self.is_thresolded==False:
         self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
-        otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
+        otsu_res,thres_val=self.Otsu.apply(np.copy(self.mask_copy)[indexes_to_thr],method)
         print(otsu_res,'setting slider to ',thres_val)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self.latest_img=self.tmp_image.copy()
@@ -349,7 +353,6 @@ class Image(QObject):
         
     def apply_threshold(self):
         """method to apply thresold to given image"""
-        self.is_thresolded=True
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
         self._update_img(self.latest_img)
@@ -359,8 +362,5 @@ class Image(QObject):
             remove thresolding from image, if it have not been applied before
         """
         self.thresh_val_calc.emit(0)
-        if self.is_thresolded==False:
-            self._update_img(self.mask_copy)
-        else:
-            self.is_thresolded=True
-            
+        self._update_img(self.mask_copy)
+
