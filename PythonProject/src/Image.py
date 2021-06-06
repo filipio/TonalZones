@@ -12,6 +12,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
+from Memento import Memento
 from Thresold import Thresold
 from copy import deepcopy
 
@@ -59,7 +60,7 @@ class Image(QObject):
         function to display and save new state of image.
         """
         if save:
-            self.history.append(self.tmp_image)
+            self.history.append(Memento(np.copy(self.tmp_image), np.copy(self.thresholded_pixels)))
         self.tmp_image = img
         frame = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self._show_img(frame)
@@ -139,8 +140,11 @@ class Image(QObject):
         ctrl + z mechanism.
         """
         try:
-            last_image = self.history.pop()
-            self._update_img(last_image, save=False)
+            last_state = self.history.pop()
+            self.thresholded_pixels = last_state.thresholded_pixels
+            self.tmp_image = last_state.img
+
+            self._update_img(self.tmp_image, save=False)
         except IndexError:
             QMessageBox.information(self.graphic_area, "Undo error", "this is the basic state of your image.")
 
@@ -217,6 +221,7 @@ class Image(QObject):
         """
         if self.active_mask:
             self.active_mask.is_read = False
+        self.is_thresolded = False
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1])
         self.masks[self.default_mask_name] = self.active_mask
         self.mask_loaded.emit(self.active_mask)
@@ -227,6 +232,7 @@ class Image(QObject):
         function to load mask given by name. Some values are reset in case new image was loaded.
         """
         self.active_mask.is_read = False
+        self.is_thresolded = False
         self.active_mask = self.masks.get(name)
         self.active_mask.loaded_handler()
         self.mask_loaded.emit(self.active_mask)
@@ -289,11 +295,11 @@ class Image(QObject):
         self._show_img(mask_img)
 
 
-
     def apply_mask(self, previous_mask):
         """
         function to apply mask - it should be called after any change in current mask.
         """
+        self.is_thresolded = False
         self._update_masks_data(previous_mask)
         self.show_curr_mask()
 
@@ -363,4 +369,4 @@ class Image(QObject):
             self._update_img(self.mask_copy)
         else:
             self.is_thresolded=True
-            
+
