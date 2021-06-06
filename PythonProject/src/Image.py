@@ -171,6 +171,7 @@ class Image(QObject):
             self.mask_belongings = np.full((self.image.shape[0], self.image.shape[1]), MaskBelonging.NONE, dtype=int)
             self.tmp_image = self.image
             self._update_img(self.image)
+            self.is_thresolded=False
             if not self.masks:
                 self.new_mask()
             else:
@@ -348,7 +349,7 @@ class Image(QObject):
         
     def apply_threshold(self):
         """method to apply thresold to given image"""
-        # self.is_thresolded=True
+        self.is_thresolded=True
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
         self._update_img(self.latest_img)
@@ -360,5 +361,6 @@ class Image(QObject):
         self.thresh_val_calc.emit(0)
         if self.is_thresolded==False:
             self._update_img(self.mask_copy)
-            self.is_thresolded=False
-
+        else:
+            self.is_thresolded=True
+            
