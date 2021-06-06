@@ -221,6 +221,7 @@ class Image(QObject):
         """
         if self.active_mask:
             self.active_mask.is_read = False
+        self.is_thresolded = False
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1])
         self.masks[self.default_mask_name] = self.active_mask
         self.mask_loaded.emit(self.active_mask)
@@ -231,6 +232,7 @@ class Image(QObject):
         function to load mask given by name. Some values are reset in case new image was loaded.
         """
         self.active_mask.is_read = False
+        self.is_thresolded = False
         self.active_mask = self.masks.get(name)
         self.active_mask.loaded_handler()
         self.mask_loaded.emit(self.active_mask)
@@ -293,11 +295,11 @@ class Image(QObject):
         self._show_img(mask_img)
 
 
-
     def apply_mask(self, previous_mask):
         """
         function to apply mask - it should be called after any change in current mask.
         """
+        self.is_thresolded = False
         self._update_masks_data(previous_mask)
         self.show_curr_mask()
 
@@ -343,7 +345,7 @@ class Image(QObject):
         # if self.is_thresolded==False:
         self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
-        otsu_res,thres_val=self.Otsu.apply(np.copy(self.mask_copy)[indexes_to_thr],method)
+        otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
         print(otsu_res,'setting slider to ',thres_val)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self.latest_img=self.tmp_image.copy()
@@ -353,6 +355,7 @@ class Image(QObject):
         
     def apply_threshold(self):
         """method to apply thresold to given image"""
+        self.is_thresolded=True
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
         self._update_img(self.latest_img)
@@ -362,5 +365,8 @@ class Image(QObject):
             remove thresolding from image, if it have not been applied before
         """
         self.thresh_val_calc.emit(0)
-        self._update_img(self.mask_copy)
+        if self.is_thresolded==False:
+            self._update_img(self.mask_copy)
+        else:
+            self.is_thresolded=True
 
