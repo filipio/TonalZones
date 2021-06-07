@@ -18,6 +18,7 @@ class Mask:
         self.new = True
         self.is_read = False
         self.saved = False
+        self.is_thresholded = False
         self.last_modification = MaskModification.RANGE
 
     def __eq__(self, other):
