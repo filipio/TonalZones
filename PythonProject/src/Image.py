@@ -46,7 +46,6 @@ class Image(QObject):
         self.masks_mapping = {}
         self.history = []
         self.Otsu=Thresold()
-        self.is_thresolded=False
         self.latest_img=None#latest image 
     def _show_img(self, frame):
         """
@@ -60,7 +59,7 @@ class Image(QObject):
         function to display and save new state of image.
         """
         if save:
-            self.history.append(Memento(np.copy(self.tmp_image), np.copy(self.thresholded_pixels)))
+            self.history.append(Memento(np.copy(self.tmp_image), np.copy(self.thresholded_pixels), np.copy(self.mask_belongings)))
         self.tmp_image = img
         frame = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self._show_img(frame)
@@ -129,10 +128,12 @@ class Image(QObject):
             self.mask_belongings[active_mask_values] = self.active_mask.id
             self._update_all_masks()
 
-    def _update_all_masks(self):
+    def _update_all_masks(self, update_threshold=False):
         for name, mask in self.masks.items():
             if name != self.default_mask_name:
                 self.mask_belongings[mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = mask.id
+            if update_threshold:
+                mask.is_thresholded = False
 
 
     def undo(self):
@@ -143,6 +144,7 @@ class Image(QObject):
             last_state = self.history.pop()
             self.thresholded_pixels = last_state.thresholded_pixels
             self.tmp_image = last_state.img
+            self.mask_belongings = last_state.mask_belongings
 
             self._update_img(self.tmp_image, save=False)
         except IndexError:
@@ -175,11 +177,10 @@ class Image(QObject):
             self.mask_belongings = np.full((self.image.shape[0], self.image.shape[1]), MaskBelonging.NONE, dtype=int)
             self.tmp_image = self.image
             self._update_img(self.image)
-            self.is_thresolded=False
             if not self.masks:
                 self.new_mask()
             else:
-                self._update_all_masks()
+                self._update_all_masks(update_threshold=True)
                 self.show_curr_mask()
             # was call to new here
             self.img_loaded.emit()
@@ -221,7 +222,6 @@ class Image(QObject):
         """
         if self.active_mask:
             self.active_mask.is_read = False
-        self.is_thresolded = False
         self.active_mask = Mask(self.image.shape[0], self.image.shape[1])
         self.masks[self.default_mask_name] = self.active_mask
         self.mask_loaded.emit(self.active_mask)
@@ -232,7 +232,6 @@ class Image(QObject):
         function to load mask given by name. Some values are reset in case new image was loaded.
         """
         self.active_mask.is_read = False
-        self.is_thresolded = False
         self.active_mask = self.masks.get(name)
         self.active_mask.loaded_handler()
         self.mask_loaded.emit(self.active_mask)
@@ -246,7 +245,6 @@ class Image(QObject):
         function to delete mask given by name.
         """
         default_mask = self.masks[self.default_mask_name]
-        #TODO
         if self.active_mask == default_mask:
             default_mask = deepcopy(self.active_mask)
             default_mask.saved = False
@@ -299,7 +297,7 @@ class Image(QObject):
         """
         function to apply mask - it should be called after any change in current mask.
         """
-        self.is_thresolded = False
+        self.active_mask.is_thresholded = False
         self._update_masks_data(previous_mask)
         self.show_curr_mask()
 
@@ -342,7 +340,6 @@ class Image(QObject):
         """
             set thresolding to given value
         """
-        # if self.is_thresolded==False:
         self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
@@ -355,7 +352,7 @@ class Image(QObject):
         
     def apply_threshold(self):
         """method to apply thresold to given image"""
-        self.is_thresolded=True
+        self.active_mask.is_thresholded = True
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         self.thresholded_pixels[tuple((indexes_to_thr))] = True
         self._update_img(self.latest_img)
@@ -365,8 +362,8 @@ class Image(QObject):
             remove thresolding from image, if it have not been applied before
         """
         self.thresh_val_calc.emit(0)
-        if self.is_thresolded==False:
+        if not self.active_mask.is_thresholded:
             self._update_img(self.mask_copy)
         else:
-            self.is_thresolded=True
+            self.active_mask.is_thresholded = True
 
