@@ -1,8 +1,7 @@
 import cv2 as cv
 from PyQt5.QtGui import QImage
-from PyQt5 import QtGui, QtCore
-from PyQt5.QtWidgets import (QFileDialog,QMessageBox, QComboBox)
-from PyQt5.QtWidgets import QPushButton
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import (QFileDialog,QMessageBox)
 import numpy as np
 from Bilateral import Bilateral
 from Avaraging import Avaraging
@@ -12,7 +11,6 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QObject
 from Enums import *
 from Mask import Mask
-from Memento import Memento
 from Thresold import Thresold
 from copy import deepcopy
 
@@ -44,7 +42,6 @@ class Image(QObject):
         self.active_mask = None
         self.masks = {}
         self.masks_mapping = {}
-        self.history = []
         self.Otsu=Thresold()
         self.latest_img=None#latest image 
     def _show_img(self, frame):
@@ -58,8 +55,6 @@ class Image(QObject):
         """
         function to display and save new state of image.
         """
-        if save:
-            self.history.append(Memento(np.copy(self.tmp_image), np.copy(self.thresholded_pixels), np.copy(self.mask_belongings)))
         self.tmp_image = img
         frame = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self._show_img(frame)
@@ -134,21 +129,6 @@ class Image(QObject):
                 self.mask_belongings[mask.get(self.tmp_image, self.mask_belongings, self.thresholded_pixels)] = mask.id
             if update_threshold:
                 mask.is_thresholded = False
-
-
-    def undo(self):
-        """
-        ctrl + z mechanism.
-        """
-        try:
-            last_state = self.history.pop()
-            self.thresholded_pixels = last_state.thresholded_pixels
-            self.tmp_image = last_state.img
-            self.mask_belongings = last_state.mask_belongings
-
-            self._update_img(self.tmp_image, save=False)
-        except IndexError:
-            QMessageBox.information(self.graphic_area, "Undo error", "this is the basic state of your image.")
 
     def save(self):
         """
@@ -333,7 +313,6 @@ class Image(QObject):
         """
             function to apply median filter
         """
-        print('is image None? : ',self.tmp_image==None)
         self._update_img(self.Median.apply(self.tmp_image))
     
     def threshold(self,method='VAL'):
@@ -343,7 +322,6 @@ class Image(QObject):
         self.mask_copy=np.copy(self.tmp_image)
         indexes_to_thr=np.where(self.active_mask.get(modified=False))
         otsu_res,thres_val=self.Otsu.apply(self.mask_copy[indexes_to_thr],method)
-        print(otsu_res,'setting slider to ',thres_val)
         self.tmp_image[tuple((indexes_to_thr))]=otsu_res.flatten()
         self.latest_img=self.tmp_image.copy()
         self._update_img(self.tmp_image)

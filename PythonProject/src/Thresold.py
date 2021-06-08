@@ -21,15 +21,11 @@ class Thresold:
             set type of thresolding
         """
         self.type1=self.types[indx]
-        print(self.type1)
     def apply(self,img,type='VAL'):
         """
             apply thresolding to image
         """
-        print('applying thresold to img')
-        # should be used to set image depending on slider value
         if type=='VAL':
-            print('type is VAL')
             thres_img=cv.threshold(img,self.thres_val,255,self.type1)
             return thres_img[1],self.thres_val                
         elif type=='OTSU':

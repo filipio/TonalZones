@@ -1,7 +1,7 @@
-from PyQt5.QtCore import (Qt, pyqtSignal,QRect,QPoint,QSize)
+from PyQt5.QtCore import (Qt, pyqtSignal,QRect,QPoint)
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QPainter, QPen, QColor, QBrush
-from PyQt5.QtWidgets import QRubberBand, QApplication
+from PyQt5.QtWidgets import QApplication
 
 class Label(QtWidgets.QLabel):
     """
