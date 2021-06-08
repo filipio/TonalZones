@@ -1,21 +1,13 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5 import QtGui, QtCore
-from PyQt5.uic import loadUi
 from Image import Image
-from UI import UI
-from functools import partial
-from FiltersEnum import Filter
 from MaskViewController import MaskViewController
 from PixelListView import PixelListView
 from Enums import MaskModification
+from PhotoEdit_ui import Ui_MainWindow
 
 
-# all libraries and necessery files should be imported above.
-
-
-
-class Window(QMainWindow, UI):
+class Window(QMainWindow, Ui_MainWindow):
     """
     This is class is responsible for handling UI events and basic gui operations.
     This class should be calling event handlers from other classes.
@@ -24,8 +16,7 @@ class Window(QMainWindow, UI):
     def __init__(self, parent=None):
 
         super().__init__(parent)
-        
-        self.setupUi(self)
+        super().setupUi(self)
         self.mask_deleted_indicator = 0
         default_mask_name = self.read_mask_c_box.currentText()
         self.image = Image(self.graphicArea, default_mask_name)
@@ -74,7 +65,6 @@ class Window(QMainWindow, UI):
         ))
         self.apply_threshold_button.clicked.connect(lambda: self.image.apply_threshold())
         self.remove_threshold_button.clicked.connect(self.image.remove_threshold)
-        self.action_undo.triggered.connect(self.image.undo)
         
         self._connect_mask()
         self.remove_last_btn.clicked.connect(self.pixel_list_view.remove_last)

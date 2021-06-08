@@ -33,7 +33,6 @@ class Avaraging:
     def set_border(self,border):
         self.borde=self.borders[border]
     def apply(self,img):
-        print(self.anchor_x,self.anchor_y,self.ksize_x,self.ksize_y)
         if self.anchor_x>=0 and self.anchor_y>=0 and self.anchor_x<self.ksize_x and self.anchor_y<self.ksize_y:
             return cv.blur(img,
                 ksize=(self.ksize_x,self.ksize_y),

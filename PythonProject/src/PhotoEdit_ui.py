@@ -537,7 +537,7 @@ class Ui_MainWindow(object):
         self.mask_tab_widget = QtWidgets.QTabWidget(self.Mask)
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
-        font.setPointSize(-1)
+        font.setPointSize(1)
         self.mask_tab_widget.setFont(font)
         self.mask_tab_widget.setObjectName("mask_tab_widget")
         self.tab_7 = QtWidgets.QWidget()

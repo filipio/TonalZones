@@ -29,7 +29,6 @@ class Bilateral:
     def set_border(self,border):
         self.border=self.borders[border]
     def apply(self,img):
-        print('applying filter',self.ksize,self.sigma_color,self.sigma_space,self.border)
         return cv.bilateralFilter(img,
             self.ksize,
             self.sigma_color,
